@@ -4,6 +4,10 @@
 # include "libft.h"
 # include <stdbool.h>
 # include <limits.h>
+# define READ_BUFFER(X) (X->buffer)
+# define READ_BUFFER_SIZE 6
+# define STR_SIZE(X) (X->str.size)
+# define STR(X) (char *)(X->str.data)
 
 typedef	struct				s_env_cell
 {
@@ -15,6 +19,13 @@ typedef struct				s_env
 {
 	t_tab					tab;
 }							t_env;
+
+typedef struct				s_line
+{
+	t_tab					str;
+	char					buffer[READ_BUFFER_SIZE];
+	size_t					count;
+}							t_line;
 
 typedef struct				s_env_info
 {
@@ -44,5 +55,6 @@ int							ret_access(char *path, char **bin_path);
 void						get_path(t_env *env);
 
 extern t_env				g_env;
+extern t_line				g_env;
 
 #endif
