@@ -6,31 +6,64 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/06 18:15:33 by mseinic          ###   ########.fr        #
+#    Updated: 2017/02/08 18:13:54 by mseinic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #----------------MODIF--------------------#
 NAME := 42sh
-SRC_LIST = main env_init
+
+LINE_EDITION_PATH := line_edition/
+LINE_EDITION := actions			\
+				check_space		\
+				check_word		\
+				cut_cpy_paste		\
+				debug_editline	\
+				do_termcaps		\
+				ft_ctrl_r			\
+				ft_init_line		\
+				ft_insertion		\
+				ft_key			\
+				ft_key_2			\
+				ft_print_key		\
+				ft_up_down		\
+				go_up_down		\
+				go_up_down_2		\
+				home_end			\
+				print_big_cmd		\
+				print_cmd			\
+				print_ctrl_r		\
+				read				\
+				reset_line		
+
+FILES = main env_init line_init
+
+
 #----------------MODIF--------------------#
 
 #----------------STD--------------------#
-COMPILER := clang
+COMPILER := gcc
+
 SRC_PATH := src/
+
 HDR_PATH := includes/
+
 CACHE_PATH := cache/
+
 INCF = -I $(HDR_PATH) -I libft/includes/
 
 CFLAGS = -g -Wextra -Wall $(INCF)
 
 LIBFT = -L libft/ -lft
+
 LIB_PATH = libft/libft.a
 #----------------STD--------------------#
 
 #----------------ADDING PATH AND FORMAT TO THE FILENAMES--------------------#
-SRC = $(addprefix $(SRC_PATH),$(addsuffix .c,$(SRC_LIST)))
-OBJ = $(addprefix $(CACHE_PATH),$(addsuffix .o,$(SRC_LIST)))
+FILES+=$(addprefix $(LINE_EDITION_PATH),$(LINE_EDITION))
+
+SRC = $(addprefix $(SRC_PATH),$(addsuffix .c,$(FILES)))
+OBJ = $(addprefix $(CACHE_PATH),$(addsuffix .o,$(FILES)))
 #----------------ADDING PATH AND FORMAT TO THE FILENAMES--------------------#
 
 #-----------------COLORS------------------#
@@ -45,6 +78,8 @@ YELLOW	:= "\033[1;33m"
 END 	:= "\033[0m"
 #-----------------COLORS------------------#
 
+CACHE:=.cache_exists
+
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIB_PATH)
@@ -52,15 +87,20 @@ $(NAME): $(OBJ) $(LIB_PATH)
 		@$(COMPILER) $(OBJ) -o $@ $(INCF) $(LIBFT)
 		@echo $(Green) " !!! Ready !!!" $(END)
 
-$(CACHE_PATH)%.o:$(SRC_PATH)%.c
-		@mkdir -p $(CACHE_PATH)
+$(CACHE_PATH)%.o:$(SRC_PATH)%.c | $(CACHE)
 		@echo $(Green) "Creating $(NAME) : $@ with $< " $(END);
 		@$(COMPILER) $(CFLAGS) -o $@ -c $<
 
 %.c:
 	@echo $(Red) "Missing file : $@" $(END)
+
+$(CACHE):
+	@mkdir -p $(CACHE_PATH)
+	@mkdir -p $(CACHE_PATH)$(LINE_EDITION_PATH)
+
 clean:
 		@/bin/rm -rf $(CACHE_PATH)
+		@/bin/rm -rf $(CACHE)
 		@echo $(Red) "Deleting ---->>>> $(CACHE_PATH)" $(END)
 fclean: clean
 		@/bin/rm -rf $(NAME)
@@ -69,7 +109,7 @@ re: fclean all
 
 norme:
 		@echo $(Red)
-		@norminette $(SRC) $(HDR_PATH) | grep -v  Norme -B1 || true
+		@norminette $(SRC) $(HDR_PATH) | grep -v Norme -B1 || true
 		@echo $(END)
 
 libft/libft.a:

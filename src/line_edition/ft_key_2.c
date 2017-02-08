@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_init.c                                        :+:      :+:    :+:   */
+/*   ft_key_2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/08 16:43:19 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/08 17:45:05 by mseinic          ###   ########.fr       */
+/*   Created: 2016/11/02 11:04:35 by malaine           #+#    #+#             */
+/*   Updated: 2016/11/29 14:13:14 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "edit_line.h"
 
-int	line_init(t_line *line)
+void		ft_ctrl_a(t_line *l)
 {
-	line->str = NEW_TAB(sizeof(char));
-	if (t_tab_reserve(&line->str, 10))
-		return (1);
-	return (0);
+	ft_home(l);
+}
+
+void		ft_ctrl_e(t_line *l)
+{
+	ft_end(l);
+}
+
+void		ft_left(t_line *l)
+{
+	if (l->count != 0)
+		go_up(l);
+}
+
+void		ft_right(t_line *l)
+{
+	if (l->count < l->size)
+		go_down(l);
 }

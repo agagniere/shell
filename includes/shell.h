@@ -33,6 +33,7 @@ typedef struct				s_env_info
 }							t_env_info;
 
 int							env_init(t_env *env, char **environ);
+int							line_init(t_line *line);
 
 void						my_echo(t_env *env, char **cmd);
 void						aux(t_env *env, char *buff, int *ex, int *ac);
@@ -55,6 +56,6 @@ int							ret_access(char *path, char **bin_path);
 void						get_path(t_env *env);
 
 extern t_env				g_env;
-extern t_line				g_env;
+extern t_line				g_line;
 
 #endif
