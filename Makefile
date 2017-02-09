@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/09 19:14:28 by malaine          ###   ########.fr        #
+#    Updated: 2017/02/09 21:07:45 by angagnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ HDR_PATH := includes/
 
 CACHE_PATH := cache/
 
-INCF = -I $(HDR_PATH) -I libft/includes/
+INCF = -I $(HDR_PATH) -I libft/include/
 
 CFLAGS = -g -Wextra -Wall $(INCF)
 

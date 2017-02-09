@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/08 16:43:19 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/08 17:45:05 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/09 21:10:22 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	line_init(t_line *line)
 {
-	line->str = NEW_TAB(sizeof(char));
-	if (t_tab_reserve(&line->str, 10))
+	line->str = NEW_ARRAY(char);
+	if (fta_reserve(&line->str, 10))
 		return (1);
 	return (0);
 }

@@ -17,12 +17,12 @@ typedef	struct				s_env_cell
 
 typedef struct				s_env
 {
-	t_tab					tab;
+	t_array					tab;
 }							t_env;
 
 typedef struct				s_line
 {
-	t_tab					str;
+	t_array					str;
 	char					buffer[READ_BUFFER_SIZE];
 	size_t					count;
 }							t_line;
@@ -44,7 +44,7 @@ size_t						find_position(char **env, char *key);
 void						print_env(t_env *env, char **cmd);
 void						my_cd(t_env *env, char **cmd);
 int							bin_execute(char **tab, char **env, char *bin_path);
-void						print_tab(char **tab);
+void						print_array(char **tab);
 void						env_preparation(char *str, t_env *env);
 void						get_env(t_env *env, char **environ);
 int							execute(char **exec_tab, char **env_tab);
