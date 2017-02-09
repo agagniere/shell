@@ -22,9 +22,9 @@ typedef struct				s_env
 
 typedef struct				s_line
 {
-	t_array					str;
+	t_string				str;
 	char					buffer[READ_BUFFER_SIZE];
-	size_t					count;
+	size_t					cursor;
 }							t_line;
 
 typedef struct				s_env_info
