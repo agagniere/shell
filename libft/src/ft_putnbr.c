@@ -3,30 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 20:27:04 by mseinic           #+#    #+#             */
-/*   Updated: 2015/11/29 10:28:14 by mseinic          ###   ########.fr       */
+/*   Created: 2015/11/25 17:54:23 by angagnie          #+#    #+#             */
+/*   Updated: 2015/12/07 18:13:52 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+** |void	ft_putnbr_aux(int n)
+** |{
+** |	if (n < -9 || 9 < n)
+** |		ft_putnbr_aux(n / 10);
+** |	ft_putchar('0' + ABS(n % 10));
+** |}
+** |
+** |void	ft_putnbr(int n)
+** |{
+** |	if (n < 0)
+** |		ft_putchar('-');
+** |	ft_putnbr_aux(n);
+** |}
+*/
+
 void	ft_putnbr(int n)
 {
-	unsigned int nb;
-
-	nb = n;
-	if (n < 0)
-	{
-		ft_putchar('-');
-		nb = -n;
-	}
-	if (nb > 9)
-	{
-		ft_putnbr(nb / 10);
-		ft_putnbr(nb % 10);
-	}
-	else
-		ft_putchar(nb + '0');
+	ft_putstr(ft_itoa_base(n, 10));
 }

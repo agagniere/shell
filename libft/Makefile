@@ -1,114 +1,128 @@
-# **************************************************************************** #
+#******************************************************************************#
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/11/28 16:27:43 by mseinic           #+#    #+#              #
-#    Updated: 2016/08/19 15:55:10 by mseinic          ###   ########.fr        #
+#    Created: 2015/12/07 17:38:00 by angagnie          #+#    #+#              #
+#    Updated: 2017/02/09 14:44:36 by angagnie         ###   ########.fr        #
 #                                                                              #
-# **************************************************************************** #
+#******************************************************************************#
 
-NAME = libft.a
+# ==== Editable ====
+NAME:=libft.a
 
-T_TAB_PATH:=t_tab_fnct/
-T_TAB:=t_tab_add t_tab_expand t_tab_free t_tab_init t_tab_reserve
+CTYPEPATH:=ft_ctype/
+CTYPE:=ft_isalnum ft_isalpha ft_isascii ft_isblank ft_iscntrl ft_isdigit \
+	ft_isgraph ft_islower ft_isprint ft_ispunct ft_isspace ft_isupper \
+	ft_isxdigit ft_tolower ft_toupper
 
-STR_PATH:=ft_string/
-STR:=ft_strcat ft_strcmp ft_strcpy ft_strdup ft_strlen ft_strlcat \
-	 ft_strchr ft_strncmp ft_strncpy ft_strncat ft_strnstr ft_strrchr \
-	 ft_strstr ft_strdel ft_strjoin ft_strnew ft_strequ ft_strmap ft_strsplit \
-	 ft_striter ft_strmapi ft_strsub ft_strclr ft_striteri ft_strnequ \
-	 ft_strtrim ft_str_lower ft_str_error ft_strtrimchr
-TREE_PATH:=ft_tree_utilities/
-TREE:=ft_add_node_to_tree
+VECTORPATH:=ft_array/
+VECTOR:=fta_alloc fta_append fta_new fta_reserve fta_resize fta_trim \
+	fta_clear fta_clearf fta_popback fta_popbackf fta_iter fta_iteri \
+	fta_popfront fta_swap
 
-FILES:= ft_bzero ft_isalnum ft_isalpha ft_isascii ft_isdigit \
-	ft_isprint ft_memchr ft_memcmp ft_memset \
-	ft_tolower \
-	ft_toupper ft_atoi ft_memcpy ft_memmove ft_memccpy \
-	ft_itoa ft_putchar_fd ft_putnbr_fd\
-	ft_memalloc ft_putendl ft_putstr\
-	ft_memdel ft_putendl_fd ft_putstr_fd \
-	ft_putchar ft_putnbr\
-	ft_lstadd ft_lstdel ft_lstdelone ft_lstiter ft_lstmap ft_lstnew	\
-	ft_abs ft_iswhitespaces ft_lstaddend ft_count_alpha \
-	ft_count_digit ft_count_alnum get_next_line ft_tree_destructor
-HEADERS_LIST = libft
+STRPATH:=ft_string/
+STR:=
 
-SRC_PATH:=src/
+STRLPATH:=ft_string_legacy/
+STRL:=ft_strcat ft_strchr ft_strrchr ft_strcmp ft_strcpy ft_strdup ft_strjoin \
+	ft_strlcat ft_strlen ft_strncat ft_strncmp ft_strncpy ft_strnew ft_strnstr \
+	ft_strstr ft_strdel ft_strtrim ft_strsub ft_strsplit ft_strclr ft_strequ \
+	ft_striter ft_striter ft_strmap ft_striteri ft_strmapi ft_strnequ ft_strrev
 
-HEADERS_PATH:=includes/
+LSTPATH:=ft_list/
+LST:=ftl_new ftl_add ftl_pop ftl_del
 
-CACHE_PATH:=cache/
+MATHPATH:=ft_math/
+MATH:=
 
-COMPILER:=clang
+PRINTFPATH:=ft_printf/
+PRINTF:=
 
-CFLAGS:= -Wall -Werror -Wextra
+FILES:=ft_atoi ft_bzero ft_itoa ft_itoa_base ft_memalloc ft_memccpy ft_memchr \
+	ft_memdel ft_memcmp ft_memcpy ft_memmove ft_memset ft_memdup ft_putchar \
+	ft_putchar_fd ft_putendl ft_putendl_fd ft_putnbr ft_putnbr_fd ft_putstr \
+	ft_putstr_fd ft_realloc ft_print_memory ft_gnl ft_malloc
+# ==================
 
-ALL_FLAGS:=$(CFLAGS) -I $(HEADERS_PATH)
+# ==== Standard ====
+CC:=clang
+CCHPATH:=cache/
+SRCPATH:=src/
+HDRPATH:=include/
+CFLAGS:=-Wall -Wextra -I $(HDRPATH)
+# ==================
 
-#----------------ADDING PATH AND FORMAT TO THE FILENAMES--------------------#
-FILES+=$(addprefix $(T_TAB_PATH),$(T_TAB))
-FILES+=$(addprefix $(STR_PATH),$(STR))
-FILES+=$(addprefix $(TREE_PATH),$(TREE))
+# ===== Colors =====
+END:="\033[0;0m"
+BLACK:="\033[1;30m"
+RED:="\033[1;31m"
+GREEN:="\033[1;32m"
+CYAN:="\033[1;35m"
+PURPLE:="\033[1;36m"
+WHITE:="\033[1;37m"
+# ==================
 
-SRC = $(addprefix $(SRC_PATH),$(addsuffix .c,$(FILES)))
-OBJ = $(addprefix $(CACHE_PATH),$(addsuffix .o,$(FILES)))
-#----------------ADDING PATH AND FORMAT TO THE FILENAMES--------------------#
+# ====== Auto ======
+FILES+=$(addprefix $(CTYPEPATH),$(CTYPE))
+FILES+=$(addprefix $(VECTORPATH),$(VECTOR))
+FILES+=$(addprefix $(STRLPATH),$(STRL))
+FILES+=$(addprefix $(STRPATH),$(STR))
+FILES+=$(addprefix $(LSTPATH),$(LST))
+FILES+=$(addprefix $(MATHPATH),$(MATH))
+FILES+=$(addprefix $(PRINTFPATH),$(PRINTF))
 
-#-----------------COLORS------------------#
-#-------B = Bolt---------#
-#-------I = Intense------#
-#-------U = Underline----#
-Green = "\033[0;32m"
-B_I_Red = "\033[1;91m"
-Yellow  = "\033[0;33m"
-END     = "\033[0m"
-#-----------------COLORS------------------#
-CACHE:=.cache_exists
+SRC:=$(addprefix $(SRCPATH),$(addsuffix .c,$(FILES)))
+OBJ:=$(addprefix $(CCHPATH),$(addsuffix .o,$(FILES)))
+# ==================
+CCHF:=.cache_exists
+MAKEFLAGS+=-j
 
 all: $(NAME)
 
-#======= compiling NAME file =======
 $(NAME): $(OBJ)
-	@echo $(Yellow) " Compiling --------> $@ <--------" $(END)
+	@echo $(END)
+	@echo $(CYAN) " - Compiling $@" $(RED)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo $(Green) " !!! Ready !!!" $(END)
+	@echo $(GREEN) " - Done" $(END)
 
-#======= compiling *.c in *.o ======
-$(CACHE_PATH)%.o: $(SRC_PATH)%.c | $(CACHE)
-	@echo $(Green)" -------- Compiling $< into \t >> \t$@ --------" $(END)
-	@$(COMPILER) $(ALL_FLAGS) -c $< -o $@
+$(CCHPATH)%.o: $(SRCPATH)%.c | $(CCHF)
+	@echo ".\c"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 %.c:
-	@echo $(B_I_Red) "Missing file : $@" $(END)
+	@echo $(RED) "Missing file : $@"
 
-$(CACHE):
-	@mkdir $(CACHE_PATH)
-	@mkdir $(CACHE_PATH)$(T_TAB_PATH)
-	@mkdir $(CACHE_PATH)$(STR_PATH)
-	@mkdir $(CACHE_PATH)$(TREE_PATH)
-	@touch $(CACHE)
+$(CCHF):
+	@mkdir $(CCHPATH)
+	@mkdir $(CCHPATH)$(VECTORPATH)
+	@mkdir $(CCHPATH)$(CTYPEPATH)
+	@mkdir $(CCHPATH)$(STRLPATH)
+	@mkdir $(CCHPATH)$(STRPATH)
+	@mkdir $(CCHPATH)$(LSTPATH)
+	@mkdir $(CCHPATH)$(MATHPATH)
+	@mkdir $(CCHPATH)$(PRINTFPATH)
+	@touch $(CCHF)
 
-#======= compiling *.h files ======
-#$(CACHE_PATH)%.h.gch: $(HEADERS_PATH)%.h $(CACHE_PATH)
-#	@echo " -------- Compiling $< into $@ --------" $(END)
-#	@$(COMPILER) $(ALL_FLAGS) -o $@ -c $<
-#======= creating cache file if not existing =======
-#$(CACHE_PATH):
-#	@echo $(Yellow) " cache not yet existing creating it ./" $(END)
 clean:
-	/bin/rm -rf $(CACHE_PATH)
-	/bin/rm -rf $(CACHE)
+	@rm -rf $(CCHPATH)
+	@rm -f $(CCHF)
+
 fclean: clean
-	/bin/rm -rf $(NAME)
-re: fclean all
+	@rm -f $(NAME)
+
+re: fclean
+	@$(MAKE) all
 
 test:
-	@echo "obj :" $(OBJ)
-	@echo "files :" $(SRC)
+	@echo "Files :" $(FILES)
 
-.PHONY: all clean fclean re
+norm:
+	@echo $(RED)
+	@norminette $(SRC) $(HDRPATH) | grep -v  Norme -B1 || true
+	@echo $(END)
+
+.PHONY: all clean fclean re test norme

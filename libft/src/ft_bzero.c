@@ -3,21 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 08:53:04 by mseinic           #+#    #+#             */
-/*   Updated: 2015/12/02 15:27:19 by mseinic          ###   ########.fr       */
+/*   Created: 2015/11/23 17:06:43 by angagnie          #+#    #+#             */
+/*   Updated: 2015/12/01 13:19:53 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <string.h>
 
 void	ft_bzero(void *s, size_t n)
 {
-	while (n > 0)
-	{
-		*(char *)s = '\0';
-		s++;
-		n--;
-	}
+	while (n-- > 0)
+		*(char*)s++ = 0;
 }
