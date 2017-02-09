@@ -6,11 +6,11 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/12 19:50:44 by malaine           #+#    #+#             */
-/*   Updated: 2016/05/24 16:51:46 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/09 20:25:31 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "edit_line.h"
 
 int		putchar_s(int c)
 {
@@ -39,7 +39,6 @@ int		ft_init_term(void)
 	if (tcsetattr(0, TCSADRAIN, &term) == -1)
 		return (-1);
 	tputs(tgetstr("ti", NULL), 1, putchar_s);
-	tputs(tgetstr("vi", NULL), 1, putchar_s);
 	return (0);
 }
 

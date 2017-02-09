@@ -35,6 +35,8 @@ typedef struct				s_env_info
 int							env_init(t_env *env, char **environ);
 int							line_init(t_line *line);
 
+int							ft_init_term(void);
+int							ft_reset_term(void);
 void						my_echo(t_env *env, char **cmd);
 void						aux(t_env *env, char *buff, int *ex, int *ac);
 int							check_set_name(t_env *env);

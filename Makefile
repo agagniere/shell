@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/08 18:13:54 by mseinic          ###   ########.fr        #
+#    Updated: 2017/02/09 19:14:28 by malaine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,28 +15,8 @@ NAME := 42sh
 
 LINE_EDITION_PATH := line_edition/
 LINE_EDITION := actions			\
-				check_space		\
-				check_word		\
-				cut_cpy_paste		\
-				debug_editline	\
-				do_termcaps		\
-				ft_ctrl_r			\
-				ft_init_line		\
-				ft_insertion		\
-				ft_key			\
-				ft_key_2			\
-				ft_print_key		\
-				ft_up_down		\
-				go_up_down		\
-				go_up_down_2		\
-				home_end			\
-				print_big_cmd		\
-				print_cmd			\
-				print_ctrl_r		\
-				read				\
-				reset_line		
 
-FILES = main env_init line_init
+FILES = main env_init line_init ft_term
 
 
 #----------------MODIF--------------------#
@@ -54,7 +34,7 @@ INCF = -I $(HDR_PATH) -I libft/includes/
 
 CFLAGS = -g -Wextra -Wall $(INCF)
 
-LIBFT = -L libft/ -lft
+LIBFT = -L libft/ -lft -lncurses
 
 LIB_PATH = libft/libft.a
 #----------------STD--------------------#

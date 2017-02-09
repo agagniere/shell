@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/08 18:52:30 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/09 20:32:03 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,29 @@
 t_env			g_env;
 t_line			g_line;
 
-int				env_print(t_env	*env)
+void			print_key(t_line *l)
 {
-	t_env_cell	const ** tab = env->tab.data;
-	size_t		i;
-
-	i = 0;
-	while (tab && tab[i] != NULL)
-	{
-		printf("%s=%s\n",tab[i]->key, tab[i]->value);
-		i++;
-	}
-	return (0);
+	l->count++;
 }
 
 static int		get_input(t_line *line)
 {
+	
 	while (1)
 	{
 		ft_bzero(READ_BUFFER(line), READ_BUFFER_SIZE);
 		if (read(0, READ_BUFFER(line), READ_BUFFER_SIZE) == -1)
 			return (1);
 		if (READ_BUFFER(line)[0] != '\n')
+		{
 			actions(line);
+		}
 		if (READ_BUFFER(line)[0] != '\n'
 				&& ft_isprint(READ_BUFFER(line)[0]) == 1)
-			ft_print_key(line);
+		{
+			print_key(line);
+			
+		}
 		if (READ_BUFFER(line)[0] == '\n')
 		{
 			//ft_end(line);
@@ -66,6 +63,7 @@ int				main(int ac, char **av, char **environ)
 	ac = 0;
 	(void)av;
 	line_init(&g_line);
+	ft_init_term();
 	env_init(&g_env, environ);
 	start_input(&g_line);
 	//env_print(&g_env);
