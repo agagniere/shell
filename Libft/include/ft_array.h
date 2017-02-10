@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 13:50:45 by angagnie          #+#    #+#             */
-/*   Updated: 2017/02/09 14:59:28 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/02/10 03:10:33 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define FT_ARRAY_H
 
 # include <stddef.h>
+
+typedef struct s_array
+				t_array;
 
 /*
 ** |		----------=====  Array<T>  =====----------
@@ -29,13 +32,13 @@
 ** |	t_array	variable = NEW_ARRAY(t_some_type);
 */
 
-typedef struct	s_array
+struct			s_array
 {
 	void		*data;
 	size_t		size;
 	size_t		max;
 	size_t		type_size;
-}				t_array;
+};
 
 /*
 ** |		----------===== public: =====----------
@@ -92,7 +95,7 @@ t_array			*fta_alloc(size_t type_size);
 ** 1 if malloc failed.
 */
 
-int				fta_append(t_array *self, void *data, size_t datalen);
+int				fta_append(t_array *self, void const *data, size_t datalen);
 
 /*
 ** Array::insert
@@ -110,7 +113,7 @@ int				fta_append(t_array *self, void *data, size_t datalen);
 */
 
 int				fta_insert(
-				t_array *self, void *data, size_t datalen, size_t index);
+				t_array *self, void const *data, size_t datalen, size_t index);
 
 /*
 ** Array::reserve
