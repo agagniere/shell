@@ -1,3 +1,4 @@
 42sh
 *.a
 *.o
+.cache_exists
