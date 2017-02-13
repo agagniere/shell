@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/09 21:07:45 by angagnie         ###   ########.fr        #
+#    Updated: 2017/02/13 19:19:10 by mseinic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,13 @@ NAME := 42sh
 LINE_EDITION_PATH := line_edition/
 LINE_EDITION := actions			\
 
-FILES = main env_init line_init ft_term
+BUILTIN_PATH := builtin/
+BUILTIN :=
+
+ENV_PATH := builtin/env/
+ENV := env_init env_print
+
+FILES = main line_init ft_term
 
 
 #----------------MODIF--------------------#
@@ -41,6 +47,9 @@ LIB_PATH = libft/libft.a
 
 #----------------ADDING PATH AND FORMAT TO THE FILENAMES--------------------#
 FILES+=$(addprefix $(LINE_EDITION_PATH),$(LINE_EDITION))
+FILES+=$(addprefix $(BUILTIN_PATH),$(BUILTIN))
+FILES+=$(addprefix $(ENV_PATH),$(ENV))
+
 
 SRC = $(addprefix $(SRC_PATH),$(addsuffix .c,$(FILES)))
 OBJ = $(addprefix $(CACHE_PATH),$(addsuffix .o,$(FILES)))
@@ -77,6 +86,8 @@ $(CACHE_PATH)%.o:$(SRC_PATH)%.c | $(CACHE)
 $(CACHE):
 	@mkdir -p $(CACHE_PATH)
 	@mkdir -p $(CACHE_PATH)$(LINE_EDITION_PATH)
+	@mkdir -p $(CACHE_PATH)$(BUILTIN_PATH)
+	@mkdir -p $(CACHE_PATH)$(ENV_PATH)
 
 clean:
 		@/bin/rm -rf $(CACHE_PATH)

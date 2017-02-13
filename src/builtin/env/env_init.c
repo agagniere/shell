@@ -6,11 +6,11 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 20:28:20 by mseinic           #+#    #+#             */
-/*   Updated: 2017/01/31 21:05:04 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/13 19:29:56 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "shell.h"
 
 size_t	tab_size(char **tab)
 {
@@ -54,7 +54,7 @@ int		env_tab_init(t_env *env, char **environ)
 	while (environ[i] != NULL)
 	{
 		cell = env_cell_ret(environ[i]);
-		t_tab_add(&env->tab, &cell, 1);
+		fta_append(&env->tab, &cell, 1);
 		i++;
 	}
 	return (0);
@@ -66,8 +66,9 @@ int		env_tab(t_env *env, char **environ)
 
 	if ((size = tab_size(environ)) == 0)
 		size = 2;
-	env->tab = NEW_TAB(sizeof(t_env_cell));
-	if (t_tab_reserve(&env->tab, size))
+	size++;
+	env->tab = NEW_ARRAY(t_env_cell *);
+	if (fta_reserve(&env->tab, size))
 		return (1);
 	env_tab_init(env, environ);
 	return (0);

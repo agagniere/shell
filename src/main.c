@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/09 20:32:03 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/13 19:23:23 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_line			g_line;
 
 void			print_key(t_line *l)
 {
-	l->count++;
+	l->cursor++;
 }
 
 static int		get_input(t_line *line)
@@ -62,11 +62,11 @@ int				main(int ac, char **av, char **environ)
 {
 	ac = 0;
 	(void)av;
-	line_init(&g_line);
-	ft_init_term();
+//	line_init(&g_line);
+//	ft_init_term();
 	env_init(&g_env, environ);
-	start_input(&g_line);
-	//env_print(&g_env);
+//	start_input(&g_line);
+	env_print(&g_env);
 
 	return (0);
 }
