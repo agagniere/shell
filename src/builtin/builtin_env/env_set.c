@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 19:40:08 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/13 20:03:29 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/14 17:21:14 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ t_env_cell	*env_new_cell(char *key, char *value)
 
 	if (!(cell = (t_env_cell *)malloc(sizeof(t_env_cell))))
 		return (NULL);
-	cell->key = ft_strdup(str);
-	cell->value = ft_strdup(ptr);
+	cell->key = ft_strdup(key);
+	cell->value = ft_strdup(value);
 	return (cell);
 }
 
 int		env_cell_modif(t_env_cell *cell, char *value)
 {
-	ft_strdel(cell->value);
+	ft_strdel(&cell->value);
 	cell->value = ft_strdup(value);
 	return (0);
 }
