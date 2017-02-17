@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_print.c                                        :+:      :+:    :+:   */
+/*   bi_history.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/13 18:26:50 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/17 18:58:02 by mseinic          ###   ########.fr       */
+/*   Created: 2017/02/17 18:45:49 by mseinic           #+#    #+#             */
+/*   Updated: 2017/02/17 19:24:14 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		print_cell(const void *ptr)
+int		bi_history(void)
 {
-	const t_env_cell	*cell = ptr;
+	t_array		array;
+	int			fd;
 
-	if (!cell)
-		return (1);
-	ft_putstr(cell->key);
-	ft_putstr("=");
-	ft_putendl(cell->value);
-	return (0);
-}
-
-/*
-** Instead of
-** `env_print(e)`
-** one could write
-** `fta_iter(&e->tab, &print_cell)`
-*/
-
-int		env_print(t_env *env)
-{
-	fta_iter(&env->tab, &print_cell);
-	return (0);
+	fd = open("/tmp/42sh_history.txt", O_RDWR | O_CREAT);
+	
+	return (0)
 }
