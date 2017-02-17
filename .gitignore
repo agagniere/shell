@@ -2,3 +2,5 @@
 *.a
 *.o
 .cache_exists
+*~
+*/#*#

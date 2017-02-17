@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/14 17:21:41 by mseinic          ###   ########.fr        #
+#    Updated: 2017/02/17 17:02:38 by angagnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME := 42sh
 
 LINE_EDITION_PATH := line_edition/
-LINE_EDITION_SRC := actions			\
+LINE_EDITION_SRC := actions
 
 BUILTIN_PATH := builtin/
 BUILTIN_SRC :=
