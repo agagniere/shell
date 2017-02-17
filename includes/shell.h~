@@ -24,7 +24,6 @@ typedef struct				s_env
 typedef struct				s_line
 {
 	t_string				str;
-	char					*strcpy;
 	char					*sauv;
 	char					buffer[7];
 	size_t					cursor;

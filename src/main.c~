@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/17 16:08:57 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/16 16:48:13 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int     ft_is_print(int c)
 
 int			ft_replace_accent(char c)
 {
-	if ((c >= 0 && c != 10  && c <= 27) || c == 127)
+	if ((c >= 0 && c < 10 && c > 10 && c <= 27) || c == 127)
 		return (666);
 	else if (c <= -91 && c >= -96)
 		return ('a');
@@ -87,7 +87,7 @@ int			gestion_buffer(t_line *l)
 			stock_str(l, l->sauv[a]);
 		}
 		l->sauv = NULL;
- 	}
+	}
 	a = -1;
 	while (l->buffer[++a] != '\0' && l->buffer[a] != '\n')
 		stock_str(l, l->buffer[a]);

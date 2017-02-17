@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 13:49:16 by jguthert          #+#    #+#             */
-/*   Updated: 2017/02/17 17:07:19 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/14 16:40:14 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,13 @@ void		ft_right(t_line *l)
 }
 
 
-static t_actions const	g_actions[8] = {
+static t_actions const	g_actions[6] = {
 	{ft_right, {27, 91, 67, 0, 0, 0}, "RIGHT"},
 	{ft_left, {27, 91, 68, 0, 0, 0}, "LEFT"},
 	{ft_home, {27, 91, 72, 0, 0, 0}, "HOME"},
 	{ft_end, {27, 91, 70, 0, 0, 0}, "END"},
 	{ft_ctrl_right, {27, 91, 49, 59, 53, 67}, "CTRL Right"},
 	{ft_ctrl_left, {27, 91, 49, 59, 53, 68}, "CTRL Left"},
-	{ft_cut, {11, 0, 0, 0, 0, 0}, "CUT"},
-	{ft_paste, {16, 0, 0, 0, 0, 0}, "PASTE"},
 };
 
 static int		cmp_buf(int *value, char *buf)

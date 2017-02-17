@@ -1,42 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_word.c                                       :+:      :+:    :+:   */
+/*   ft_ctrl.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/28 16:00:52 by malaine           #+#    #+#             */
-/*   Updated: 2017/02/14 16:54:57 by malaine          ###   ########.fr       */
+/*   Created: 2017/02/14 16:40:52 by malaine           #+#    #+#             */
+/*   Updated: 2017/02/14 16:45:14 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "edit_line.h"
 
-int		check_last_word(t_line *l)
+void        ft_ctrl_right(t_line *l)
 {
-	int a;
-	void    *ite;
+    void    *ite;
 
     ite = ARRAY_GET(&l->str, l->cursor);
-	a = l->cursor;
-	while (ARRAY_HASNEXT(&l->str, ite))
+
+    if (check_last_word(l) == 0)
     {
-		if (*(char *)ite == ' ' || *(char *)ite == '\t')
-			return (0);
-	}
-	return (-1);
+		if (*(char *)ite == ' ')
+            check_is_space_r(l);
+		else
+		{
+            check_space_r(l);
+            check_is_space_r(l);
+		}
+    }
+    else
+        check_space_r(l);
 }
 
-int		check_first_word(t_line *l)
+void        ft_ctrl_left(t_line *l)
 {
-	int a;
+	void    *ite;
 
-	a = l->cursor;
-	while (a >= 0)
-	{
-		if (*(char *)ARRAY_GET(&l->str, a) == ' ' || *(char *)ARRAY_GET(&l->str, a) == '\t')
-			return (0);
-		a--;
-	}
-	return (-1);
+    ite = ARRAY_GET(&l->str, l->cursor - 1);
+
+    if (*(char *)ite != ' ')
+		check_space_l(l);
+    else
+    {
+		check_is_space_l(l);
+		check_space_l(l);
+    }
 }
