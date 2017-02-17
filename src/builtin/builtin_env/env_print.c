@@ -6,13 +6,13 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 18:26:50 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/13 19:39:59 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/17 14:58:13 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		print_cell(t_env_cell *const cell)
+int		print_cell(const t_env_cell *cell)
 {
 	if (!cell)
 		return (1);
@@ -22,16 +22,19 @@ int		print_cell(t_env_cell *const cell)
 	return (0);
 }
 
+/*
+** Instead of
+** `env_print(e)`
+** one could write
+** `fta_iter(&e->tab, &print_cell)`
+*/
+
 int		env_print(t_env *env)
 {
-	t_env_cell **const	tab = env->tab.data;
-	size_t				i;
+	void	*iterator;
 
-	i = 0;
-	while (i < env->tab.size)
-	{
-		print_cell(tab[i]);
-		i++;
-	}
+	iterator = ARRAY_ITERATOR(&env->tab);
+	while (ARRAY_HASNEXT(&env->tab, iterator))
+		print_cell((t_env_cell *)iterator);
 	return (0);
 }

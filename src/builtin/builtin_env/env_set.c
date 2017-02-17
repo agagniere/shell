@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 19:40:08 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/14 17:21:14 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/17 15:29:56 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 t_env_cell		*find_cell(t_env *env, char *key)
 {
-	t_env_cell	**const tab = env->tab.data;
-	size_t				i;
+	void		*iterator;
+	t_env_cell	*cell;
 
-	i = 0;
-	while (i < env->tab.size)
+	iterator = ARRAY_ITERATOR(&env->tab);
+	while (ARRAY_HASNEXT(&env->tab, iterator))
 	{
-		if (ft_strcmp(key, tab[i]->key) == 0)
-			return (tab[i]);
-		i++;
+		cell = (t_env_cell *)iterator;
+		if (ft_strcmp(key, cell->key))
+			return (cell);
 	}
 	return (NULL);
 }
