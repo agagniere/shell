@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/14 17:55:52 by malaine          ###   ########.fr        #
+#    Updated: 2017/02/17 18:19:10 by malaine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME := 42sh
 
 LINE_EDITION_PATH := line_edition/
-LINE_EDITION := actions	print_cmd home_end go_up_and_down ft_ctrl	check_word check_space \
+LINE_EDITION := actions	print_cmd home_end go_up_and_down ft_ctrl	check_word check_space cut_cpy_paste\
 
 FILES = main env_init line_init ft_term do_termcaps multi_line_init test_edit_line
 

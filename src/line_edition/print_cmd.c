@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 16:59:38 by jguthert          #+#    #+#             */
-/*   Updated: 2017/02/13 18:35:19 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/18 12:56:49 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,36 @@
 
 static void	print_str(t_line *l)
 {
-	int a;
 	void    *ite;
 
-    ite = ARRAY_GET(&l->str, -1);
-	a = l->cursor;
+	ite = ARRAY_GET(&l->str, l->cursor - 1);
 	while (ARRAY_HASNEXT(&l->str, ite))
 	{
 		ft_putchar(*(char *)ite);
-		if (l->largeur != 0 && l->cursor != 0
-			&& (l->cursor + SIZE_PROMPT + 1) % l->largeur == 0)
-			do_term("do");
 		l->cursor++;
+		if (l->largeur != 0 &&
+			((l->cursor + SIZE_PROMPT) % l->largeur) == 0)
+			do_term("do");
 	}
 }
 
 static void	put_cursor(t_line *l)
 {
-	while ((int)l->cursor < l->sauv_cursor)
+	if (l->sauv_cursor <= (int)l->str.size / 2)
 	{
-		if (l->largeur != 0 && l->cursor != 0
-			&& (l->cursor + SIZE_PROMPT + 1) % l->largeur == 0)
-			do_term("do");
-		else
-			do_term("nd");
-		l->cursor++;
+		ft_home(l);
+		while ((int)l->cursor < l->sauv_cursor)
+			ft_right(l);
 	}
+	else
+		while ((int)l->cursor > l->sauv_cursor)
+			ft_left(l);
 }
 
 static void	little_print(t_line *l)
 {
-	ft_home(l);
 	do_term("cd");
 	print_str(l);
-	ft_home(l);
 	put_cursor(l);
 }
 
