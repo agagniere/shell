@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/17 18:27:22 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/19 13:26:06 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void			stock_str(t_line *l, char c)
 		l->sauv_cursor = l->cursor + 1;
 		print(l);
 	}
-//	check_rtn(l);
 }
 
 int			gestion_buffer(t_line *l)
@@ -133,11 +132,10 @@ int				main(int ac, char **av, char **environ)
 {
 	ac = 0;
 	(void)av;
-	winsize();
-	line_init(&g_line);
-	ft_init_term();
+//	line_init(&g_line);
+//	ft_init_term();
 	env_init(&g_env, environ);
-	multi_init(&g_multi);
-	start_input(&g_line);
+//	start_input(&g_line);
+	env_print(&g_env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/17 18:19:10 by malaine          ###   ########.fr        #
+#    Updated: 2017/02/19 13:24:58 by angagnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,21 @@
 NAME := 42sh
 
 LINE_EDITION_PATH := line_edition/
-LINE_EDITION := actions	print_cmd home_end go_up_and_down ft_ctrl	check_word check_space cut_cpy_paste\
+LINE_EDITION_SRC := actions
 
-FILES = main env_init line_init ft_term do_termcaps multi_line_init test_edit_line
+BUILTIN_PATH := builtin/
+BUILTIN_SRC :=
 
+CD_PATH := builtin/builtin_cd/
+CD_SRC :=
+
+ECHO_PATH := builtin/builtin_env/
+ECHO_SRC :=
+
+ENV_PATH := builtin/builtin_env/
+ENV_SRC := env_init env_print env_char env_set
+
+FILES = main line_init ft_term
 
 #----------------MODIF--------------------#
 
@@ -41,6 +52,11 @@ LIB_PATH = libft/libft.a
 
 #----------------ADDING PATH AND FORMAT TO THE FILENAMES--------------------#
 FILES+=$(addprefix $(LINE_EDITION_PATH),$(LINE_EDITION))
+FILES+=$(addprefix $(BUILTIN_PATH),$(BUILTIN_SRC))
+FILES+=$(addprefix $(ENV_PATH),$(ENV_SRC))
+FILES+=$(addprefix $(CD_PATH),$(CD_SRC))
+FILES+=$(addprefix $(ECHO_PATH),$(ECHO_SRC))
+
 
 SRC = $(addprefix $(SRC_PATH),$(addsuffix .c,$(FILES)))
 OBJ = $(addprefix $(CACHE_PATH),$(addsuffix .o,$(FILES)))
@@ -77,6 +93,10 @@ $(CACHE_PATH)%.o:$(SRC_PATH)%.c | $(CACHE)
 $(CACHE):
 	@mkdir -p $(CACHE_PATH)
 	@mkdir -p $(CACHE_PATH)$(LINE_EDITION_PATH)
+	@mkdir -p $(CACHE_PATH)$(BUILTIN_PATH)
+	@mkdir -p $(CACHE_PATH)$(ENV_PATH)
+	@mkdir -p $(CACHE_PATH)$(CD_PATH)
+	@mkdir -p $(CACHE_PATH)$(ECHO_PATH)
 
 clean:
 		@/bin/rm -rf $(CACHE_PATH)
