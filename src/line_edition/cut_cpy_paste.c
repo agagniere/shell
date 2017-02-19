@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/28 17:51:23 by malaine           #+#    #+#             */
-/*   Updated: 2017/02/17 18:57:44 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/19 13:41:29 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void		ft_cut(t_line *l)
 {
 	do_term("cd");
 	ft_strdel(&l->strcpy);
-	l->strcpy = ft_strsub(l->str.data, l->cursor, l->str.size);
+	l->strcpy = ft_strsub(l->str.data, l->cursor, l->str.size - l->cursor);
 	if (l->strcpy == NULL)
 		return ;
-	fta_popindex(&l->str, l->cursor, l->str.size);
+	fta_popback(&l->str, l->str.size - l->cursor);
 }
 
 void		ft_delete(t_line *l)
