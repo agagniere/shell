@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_key_2.c                                         :+:      :+:    :+:   */
+/*   multi_line_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/02 11:04:35 by malaine           #+#    #+#             */
-/*   Updated: 2017/02/17 18:38:22 by malaine          ###   ########.fr       */
+/*   Created: 2017/02/14 17:29:42 by malaine           #+#    #+#             */
+/*   Updated: 2017/02/14 17:48:25 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "edit_line.h"
+#include "multi_line.h"
 
-void		ft_ctrl_a(t_line *l)
+void	multi_tab(t_multi *multi)
 {
-	ft_home(l);
+	multi->pos_rtn = NEW_ARRAY(int);
+	multi->size_str = NEW_ARRAY(int);
+	multi->index1 = 0;
+	multi->index2 = 0;
+	multi->index3 = 0;
 }
 
-void		ft_ctrl_e(t_line *l)
+int		multi_init(t_multi *multi)
 {
-	ft_end(l);
-}
-
-void		ft_left(t_line *l)
-{
-	if (l->cursor != 0)
-		go_up(l);
-}
-
-void		ft_right(t_line *l)
-{
-	if (l->cursor < l->str.size)
-		go_down(l);
+	if (multi == NULL)
+		return (1);
+	multi_tab(multi);
+	return (0);
 }

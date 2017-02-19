@@ -8,6 +8,7 @@
 # define READ_BUFFER_SIZE 6
 # define STR_SIZE(X) (X->str.size)
 # define STR(X) (char *)(X->str.data)
+# define SIZE_PROMPT 3
 
 typedef	struct				s_env_cell
 {
@@ -23,8 +24,14 @@ typedef struct				s_env
 typedef struct				s_line
 {
 	t_string				str;
-	char					buffer[READ_BUFFER_SIZE];
+	char					*strcpy;
+	char					*sauv;
+	char					buffer[7];
 	size_t					cursor;
+	int						sauv_cursor;
+	int						largeur;
+	int						hauteur;
+	int						nbline;
 }							t_line;
 
 typedef struct				s_env_info

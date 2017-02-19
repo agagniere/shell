@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_key_2.c                                         :+:      :+:    :+:   */
+/*   check_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/02 11:04:35 by malaine           #+#    #+#             */
-/*   Updated: 2017/02/17 18:38:22 by malaine          ###   ########.fr       */
+/*   Created: 2017/02/14 16:58:03 by malaine           #+#    #+#             */
+/*   Updated: 2017/02/14 17:02:49 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "edit_line.h"
 
-void		ft_ctrl_a(t_line *l)
+void check_is_space_l(t_line *l)
 {
-	ft_home(l);
-}
-
-void		ft_ctrl_e(t_line *l)
-{
-	ft_end(l);
-}
-
-void		ft_left(t_line *l)
-{
-	if (l->cursor != 0)
+	while (*(char *)ARRAY_GET(&l->str, l->cursor - 1) == ' ')
 		go_up(l);
 }
 
-void		ft_right(t_line *l)
+void check_space_l(t_line *l)
 {
-	if (l->cursor < l->str.size)
+	while (*(char *)ARRAY_GET(&l->str, l->cursor - 1) != ' ' && l->cursor != 0)
+		go_up(l);
+}
+
+void check_space_r(t_line *l)
+{
+	while (*(char *)ARRAY_GET(&l->str, l->cursor) != ' ' && *(char *)ARRAY_GET(&l->str, l->cursor) != '\0')
+		go_down(l);
+}
+
+void check_is_space_r(t_line *l)
+{
+	while (*(char *)ARRAY_GET(&l->str, l->cursor) == ' ')
 		go_down(l);
 }
