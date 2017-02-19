@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:58:37 by angagnie          #+#    #+#             */
-/*   Updated: 2017/02/19 16:05:49 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/02/19 17:42:19 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Fails if both _a_ and _b_ are leaves.
 */
 
-int		shell_push(t_node **a, t_node *b)
+t_tr		shell_push(t_node **a, t_node *b)
 {
 	const t_shell_node *ac = (t_shell_node *)*a;
 	const t_shell_node *bc = (t_shell_node *)b;

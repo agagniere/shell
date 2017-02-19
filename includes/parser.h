@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/02/09 23:36:34 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/02/19 17:38:11 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ struct						s_shell_node
 struct						s_shell_leaf
 {
 	t_node		super;
-	t_string	cmd;
+	t_substr	cmd;
 };
 
 # define PRECEDENCE(O) ((O) >> 1)
 
-int							shell_push(t_node **a, t_node *b);
+t_tr						shell_push(t_node **a, t_node *b);
 
 #endif
