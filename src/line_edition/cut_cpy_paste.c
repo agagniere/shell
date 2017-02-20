@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/28 17:51:23 by malaine           #+#    #+#             */
-/*   Updated: 2017/02/17 18:57:44 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/20 17:40:28 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void		ft_delete(t_line *l)
 {
 	l->sauv_cursor = l->cursor - 1;
 	fta_popindex(&l->str, l->cursor - 1, 1);
+	ft_left(l);
+    do_term("cd");
 	print(l);
 }
 

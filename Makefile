@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/20 17:08:31 by mseinic          ###   ########.fr        #
+#    Updated: 2017/02/20 17:45:05 by malaine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME := 42sh
 
 LINE_EDITION_PATH := line_edition/
-LINE_EDITION_SRC := actions
+LINE_EDITION_SRC := actions print_cmd home_end go_up_and_down ft_ctrl check_word check_space cut_cpy_paste
 
 ERROR_MSG_PATH := error_msg/
 ERROR_MSG_SRC := error_msg
@@ -31,7 +31,7 @@ ECHO_SRC :=
 ENV_PATH := builtin/builtin_env/
 ENV_SRC := env_init env_print env_char env_set
 
-FILES = main line_init ft_term
+FILES = main line_init ft_term do_termcaps multi_line_init test_edit_line
 
 #----------------MODIF--------------------#
 

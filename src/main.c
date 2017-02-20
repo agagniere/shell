@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/19 13:26:06 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/02/20 17:51:22 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,13 @@ static int		start_input(t_line *l)
 
 int				main(int ac, char **av, char **environ)
 {
-	ac = 0;
-	(void)av;
-//	line_init(&g_line);
-//	ft_init_term();
-	env_init(&g_env, environ);
-//	start_input(&g_line);
-	env_print(&g_env);
+    ac = 0;
+    (void)av;
+    winsize();
+    line_init(&g_line);
+    ft_init_term();
+    env_init(&g_env, environ);
+    multi_init(&g_multi);
+    start_input(&g_line);
 	return (0);
 }
