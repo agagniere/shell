@@ -224,6 +224,25 @@ void			fta_popbackf(t_array *self, size_t len, void (*del)(void *));
 int				fta_popindex(t_array *self, size_t index, size_t len);
 
 /*
+** Array::pop_index w/ function
+** -
+** Same as fta_popindex, but with a way to free cleanly the removed
+** elements.
+** -
+** _index_ is the index of the first element to be removed.
+** _len_ is the number of elements to be removed.
+** _del_ is a function that knows how to properly free a single
+** element's contents from its address.
+** -
+** Returns a status :
+** 0 for success
+** 1 if the index is invalid.
+*/
+
+int				fta_popindexf(
+	t_array *self, size_t index, size_t len, void (*del)(void *));
+
+/*
 ** Array::pop_front
 ** -
 ** Might be clearer sometimes
@@ -282,6 +301,14 @@ int				fta_popindex(t_array *self, size_t index, size_t len);
 */
 
 # define ARRAY_GETTS(T,A,I) ((T*)ARRAY_GETS(A,I))
+
+/*
+** Array::index_from_pointer
+** -
+** _P_ is an element of the array whose index is seeked
+*/
+
+# define ARRAY_IFP(A,P) ((((void *)P) - (A)->data) / (A)->type_size)
 
 /*
 ** Array::iterate
