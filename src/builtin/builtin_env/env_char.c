@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "ft_string.h"
 
 char	*env_cell_to_char(t_env_cell *cell)
 {
@@ -54,4 +55,49 @@ char	**env_char_create(t_env	*env)
 	}
 	ret[i] = NULL;
 	return (ret);
+}
+
+/*
+** Cool enough
+*/
+
+t_string	env_cell_to_string(t_env_cell *cell)
+{
+	t_string		ans;
+	const t_substr	key = NEW_SUB(cell->key);
+	const t_substr	val = NEW_SUB(cell->value);
+
+	ans = NEW_STRING;
+	STR_JOIN(&ans, &key);
+	STR_JOIN_CS(&ans, "=", 1);
+	STR_JOIN(&ans, &val);
+	return (ans);
+}
+
+/*
+** Environement To Array<String>
+** -
+** How vectors enable us to forget about malloc,
+** ft_strnew and such. Plus, iterators are cool !
+** -
+** returns an array of strings containing each environement entry
+** converted to string.
+*/
+
+t_array		alternate_env2str(t_env *env)
+{
+	t_array		ans;
+	t_string	entry;
+	void		*ite;
+	t_env_cell	*cell;
+
+	ans = NEW_ARRAY(t_string);
+	ite = ARRAY_ITERATOR(&env->tab);
+	while (ARRAY_HASNEXT(&env->tab, ite))
+	{
+		cell = (t_env_cell *)ite;
+		entry = env_cell_to_string(cell);
+		fta_append(&ans, &entry, 1);
+	}
+	return (ans);
 }

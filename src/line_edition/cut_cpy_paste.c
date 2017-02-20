@@ -17,10 +17,10 @@ void		ft_cut(t_line *l)
 {
 	do_term("cd");
 	ft_strdel(&l->strcpy);
-	l->strcpy = ft_strsub(l->str.data, l->cursor, l->str.size);
+	l->strcpy = ft_strsub(l->str.data, l->cursor, l->str.size - l->cursor);
 	if (l->strcpy == NULL)
 		return ;
-	fta_popindex(&l->str, l->cursor, l->str.size);
+	fta_popback(&l->str, l->str.size - l->cursor);
 }
 
 void		ft_delete(t_line *l)
