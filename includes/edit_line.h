@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/08 18:14:48 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/17 18:50:27 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/20 18:23:18 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct				s_actions
 	char					*key;
 }							t_actions;
 
+void        ft_ctrl_down(t_line *l);
+void        ft_ctrl_up(t_line *l);
 void        ft_delete(t_line *l);
 void        ft_backspace(t_line *l);
 void        ft_paste(t_line *l);

@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 16:59:38 by jguthert          #+#    #+#             */
-/*   Updated: 2017/02/18 12:56:49 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/20 18:38:02 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,9 @@ static void	put_cursor(t_line *l)
 			ft_left(l);
 }
 
-static void	little_print(t_line *l)
+void		print(t_line *l)
 {
 	do_term("cd");
 	print_str(l);
 	put_cursor(l);
-}
-
-void		print(t_line *l)
-{
-	little_print(l);
 }

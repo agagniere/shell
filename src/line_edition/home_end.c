@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/28 17:35:38 by malaine           #+#    #+#             */
-/*   Updated: 2017/02/18 12:29:58 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/20 18:37:15 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int count_n_char(char *str, size_t n, char c)
 			i++;
 		str++;
 	}
-//	printf("%d\n", i);
 	return (i);
 }
 

@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reset_line.c                                       :+:      :+:    :+:   */
+/*   delete_backspace.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/06 16:00:51 by malaine           #+#    #+#             */
-/*   Updated: 2016/12/19 16:48:22 by mseinic          ###   ########.fr       */
+/*   Created: 2017/02/20 18:31:12 by malaine           #+#    #+#             */
+/*   Updated: 2017/02/20 18:31:30 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "edit_line.h"
 #include "shell.h"
-#include <sys/ioctl.h>
 
-void		reset_line(void)
+void        ft_delete(t_line *l)
 {
-	struct winsize	w;
-	t_line			*l;
+    l->sauv_cursor = l->cursor - 1;
+    fta_popindex(&l->str, l->cursor - 1, 1);
+    ft_left(l);
+    do_term("cd");
+    print(l);
+}
 
-	l = g_line;
-	ioctl(0, TIOCGWINSZ, &w);
-	l->largeur = w.ws_col;
-	l->hauteur = w.ws_row;
-	l->sizeprompt = l->sizeprompt + 3;
-	l->line1 = l->largeur - l->sizeprompt;
-	l->str = x_strdup("");
-	l->tmp = 0;
-	l->final_count = 0;
-	l->size = 0;
-	l->count = 0;
-	l->nbline = 0;
-	l->hist_pos = -1;
-	l->oldstr = NULL;
-	l->search = NULL;
-	l->ans = NULL;
+void        ft_backspace(t_line *l)
+{
+    l->sauv_cursor = l->cursor;
+    fta_popindex(&l->str, l->cursor, 1);
+    print(l);
 }
