@@ -6,11 +6,35 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 17:31:46 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 16:41:58 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/20 18:09:15 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+static int		check_errors(t_env *env, char *path)
+{
+	int				status;
+	struct stat		dir;
+	
+	status = acces(path, F_OK);
+	if (status != 0)
+	{
+		NO_FILE_OR_DIR("cd", path);
+		return (1);
+	}
+	status = acces(path, X_OK);
+	if (status != 0)
+	{
+		NO_PERMISSION("cd", path);
+		return (1);
+	}
+	if (stat(path, &dir) == 0 && S_ISDIR(dir.st_mode))
+		return (0);
+	else
+		NOT_A_DIR("cd", path);
+	return (1);
+}
 
 static int		basic_cd(t_env *env, char *path)
 {
@@ -38,6 +62,8 @@ int		bi_cd(t_env	*env, char *path)
 	t_env_cell	*cell;
 
 	cell = NULL;
+	if (check_errors(env,path) == 1)
+		return (1);
 	if (path != NULL)
 	{
 		if (!ft_strcmp(path, "-") && (cell = find_cell(env, "OLDPWD")))
