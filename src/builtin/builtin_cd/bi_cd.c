@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 17:31:46 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 19:53:13 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/20 21:02:13 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,15 @@ int		bi_cd(t_env	*env, char *path)
 		if (!ft_strcmp(path, "-"))
 		{
 			cell = find_cell(env, "OLDPWD");
+			if (cell == NULL && check_errors(env,path) == 1)
+				return (1);
 			return (basic_cd(env, cell->value));
 		}
 		else if (!ft_strcmp(path, "~"))
 		{
 			cell = find_cell(env, "HOME");
+			if (cell == NULL && check_errors(env,path) == 1)
+				return (1);
 			return (basic_cd(env, cell->value));
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 17:53:22 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 16:55:15 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/20 20:56:05 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void		env_cell_delete(void	*ptr)
 	t_env_cell	*cell;
 
 	cell = (t_env_cell *)ptr;
-	ft_strdell(&cell->key);
-	ft_strdell(&cell->value);
+	ft_strdel(&cell->key);
+	ft_strdel(&cell->value);
 }
 
 int		env_unset(t_env *env, char *key)
