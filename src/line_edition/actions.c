@@ -6,14 +6,14 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 13:49:16 by jguthert          #+#    #+#             */
-/*   Updated: 2017/02/20 18:29:49 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/20 19:14:00 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "edit_line.h"
 #include <stdio.h>
 
-static t_actions const	g_actions[12] = {
+static t_actions const	g_actions[15] = {
 	{ft_right, {27, 91, 67, 0, 0, 0}, "RIGHT"},
 	{ft_left, {27, 91, 68, 0, 0, 0}, "LEFT"},
 	{ft_home, {27, 91, 72, 0, 0, 0}, "HOME"},
@@ -26,6 +26,9 @@ static t_actions const	g_actions[12] = {
 	{ft_backspace, {27, 91, 51, 126, 0, 0}, "BACKSPACE"},
 	{ft_ctrl_up, {27, 91, 49, 59, 53, 65}, "CTRL UP"},
 	{ft_ctrl_down, {27, 91, 49, 59, 53, 66}, "CTRL DOWN"},
+	{ft_ctrl_l, {12, 0, 0, 0, 0, 0}, "CTRL L"},
+	{ft_home, {1, 0, 0, 0, 0, 0}, "CTRL A"},
+	{ft_end, {5, 0, 0, 0, 0, 0}, "CTRL E"},
 };
 
 static int		cmp_buf(int *value, char *buf)
