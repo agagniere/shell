@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/13 18:26:50 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 16:51:11 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/20 19:05:32 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		print_cell(const void *ptr)
 {
 	const t_env_cell	*cell = ptr;
 
-	if (!cell)
+	if (cell)
 	{
 		ft_putstr(cell->key);
 		ft_putstr("=");

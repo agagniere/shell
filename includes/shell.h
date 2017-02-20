@@ -4,6 +4,8 @@
 # include "libft.h"
 # include <stdbool.h>
 # include <limits.h>
+# include "error_msg.h"
+# include "sys/stat.h"
 # define READ_BUFFER(X) (X->buffer)
 # define READ_BUFFER_SIZE 6
 # define STR_SIZE(X) (X->str.size)
@@ -63,6 +65,10 @@ void						unset_env_fnct(t_env *env, char *key);
 void						init(t_env *env, char **environ);
 int							ret_access(char *path, char **bin_path);
 void						get_path(t_env *env);
+
+t_env_cell					*find_cell(t_env *env, char *key);
+int							env_set(t_env *env, char *key, char *value);
+int							bi_cd(t_env *env, char *path);
 
 extern t_env				g_env;
 extern t_line				g_line;

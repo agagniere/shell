@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 17:31:46 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 18:09:15 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/20 19:40:55 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static int		check_errors(t_env *env, char *path)
 {
 	int				status;
 	struct stat		dir;
-	
-	status = acces(path, F_OK);
+
+	status = access(path, F_OK);
 	if (status != 0)
 	{
 		NO_FILE_OR_DIR("cd", path);
 		return (1);
 	}
-	status = acces(path, X_OK);
+	status = access(path, X_OK);
 	if (status != 0)
 	{
 		NO_PERMISSION("cd", path);
@@ -39,17 +39,22 @@ static int		check_errors(t_env *env, char *path)
 static int		basic_cd(t_env *env, char *path)
 {
 	char	pwd[PATH_MAX];
+	char	tmp[PATH_MAX];
 	char	*ptr;
 	int		status;
 
 	ft_bzero(pwd, PATH_MAX);
+	ft_bzero(tmp, PATH_MAX);
 	ptr = getcwd(pwd, PATH_MAX);
+
 	status = chdir(path);
+	printf("%d - %s\n", status, pwd);
 	if (status == 0)
 	{
 		if (ptr != NULL)
 			env_set(env, "OLDPWD", pwd);
 		ptr = getcwd(pwd, PATH_MAX);
+	printf("%d - %s\n", status, pwd);
 		if (ptr != NULL)
 			env_set(env, "PWD", pwd);
 		return (0);
@@ -62,16 +67,24 @@ int		bi_cd(t_env	*env, char *path)
 	t_env_cell	*cell;
 
 	cell = NULL;
-	if (check_errors(env,path) == 1)
-		return (1);
 	if (path != NULL)
 	{
-		if (!ft_strcmp(path, "-") && (cell = find_cell(env, "OLDPWD")))
+		if (!ft_strcmp(path, "-"))
+		{
+			cell = find_cell(env, "OLDPWD");
 			return (basic_cd(env, cell->value));
-		else if (!ft_strcmp(path, "~") && (cell = find_cell(env, "HOME")))
+		}
+		else if (!ft_strcmp(path, "~"))
+		{
+			cell = find_cell(env, "HOME");
 			return (basic_cd(env, cell->value));
+		}
 		else
+		{
+			if (check_errors(env,path) == 1)
+				return (1);
 			return (basic_cd(env, path));
+		}
 	}
 	else
 		if ((cell = find_cell(env, "HOME")))

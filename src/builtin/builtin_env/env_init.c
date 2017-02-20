@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 20:28:20 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/13 19:29:56 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/20 19:16:25 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@ size_t	tab_size(char **tab)
 	return (size);
 }
 
-t_env_cell	*env_cell_ret(char	*str)
+t_env_cell	env_cell_ret(char	*str)
 {
-	t_env_cell	*cell;
+	t_env_cell	cell[1];
 	char		*ptr;
 
 	ptr = ft_strchr(str, '=');
-	if (!(cell = (t_env_cell *)malloc(sizeof(t_env_cell))))
-		return (NULL);
 	if (ptr == NULL)
 	{
 		cell->key = ft_strdup(str);
@@ -42,13 +40,13 @@ t_env_cell	*env_cell_ret(char	*str)
 		cell->key = ft_strdup(str);
 		cell->value = ft_strdup(ptr);
 	}
-	return (cell);
+	return (*cell);
 }
 
 int		env_tab_init(t_env *env, char **environ)
 {
 	size_t		i;
-	t_env_cell	*cell;
+	t_env_cell	cell;
 
 	i = 0;
 	while (environ[i] != NULL)
@@ -67,7 +65,7 @@ int		env_tab(t_env *env, char **environ)
 	if ((size = tab_size(environ)) == 0)
 		size = 2;
 	size++;
-	env->tab = NEW_ARRAY(t_env_cell *);
+	env->tab = NEW_ARRAY(t_env_cell);
 	if (fta_reserve(&env->tab, size))
 		return (1);
 	env_tab_init(env, environ);

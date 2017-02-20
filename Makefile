@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/20 19:13:52 by malaine          ###   ########.fr        #
+#    Updated: 2017/02/20 19:46:24 by mseinic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ BUILTIN_PATH := builtin/
 BUILTIN_SRC :=
 
 CD_PATH := builtin/builtin_cd/
-CD_SRC :=
+CD_SRC := bi_cd
 
 ECHO_PATH := builtin/builtin_env/
 ECHO_SRC :=
