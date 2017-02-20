@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 13:50:45 by angagnie          #+#    #+#             */
-/*   Updated: 2017/02/20 16:47:37 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/02/19 19:07:31 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,8 @@ int				fta_popindex(t_array *self, size_t index, size_t len);
 /*
 ** Array::pop_index w/ function
 ** -
-** Same
+** Same as fta_popindex, but with a way to free cleanly the removed
+** elements.
 ** -
 ** _index_ is the index of the first element to be removed.
 ** _len_ is the number of elements to be removed.
