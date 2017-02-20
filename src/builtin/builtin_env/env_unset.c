@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_print.c                                        :+:      :+:    :+:   */
+/*   env_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/13 18:26:50 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/17 18:58:02 by mseinic          ###   ########.fr       */
+/*   Created: 2017/02/17 17:53:22 by mseinic           #+#    #+#             */
+/*   Updated: 2017/02/20 16:16:59 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int		print_cell(const void *ptr)
+void		env_cell_delete(void	*ptr)
 {
-	const t_env_cell	*cell = ptr;
+	t_env_cell	*cell;
 
-	if (!cell)
-		return (1);
-	ft_putstr(cell->key);
-	ft_putstr("=");
-	ft_putendl(cell->value);
-	return (0);
+	cell = (t_env_cell *)ptr;
+	ft_strdell(&cell->key);
+	ft_strdell(&cell->value);
 }
 
-/*
-** Instead of
-** `env_print(e)`
-** one could write
-** `fta_iter(&e->tab, &print_cell)`
-*/
-
-int		env_print(t_env *env)
+int		env_unset(t_env *env, t_env_cell *cell)
 {
-	fta_iter(&env->tab, &print_cell);
 	return (0);
 }

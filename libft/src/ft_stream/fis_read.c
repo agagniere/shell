@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token.h                                         :+:      :+:    :+:   */
+/*   fis_read.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/29 05:43:19 by angagnie          #+#    #+#             */
-/*   Updated: 2017/02/19 14:35:44 by angagnie         ###   ########.fr       */
+/*   Created: 2017/02/19 18:06:00 by angagnie          #+#    #+#             */
+/*   Updated: 2017/02/19 19:52:02 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_TOKEN_H
-# define FT_TOKEN_H
+#include "ft_stream.h"
 
-# include "ft_string.h"
+/*
+** TODO : if read fails :/
+*/
 
-typedef struct s_tokenizer	t_tokenizer;
-
-struct						s_tokenizer
+int		fis_read(t_is *self, size_t n)
 {
-	t_is	in;
-	t_token	current;
-};
+	t_fis *const	this = self;
 
-#endif
+	fta_reserve(&this->buff, n);
+	this->buff.size += read(this.fd, ARRAY_END(&this->buff), n);
+	return (0);
+}

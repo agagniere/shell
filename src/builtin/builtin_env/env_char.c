@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 16:13:22 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/17 15:55:54 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/02/17 18:55:25 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,12 @@
 char	*env_cell_to_char(t_env_cell *cell)
 {
 	char	*str;
-	size_t	len[2];
 
-	len[0] = ft_strlen(cell->key);
-	len[1] = ft_strlen(cell->value);
-	if (!(str = ft_strnew(len[0] + len[1] + 1)))
+	if (!(str = ft_strnew(ft_strlen(cell->key) + ft_strlen(cell->value) + 1)))
 		return (NULL);
-	ft_strcpy(str, cell->key);
-	ft_strcpy(str + len[0], "=");
-	ft_strcpy(str + len[0] + 1, cell->value);
+	ft_strcat(str, cell->key);
+	ft_strcat(str, "=");
+	ft_strcat(str, cell->value);
 	return (str);
 }
 
@@ -57,33 +54,4 @@ char	**env_char_create(t_env	*env)
 	}
 	ret[i] = NULL;
 	return (ret);
-}
-
-/*
-** Environement To String
-** -
-** How vectors enable us to forget about malloc,
-** ft_strnew and such. Plus, iterators are cool !
-** -
-** returns a String containing each environement entry
-** converted to string.
-*/
-
-t_string	alternate_env2str(t_env *env)
-{
-	t_string	ans[1];
-	void		*ite;
-	t_env_cell	*cell;
-
-	env = NEW_STRING();
-	ite = ARRAY_ITERATOR(&env->tab);
-	while (ARRAY_HASNEXT(&env->tab, ite))
-	{
-		cell = (t_env_cell *)ite;
-		STR_JOIN_CS(ans, cell->key, ft_strlen(cell->key));
-		STR_JOIN_CS(ans, "=", 1);
-		STR_JOIN_CS(ans, cell->value, ft_strlen(cell->value));
-		STR_JOIN_CS(ans, "\n", 1);
-	}
-	return (*ans)
 }
