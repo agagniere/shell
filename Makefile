@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/17 17:02:38 by angagnie         ###   ########.fr        #
+#    Updated: 2017/02/20 16:23:58 by angagnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ ENV_PATH := builtin/builtin_env/
 ENV_SRC := env_init env_print env_char env_set
 
 FILES = main line_init ft_term
-
 
 #----------------MODIF--------------------#
 

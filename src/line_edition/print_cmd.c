@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 16:59:38 by jguthert          #+#    #+#             */
-/*   Updated: 2017/01/18 17:11:40 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/18 12:56:49 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,64 +15,40 @@
 
 static void	print_str(t_line *l)
 {
-	int a;
+	void    *ite;
 
-	a = l->start_print;
-	while (l->str[++a] != '\0')
+	ite = ARRAY_GET(&l->str, l->cursor - 1);
+	while (ARRAY_HASNEXT(&l->str, ite))
 	{
-		ft_putchar(l->str[a]);
-		if (l->largeur != 0 && l->count != 0
-			&& (l->count + l->sizeprompt + 1) % l->largeur == 0)
+		ft_putchar(*(char *)ite);
+		l->cursor++;
+		if (l->largeur != 0 &&
+			((l->cursor + SIZE_PROMPT) % l->largeur) == 0)
 			do_term("do");
-		l->count++;
 	}
 }
 
 static void	put_cursor(t_line *l)
 {
-	while (l->count < l->final_count)
+	if (l->sauv_cursor <= (int)l->str.size / 2)
 	{
-		if (l->largeur != 0 && l->count != 0
-			&& (l->count + l->sizeprompt + 1) % l->largeur == 0)
-			do_term("do");
-		else
-			do_term("nd");
-		l->count++;
+		ft_home(l);
+		while ((int)l->cursor < l->sauv_cursor)
+			ft_right(l);
 	}
-}
-
-static void	toomuch_print(t_line *l)
-{
-	do_term("cl");
-	print_prompt(g_prompt.rand, g_prompt.g_env, g_lenv, g_prompt.l);
-	l->sizeprompt = l->sizeprompt + 3;
-	l->final_count = ft_strlen(l->str);
-	l->count = 0;
-	print_str(l);
+	else
+		while ((int)l->cursor > l->sauv_cursor)
+			ft_left(l);
 }
 
 static void	little_print(t_line *l)
 {
-	if (l->resize == 1)
-	{
-		l->count = 0;
-		l->resize = 0;
-	}
-	else
-		ft_home(l);
 	do_term("cd");
 	print_str(l);
-	ft_home(l);
 	put_cursor(l);
 }
 
 void		print(t_line *l)
 {
-	int window;
-
-	window = (l->hauteur - 1) * l->largeur;
-	if (l->size >= window - l->sizeprompt)
-		toomuch_print(l);
-	else
-		little_print(l);
+	little_print(l);
 }

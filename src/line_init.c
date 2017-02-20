@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/08 16:43:19 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/09 21:10:22 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/02/10 00:55:29 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	line_init(t_line *line)
 {
-	line->str = NEW_ARRAY(char);
+	line->str = NEW_STRING;
 	if (fta_reserve(&line->str, 10))
 		return (1);
 	return (0);
