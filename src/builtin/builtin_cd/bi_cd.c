@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 17:31:46 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 19:40:55 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/20 19:53:13 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,11 @@ static int		basic_cd(t_env *env, char *path)
 	ptr = getcwd(pwd, PATH_MAX);
 
 	status = chdir(path);
-	printf("%d - %s\n", status, pwd);
 	if (status == 0)
 	{
 		if (ptr != NULL)
 			env_set(env, "OLDPWD", pwd);
 		ptr = getcwd(pwd, PATH_MAX);
-	printf("%d - %s\n", status, pwd);
 		if (ptr != NULL)
 			env_set(env, "PWD", pwd);
 		return (0);
