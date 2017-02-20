@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 17:53:22 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 16:16:59 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/20 16:55:15 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void		env_cell_delete(void	*ptr)
 	ft_strdell(&cell->value);
 }
 
-int		env_unset(t_env *env, t_env_cell *cell)
+int		env_unset(t_env *env, char *key)
 {
+	fta_popindexf(&env->tab, ARRAY_IFP(&env->tab,
+				find_cell(env, key)), 1, env_cell_delete);
 	return (0);
 }

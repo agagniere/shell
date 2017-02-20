@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_print.c                                        :+:      :+:    :+:   */
+/*   error_msg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/13 18:26:50 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 16:51:11 by mseinic          ###   ########.fr       */
+/*   Created: 2017/02/20 16:42:23 by mseinic           #+#    #+#             */
+/*   Updated: 2017/02/20 16:49:46 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void		print_cell(const void *ptr)
+void	error_msg(char *cmd, char *msg, char *file)
 {
-	const t_env_cell	*cell = ptr;
-
-	if (!cell)
-	{
-		ft_putstr(cell->key);
-		ft_putstr("=");
-		ft_putendl(cell->value);
-	}
-}
-
-/*
-** Instead of
-** `env_print(e)`
-** one could write
-** `fta_iter(&e->tab, &print_cell)`
-*/
-
-int		env_print(t_env *env)
-{
-	fta_iter(&env->tab, &print_cell);
-	return (0);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putendl_fd(file, 2);
 }

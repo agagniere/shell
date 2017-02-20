@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/20 16:23:58 by angagnie         ###   ########.fr        #
+#    Updated: 2017/02/20 16:48:20 by mseinic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,9 @@ NAME := 42sh
 
 LINE_EDITION_PATH := line_edition/
 LINE_EDITION_SRC := actions
+
+ERROR_MSG_PATH := error_msg/
+ERROR_MSG_SRC := error_msg
 
 BUILTIN_PATH := builtin/
 BUILTIN_SRC :=
@@ -51,7 +54,8 @@ LIB_PATH = libft/libft.a
 #----------------STD--------------------#
 
 #----------------ADDING PATH AND FORMAT TO THE FILENAMES--------------------#
-FILES+=$(addprefix $(LINE_EDITION_PATH),$(LINE_EDITION))
+FILES+=$(addprefix $(LINE_EDITION_PATH),$(LINE_EDITION_SRC))
+FILES+=$(addprefix $(ERROR_MSG_PATH),$(ERROR_MSG_SRC))
 FILES+=$(addprefix $(BUILTIN_PATH),$(BUILTIN_SRC))
 FILES+=$(addprefix $(ENV_PATH),$(ENV_SRC))
 FILES+=$(addprefix $(CD_PATH),$(CD_SRC))
@@ -93,6 +97,7 @@ $(CACHE_PATH)%.o:$(SRC_PATH)%.c | $(CACHE)
 $(CACHE):
 	@mkdir -p $(CACHE_PATH)
 	@mkdir -p $(CACHE_PATH)$(LINE_EDITION_PATH)
+	@mkdir -p $(CACHE_PATH)$(ERROR_MSG_PATH)
 	@mkdir -p $(CACHE_PATH)$(BUILTIN_PATH)
 	@mkdir -p $(CACHE_PATH)$(ENV_PATH)
 	@mkdir -p $(CACHE_PATH)$(CD_PATH)
