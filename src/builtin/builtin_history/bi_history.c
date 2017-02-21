@@ -12,12 +12,29 @@
 
 #include "shell.h"
 
-int		bi_history(void)
+int		bi_history_save(t_array *history, char *cmd)
 {
-	t_array		array;
+	
 	int			fd;
 
-	fd = open("/tmp/42sh_history.txt", O_RDWR | O_CREAT);
-	
+	fd = open("/tmp/42sh_history.42sh", O_APPEND);
+	fta_append(history, str, 1);
+	ft_putendl_fd(str, fd);
+	close(fd);
+}
+
+int		bi_history_init(t_array *history)
+{
+	int			fd;
+	int			ret;
+	char			*str;
+
+	fd = open("/tmp/42sh_history.42sh", O_RDWR | O_CREAT);
+	while ((ret = get_next_line(fd, &str)))
+	{
+		fta_append(history, &str, 1);
+		free(str);
+	}
+	close(fd);
 	return (0)
 }
