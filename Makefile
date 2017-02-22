@@ -19,8 +19,13 @@ LINE_EDITION_SRC := actions print_cmd home_end go_up_and_down ctrl_right_left ch
 ERROR_MSG_PATH := error_msg/
 ERROR_MSG_SRC := error_msg
 
+
 BUILTIN_PATH := builtin/
 BUILTIN_SRC :=
+
+
+HISTORY_PATH := builtin/builtin_history/
+HISTORY_SRC := bi_history
 
 CD_PATH := builtin/builtin_cd/
 CD_SRC := bi_cd
@@ -59,6 +64,7 @@ FILES+=$(addprefix $(ERROR_MSG_PATH),$(ERROR_MSG_SRC))
 FILES+=$(addprefix $(BUILTIN_PATH),$(BUILTIN_SRC))
 FILES+=$(addprefix $(ENV_PATH),$(ENV_SRC))
 FILES+=$(addprefix $(CD_PATH),$(CD_SRC))
+FILES+=$(addprefix $(HISTORY_PATH),$(HISTORY_SRC))
 FILES+=$(addprefix $(ECHO_PATH),$(ECHO_SRC))
 
 
@@ -101,6 +107,7 @@ $(CACHE):
 	@mkdir -p $(CACHE_PATH)$(BUILTIN_PATH)
 	@mkdir -p $(CACHE_PATH)$(ENV_PATH)
 	@mkdir -p $(CACHE_PATH)$(CD_PATH)
+	@mkdir -p $(CACHE_PATH)$(HISTORY_PATH)
 	@mkdir -p $(CACHE_PATH)$(ECHO_PATH)
 
 clean:
