@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shell.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/27 17:12:33 by mseinic           #+#    #+#             */
+/*   Updated: 2017/02/27 17:27:01 by mseinic          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SHELL_H
 # define SHELL_H
 # include <unistd.h>
@@ -55,7 +67,7 @@ typedef struct				s_env_info
 int							env_init(t_env *env, char **environ);
 int							line_init(t_line *line);
 
-void							bi_history_print(t_history *history);
+void						bi_history_print(t_history *history);
 int							bi_history_save(t_history *history, char *cmd);
 int							bi_history_init(t_history *history);
 
@@ -87,5 +99,6 @@ int							bi_cd(t_env *env, char *path);
 
 extern t_env				g_env;
 extern t_line				g_line;
+extern t_history			g_history;
 
 #endif
