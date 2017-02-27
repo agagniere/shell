@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/27 17:22:59 by malaine          ###   ########.fr        #
+#    Updated: 2017/02/27 19:22:30 by malaine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,7 @@ OBJ = $(addprefix $(CACHE_PATH),$(addsuffix .o,$(FILES)))
 #----------------ADDING PATH AND FORMAT TO THE FILENAMES--------------------#
 
 #-----------------COLORS------------------#
-#-------B = Bolt---------#
+#-------B = Bold---------#
 #-------I = Intense------#
 #-------U = Underline----#
 Green	:= "\033[0;32m"
@@ -119,7 +119,7 @@ fclean: clean
 		@echo $(Red) "Deleting ---->>>> $(NAME)" $(END)
 re: fclean all
 
-norme:
+norm:
 		@echo $(Red)
 		@norminette $(SRC) $(HDR_PATH) | grep -v Norme -B1 || true
 		@echo $(END)
