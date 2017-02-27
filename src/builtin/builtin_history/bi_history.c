@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:45:49 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/27 19:20:58 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/27 19:42:04 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ int		bi_history_save(t_history *history, char *cmd)
 {
 	
 	int			fd;
+	t_string	tmp;
 
+	tmp = NEW_STRING;
+	STR_JOIN_CS(&tmp, (void *)cmd, ft_strlen(cmd));
 	fd = open("/tmp/42sh_history.txt", O_RDWR | O_APPEND);
-	fta_append(&history->tab_h, cmd, 1);
+	fta_append(&history->tab_h, &tmp, 1);
 	ft_putendl_fd(cmd, fd);
 	close(fd);
 	history->index = history->tab_h.size - 1;
