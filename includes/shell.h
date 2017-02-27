@@ -5,7 +5,10 @@
 # include <stdbool.h>
 # include <limits.h>
 # include "error_msg.h"
-# include "sys/stat.h"
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <fcntl.h>
+
 # define READ_BUFFER(X) (X->buffer)
 # define READ_BUFFER_SIZE 6
 # define STR_SIZE(X) (X->str.size)
@@ -43,6 +46,10 @@ typedef struct				s_env_info
 
 int							env_init(t_env *env, char **environ);
 int							line_init(t_line *line);
+
+void							bi_history_print(t_array *history);
+int							bi_history_save(t_array *history, char *cmd);
+int							bi_history_init(t_array *history);
 
 int							ft_init_term(void);
 int							ft_reset_term(void);
