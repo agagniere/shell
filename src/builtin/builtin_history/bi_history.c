@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:45:49 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/27 16:46:25 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/27 17:24:19 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		bi_history_init(t_history *history)
 	return (0);
 }
 
-int		bi_change_str(t_line *line, t_history *history, t_string *cmd)
+int		bi_change_str(t_line *line, t_history *history)
 {
 	t_string	tmp;
 
