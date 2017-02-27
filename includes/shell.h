@@ -39,17 +39,25 @@ typedef struct				s_line
 	int						nbline;
 }							t_line;
 
+typedef struct				s_history
+{
+	t_array					tab;
+	t_string				tmp_cmd;
+	size_t					index;
+}							t_history;
+
 typedef struct				s_env_info
 {
 	bool					flags[256];
 }							t_env_info;
 
+
 int							env_init(t_env *env, char **environ);
 int							line_init(t_line *line);
 
-void							bi_history_print(t_array *history);
-int							bi_history_save(t_array *history, char *cmd);
-int							bi_history_init(t_array *history);
+void							bi_history_print(t_history *history);
+int							bi_history_save(t_history *history, char *cmd);
+int							bi_history_init(t_history *history);
 
 int							ft_init_term(void);
 int							ft_reset_term(void);
