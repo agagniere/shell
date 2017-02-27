@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 17:51:22 by malaine          ###   ########.fr       */
+/*   Updated: 2017/02/27 17:32:31 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 t_env			g_env;
 t_line			g_line;
 t_multi			g_multi;
+t_history		g_history;
 
 void			winsize()
 {
@@ -97,6 +98,36 @@ int			gestion_buffer(t_line *l)
 	return (0);
 }
 
+
+void			reset_line(t_line *l)
+{
+	l->str.size = 0;
+	l->cursor = 0;
+    ft_putstr("\n$> ");
+}
+
+
+static void is_sig(int signum)
+{
+//	ft_putnbr(signum);
+	if (signum == SIGINT)
+		reset_line(&g_line);
+	if (signum == SIGWINCH)
+	{
+		winsize();
+		ft_ctrl_l(&g_line);
+	}
+}
+
+void catch_signal(void)
+{
+	int i;
+
+	i = 0;
+	while (i++ < 28)
+		signal(i, is_sig);
+}
+
 static int		get_input(t_line *l)
 {
 	while (1)
@@ -120,9 +151,10 @@ static int		start_input(t_line *l)
 	l->sauv = NULL;
 	while (1)
 	{
-		l->str.size = 0;
-		l->cursor = 0;
-		ft_putstr("\n$> ");
+		if (l->str.size > 0)
+			bi_history_save(&g_history, (char*)l->str.data);
+		reset_line(l);
+		catch_signal();
 		if (get_input(l) != 0)
 			ft_putendl_fd("error\n", 2);
 	}
@@ -135,6 +167,7 @@ int				main(int ac, char **av, char **environ)
     winsize();
     line_init(&g_line);
     ft_init_term();
+	bi_history_init(&g_history);
     env_init(&g_env, environ);
     multi_init(&g_multi);
     start_input(&g_line);

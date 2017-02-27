@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 17:12:33 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/27 17:27:01 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/02/27 17:37:46 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct				s_line
 
 typedef struct				s_history
 {
-	t_array					tab;
+	t_array					tab_h;
 	t_string				tmp_cmd;
 	size_t					index;
 }							t_history;

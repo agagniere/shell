@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/20 21:02:17 by mseinic          ###   ########.fr        #
+#    Updated: 2017/02/27 17:22:59 by malaine          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME := 42sh
 
 LINE_EDITION_PATH := line_edition/
-LINE_EDITION_SRC := actions print_cmd home_end go_up_and_down ctrl_right_left check_word check_space cut_cpy_paste ctrl_up_down right_left delete_backspace ctrl_l
+LINE_EDITION_SRC := actions print_cmd home_end go_up_and_down ctrl_right_left check_word check_space cut_cpy_paste ctrl_up_down right_left delete_backspace ctrl_l ctrl_d up_down
 
 ERROR_MSG_PATH := error_msg/
 ERROR_MSG_SRC := error_msg
