@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/13 13:49:16 by jguthert          #+#    #+#             */
-/*   Updated: 2017/02/27 17:21:46 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/02 15:29:29 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int				actions(t_line *l)
 	{
 		if (cmp_buf((int *)g_actions[i].value, l->buffer) == 0)
 		{
+			if (i != 16 && i != 17)
+				g_history.first_time = 0;
 			g_actions[i].action(l);
 			return (0);
 		}

@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 17:21:59 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/02 14:30:29 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/02 18:42:22 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,11 @@
 void		ft_up(t_line *l)
 {
 	if (g_history.index > 0)
-	{
-		check_index(l, &g_history, 1);
-		//g_history.index--;
-		bi_change_str(l, &g_history);
-	}
+		bi_change_str(l, &g_history, search_history(l, &g_history, 1));
 }
 
 void		ft_down(t_line *l)
 {
-	if (g_history.index < g_history.tab_h.size - 1)
-	{
-		check_index(l, &g_history, 0);
-		//g_history.index++;
-		bi_change_str(l, &g_history);
-	}
+	if (g_history.index < g_history.tab_h.size)
+		bi_change_str(l, &g_history, search_history(l, &g_history, 0));
 }

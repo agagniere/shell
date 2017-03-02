@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:45:49 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/02 14:23:34 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/02 19:12:29 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		bi_history_save(t_history *history, t_string *cmd)
 	
 	int			fd;
 
+	fta_reserve(&history->tab_h, 2);
 	fd = open("/tmp/42sh_history.txt", O_RDWR | O_APPEND);
 	fta_append(&history->tab_h, cmd, 1);
 	FTSZ(cmd);
@@ -69,40 +70,52 @@ char *identity(void *ptr)
 	return ((char *)(((t_string *)ptr)->data));
 }
 
-void		search_history(t_line *l, t_history *history, bool up_or_down)
+char *sp_putchar(void *c)
+{
+	char ans[2];
+
+	ans[0] = *(char *)c;
+	ans[1] = 0;
+	return (ft_strdup(ans));
+}
+
+size_t		search_history(t_line *l, t_history *history, bool up_or_down)
 {
 	size_t i;
 
-	i = history->index;
+		
+	i = history->index + (up_or_down ? -1 : 1);
+	if (l->cursor == 0)
+		return (i);
 	while (ARRAY_INDEX_CHECK(&history->tab_h, i) &&
 		   ft_strncmp(ARRAY_GETT(t_string, &history->tab_h, i)->data,
-					  l->str.data, l->cursor) != 0)
-		i += up_or_down ? 1 : -1;
+		   l->str.data, l->cursor) != 0)
+		i += up_or_down ? -1 : 1;
 	if (ARRAY_INDEX_CHECK(&history->tab_h, i))
-		history->index = i;
-}
-
-void		check_index(t_line *l, t_history *history, bool up_or_down)
-{
-	if (l->str.size == 0 && up_or_down == 0)
-		history->index++;
-	else if (l->str.size == 0 && up_or_down == 1)
-		history->index--;
-/*	else if (l->str.size > 0)
-	search_history(l, history, up_or_down);*/
+	{
+		printf("  %s\n", fta_string(ARRAY_GETT(t_string,
+			&history->tab_h, i), sp_putchar));
+		return (i);
+	}
+	return (history->index);
 }
 
 
-int		bi_change_str(t_line *line, t_history *history)
+int		bi_change_str(t_line *line, t_history *history, size_t new)
 {
-	t_string	tmp;
+	t_string	*tmp;
 
-	tmp = *ARRAY_GETT(t_string, &history->tab_h, history->index);
-	line->sauv_cursor = tmp.size;
-	ft_home(line);
-	do_term("cd");
-	fta_overwrite(&history->tmp_cmd, &line->str);
-	fta_overwrite(&line->str, &tmp);
-	print(line);
+	if (new != history->index)
+	{
+		tmp = ARRAY_GETT(t_string, &history->tab_h, history->index);
+		fta_overwrite(tmp, &line->str);
+		tmp = ARRAY_GETT(t_string, &history->tab_h, new);
+		fta_overwrite(&line->str, tmp);
+		history->index = new;
+		line->sauv_cursor = line->cursor;
+		ft_home(line);
+		do_term("cd");
+		print(line);
+	}
 	return (0);
 }
