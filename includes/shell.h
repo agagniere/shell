@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 17:12:33 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/02 14:27:23 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/02 18:43:43 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct				s_history
 	t_array					tab_h;
 	t_string				tmp_cmd;
 	size_t					index;
+	size_t					first_time;
 }							t_history;
 
 typedef struct				s_env_info
@@ -63,7 +64,7 @@ typedef struct				s_env_info
 	bool					flags[256];
 }							t_env_info;
 
-void        search_history(t_line *l, t_history *history, bool up_or_down);
+size_t        search_history(t_line *l, t_history *history, bool up_or_down);
 void        check_index(t_line *l, t_history *history, bool up_or_down);
 
 int							env_init(t_env *env, char **environ);
