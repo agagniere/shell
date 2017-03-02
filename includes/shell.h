@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 17:12:33 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/27 17:37:46 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/02 14:27:23 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,14 @@ typedef struct				s_env_info
 	bool					flags[256];
 }							t_env_info;
 
+void        search_history(t_line *l, t_history *history, bool up_or_down);
+void        check_index(t_line *l, t_history *history, bool up_or_down);
 
 int							env_init(t_env *env, char **environ);
 int							line_init(t_line *line);
 
 void						bi_history_print(t_history *history);
-int							bi_history_save(t_history *history, char *cmd);
+int							bi_history_save(t_history *history, t_string *cmd);
 int							bi_history_init(t_history *history);
 
 int							ft_init_term(void);

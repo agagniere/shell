@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/27 17:32:31 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/02 14:14:16 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,13 @@ void			reset_line(t_line *l)
 	l->str.size = 0;
 	l->cursor = 0;
     ft_putstr("\n$> ");
+    do_term("cd");
+    do_term("sc");
+    do_term("do");
+    do_term("do");
+    do_term("do");
+    printf("\n%s\n", (char *)l->str.data);
+    do_term("rc");
 }
 
 
@@ -152,7 +159,7 @@ static int		start_input(t_line *l)
 	while (1)
 	{
 		if (l->str.size > 0)
-			bi_history_save(&g_history, (char*)l->str.data);
+			bi_history_save(&g_history, &l->str);
 		reset_line(l);
 		catch_signal();
 		if (get_input(l) != 0)

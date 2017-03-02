@@ -6,11 +6,12 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:45:49 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/27 19:42:04 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/02 14:23:34 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include "edit_line.h"
 
 static void	history_str(const void *ptr)
 {
@@ -24,17 +25,15 @@ void		bi_history_print(t_history *history)
 		fta_iter(&history->tab_h, &history_str);
 }
 
-int		bi_history_save(t_history *history, char *cmd)
+int		bi_history_save(t_history *history, t_string *cmd)
 {
 	
 	int			fd;
-	t_string	tmp;
 
-	tmp = NEW_STRING;
-	STR_JOIN_CS(&tmp, (void *)cmd, ft_strlen(cmd));
 	fd = open("/tmp/42sh_history.txt", O_RDWR | O_APPEND);
-	fta_append(&history->tab_h, &tmp, 1);
-	ft_putendl_fd(cmd, fd);
+	fta_append(&history->tab_h, cmd, 1);
+	FTSZ(cmd);
+	ft_putendl_fd((char *)cmd->data, fd);
 	close(fd);
 	history->index = history->tab_h.size - 1;
 	return (0);
@@ -69,6 +68,30 @@ char *identity(void *ptr)
 {
 	return ((char *)(((t_string *)ptr)->data));
 }
+
+void		search_history(t_line *l, t_history *history, bool up_or_down)
+{
+	size_t i;
+
+	i = history->index;
+	while (ARRAY_INDEX_CHECK(&history->tab_h, i) &&
+		   ft_strncmp(ARRAY_GETT(t_string, &history->tab_h, i)->data,
+					  l->str.data, l->cursor) != 0)
+		i += up_or_down ? 1 : -1;
+	if (ARRAY_INDEX_CHECK(&history->tab_h, i))
+		history->index = i;
+}
+
+void		check_index(t_line *l, t_history *history, bool up_or_down)
+{
+	if (l->str.size == 0 && up_or_down == 0)
+		history->index++;
+	else if (l->str.size == 0 && up_or_down == 1)
+		history->index--;
+/*	else if (l->str.size > 0)
+	search_history(l, history, up_or_down);*/
+}
+
 
 int		bi_change_str(t_line *line, t_history *history)
 {
