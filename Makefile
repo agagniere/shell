@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/02/27 19:22:30 by malaine          ###   ########.fr        #
+#    Updated: 2017/03/04 20:09:01 by mseinic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,8 @@ LINE_EDITION_SRC := actions print_cmd home_end go_up_and_down ctrl_right_left ch
 ERROR_MSG_PATH := error_msg/
 ERROR_MSG_SRC := error_msg
 
+AUTOCOMP_PATH := autocomp/
+AUTOCOMP_SRC := autocomp
 
 BUILTIN_PATH := builtin/
 BUILTIN_SRC :=
@@ -61,6 +63,7 @@ LIB_PATH = libft/libft.a
 #----------------ADDING PATH AND FORMAT TO THE FILENAMES--------------------#
 FILES+=$(addprefix $(LINE_EDITION_PATH),$(LINE_EDITION_SRC))
 FILES+=$(addprefix $(ERROR_MSG_PATH),$(ERROR_MSG_SRC))
+FILES+=$(addprefix $(AUTOCOMP_PATH),$(AUTOCOMP_SRC))
 FILES+=$(addprefix $(BUILTIN_PATH),$(BUILTIN_SRC))
 FILES+=$(addprefix $(ENV_PATH),$(ENV_SRC))
 FILES+=$(addprefix $(CD_PATH),$(CD_SRC))
@@ -104,6 +107,7 @@ $(CACHE):
 	@mkdir -p $(CACHE_PATH)
 	@mkdir -p $(CACHE_PATH)$(LINE_EDITION_PATH)
 	@mkdir -p $(CACHE_PATH)$(ERROR_MSG_PATH)
+	@mkdir -p $(CACHE_PATH)$(AUTOCOMP_PATH)
 	@mkdir -p $(CACHE_PATH)$(BUILTIN_PATH)
 	@mkdir -p $(CACHE_PATH)$(ENV_PATH)
 	@mkdir -p $(CACHE_PATH)$(CD_PATH)
