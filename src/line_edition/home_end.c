@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/28 17:35:38 by malaine           #+#    #+#             */
-/*   Updated: 2017/02/20 18:37:15 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/03 16:45:43 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static int count_n_char(char *str, size_t n, char c)
 void			ft_home(t_line *l)
 {
 	l->nbline = (l->cursor + SIZE_PROMPT) / (l->largeur ? l->largeur : 1);
-	l->nbline += count_n_char((char *)l->str.data, (size_t)l->cursor, '\n');
+//	l->nbline += count_n_char((char *)l->str.data, (size_t)l->cursor, '\n');
 	do_goto("ch", 0, SIZE_PROMPT);
 	if (l->nbline != 0)
-		do_goto("UP", l->nbline, l->nbline);
+	  do_goto("UP", l->nbline, l->nbline);
 	l->cursor = 0;
 }
 
