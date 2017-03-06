@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/25 14:06:24 by angagnie          #+#    #+#             */
-/*   Updated: 2017/02/25 20:26:07 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/03 10:40:10 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,5 @@ enum					e_sh_states
 	SH_DQ_BACKSLASH,
 	SH_DQ_BACKSLASH_BIS,
 }
-
-
 
 #endif
