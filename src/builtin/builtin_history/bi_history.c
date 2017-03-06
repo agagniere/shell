@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:45:49 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/02 19:12:29 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/03 17:44:46 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		bi_history_save(t_history *history, t_string *cmd)
 	FTSZ(cmd);
 	ft_putendl_fd((char *)cmd->data, fd);
 	close(fd);
-	history->index = history->tab_h.size - 1;
+	history->index = history->tab_h.size;
 	return (0);
 }
 
@@ -61,7 +61,7 @@ int		bi_history_init(t_history *history)
 		free(str);
 	}
 	close(fd);
-	history->index = history->tab_h.size - 1;
+	history->index = history->tab_h.size;
 	return (0);
 }
 
@@ -93,8 +93,6 @@ size_t		search_history(t_line *l, t_history *history, bool up_or_down)
 		i += up_or_down ? -1 : 1;
 	if (ARRAY_INDEX_CHECK(&history->tab_h, i))
 	{
-		printf("  %s\n", fta_string(ARRAY_GETT(t_string,
-			&history->tab_h, i), sp_putchar));
 		return (i);
 	}
 	return (history->index);
@@ -104,13 +102,17 @@ size_t		search_history(t_line *l, t_history *history, bool up_or_down)
 int		bi_change_str(t_line *line, t_history *history, size_t new)
 {
 	t_string	*tmp;
-
+	
 	if (new != history->index)
 	{
 		tmp = ARRAY_GETT(t_string, &history->tab_h, history->index);
+		//	printf("case %i : %s\n", history->index, fta_string(&line->str, sp_putchar));
 		fta_overwrite(tmp, &line->str);
+//		printf("new = %d\n", new);
 		tmp = ARRAY_GETT(t_string, &history->tab_h, new);
-		fta_overwrite(&line->str, tmp);
+//		printf("case %i : %s\n", new, fta_string(tmp, sp_putchar));
+		if (fta_overwrite(&line->str, tmp))
+			printf("Fail\n");
 		history->index = new;
 		line->sauv_cursor = line->cursor;
 		ft_home(line);

@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 17:12:33 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/02 18:43:43 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/04 13:02:02 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ typedef struct				s_line
 	int						hauteur;
 	int						nbline;
 }							t_line;
+
+typedef	struct				s_alias
+{
+	t_array					tab_alias;
+	t_array					tab_alias_r;
+}							t_alias;
+
 
 typedef struct				s_history
 {
