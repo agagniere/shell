@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/03 17:32:34 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/07 15:09:08 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ static void is_sig(int signum)
 //	ft_putnbr(signum);
 	if (signum == SIGINT)
 	{
+		ft_end(&g_line);
 		g_line.str.size = 0;
 		reset_line(&g_line);
 	}

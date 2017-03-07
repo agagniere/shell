@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/07 16:12:42 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/07 17:08:23 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 		my_read(line, &autocomp->first_time);
 		if (cmp_buf((int *)g_actions[0].value, line->buffer) == 0)
 		{
+//			printf("size : %d\n", autocomp->tab_a.size);
 			if (autocomp->index == autocomp->tab_a.size)
 				autocomp->index = 0;
 			do_term("sc");
@@ -130,8 +131,12 @@ int				create_tab_a(t_autocomp *autocomp)
 					//printf("%s\n",info.dp->d_name);
 					STR_JOIN_CS(&tmp, info.dp->d_name,
 							ft_strlen(info.dp->d_name));
+					//printf("%d\n", tmp.size);
+					STR_NULL_TERMINATE(&tmp);
+//					printf("%s\n",(char *)tmp.data);
 					fta_append(&autocomp->tab_a, &tmp, 1);
-					tmp = NEW_STRING;;
+
+					tmp = NEW_STRING;
 				}
 		}
 		closedir(info.dirp);

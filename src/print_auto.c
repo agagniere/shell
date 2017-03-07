@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:02:52 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/07 16:17:22 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/07 17:22:59 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "shell.h"
@@ -39,21 +39,19 @@ void		print_auto(int largeur, t_autocomp *autocomp)
 	int space;
 	int i;
 	int max_name = check_longer(&autocomp->tab_a);
-	int col_sauv = largeur / (max_name + 2);
+	int col_sauv = largeur / (max_name + 3);
 	int col = col_sauv;
 	t_string	*tmp;
 	void		*iterator;
 
 	i = 0;
-	iterator = ARRAY_ITERATOR(&autocomp->tab_a);
-	while (ARRAY_HASNEXT(&autocomp->tab_a, iterator))
+	while (i < autocomp->tab_a.size)
 	{
-		tmp = (t_string *)iterator;
+		tmp = ARRAY_GETT(t_string, &autocomp->tab_a, i);
 		if (i < col)
 		{
 			if (i == autocomp->index)
 				do_term("mr");
-			FTSZ(tmp);
 			ft_putstr((char *)tmp->data);
 			space = max_name - tmp->size;
 			while (space-- >= 0)
