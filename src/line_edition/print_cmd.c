@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 16:59:38 by jguthert          #+#    #+#             */
-/*   Updated: 2017/03/07 15:02:01 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/07 17:36:45 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	print_str(t_line *l)
 	}
 }
 
-static void	put_cursor(t_line *l)
+void	put_cursor(t_line *l)
 {
 	if (l->sauv_cursor <= (int)l->str.size / 2)
 	{

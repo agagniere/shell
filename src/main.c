@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/07 15:09:08 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/07 17:30:56 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ static void is_sig(int signum)
 	if (signum == SIGINT)
 	{
 		ft_end(&g_line);
+		do_term("cd");
 		g_line.str.size = 0;
 		reset_line(&g_line);
 	}
@@ -150,7 +151,10 @@ static int		get_input(t_line *l)
 			actions(l);
 		if (ft_replace_accent(l->buffer[0]) != 666)
 			if (gestion_buffer(l) == 0)
+			{
+				do_term("cd");
 				return (0);
+			}
 	}
 }
 
