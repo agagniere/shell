@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/25 14:06:24 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/04 20:09:40 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/07 15:11:28 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ typedef e_sh_states		t_sh_states;
 
 enum					e_sh_states
 {
-	SH_GAP,
-	SH_DOLLAR,
-	SH_BACKQUOTE,
-	SH_COMMENT,
+	SHS_GAP,
+	SHS_DOLLAR,
+	SHS_BACKQUOTE,
+	SHS_COMMENT,
 
-	SH_DEFAULT,
-	SH_BACKSLASH,
-	SH_SINGLE_QUOTE,
-	SH_DOUBLE_QUOTE,
-	SH_DQ_BACKSLASH,
-	SH_DQ_BACKSLASH_BIS,
+	SHS_DEFAULT,
+	SHS_BACKSLASH,
+	SHS_SINGLE_QUOTE,
+	SHS_DOUBLE_QUOTE,
+	SHS_DQ_BACKSLASH,
+	SHS_DQ_BACKSLASH_BIS,
 }
 
 #endif
