@@ -6,11 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 17:12:33 by mseinic           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/03/04 13:02:02 by malaine          ###   ########.fr       */
-=======
-/*   Updated: 2017/03/04 18:27:41 by mseinic          ###   ########.fr       */
->>>>>>> ea098959ea4dac68ce008499c04104f230b16403
+/*   Updated: 2017/03/06 20:38:15 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +70,8 @@ typedef struct				s_env_info
 {
 	bool					flags[256];
 }							t_env_info;
+
+
 
 size_t        search_history(t_line *l, t_history *history, bool up_or_down);
 void        check_index(t_line *l, t_history *history, bool up_or_down);

@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/04 20:09:03 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/07 16:12:42 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 		{
 			if (autocomp->index == autocomp->tab_a.size)
 				autocomp->index = 0;
-
+			do_term("sc");
+			do_term("cd");
+			printf("\n");
+			print_auto(line->largeur, autocomp);
+			do_term("rc");
 			autocomp->index++;
 		}
 		else
@@ -58,38 +62,54 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 		}
 	}
 }
+
+
 /*
-   static void 	prepare_path(t_autocomp *autocomp)
-   {
-   static void			my_get_path(char **tmp, char **path, char *str1)
-   {
-   if ((*tmp = ft_strrchr(str1, '/')) != NULL)
-   {
- **tmp = '\0';
- *tmp = *tmp + 1;
- *path = str1;
- }
- else
- {
- *path = ".";
- *tmp = str1;
- }
- }
- }
 
- static void		init_str(t_autocomp *autocomp, t_line *line)
- {
- char *ptr;
- size_t	i;
+static void 	prepare_path(t_autocomp *autocomp)
+{
+	static void			my_get_path(char **tmp, char **path, char *str1)
+	{
+		if ((*tmp = ft_strrchr(str1, '/')) != NULL)
+		{
+			**tmp = '\0';
+			*tmp = *tmp + 1;
+			*path = str1;
+		}
+		else
+		{
+			*path = ".";
+			*tmp = str1;
+		}
+	}
+}
+*/
 
- ptr = (char *)line->str.data;
- i = line->count;
- while (i > 0 && ptr[i] != ' ')
- i--;
- if (ptr[i] == ' ')
- return (ptr);
- }
- */
+static void		init_str(t_autocomp *autocomp, t_line *line)
+{
+	char		*ptr;
+	char		*ptr2;
+	size_t		i;
+	t_string	tmp;
+
+	tmp = NEW_STRING;
+	ptr = (char *)line->str.data;
+	i = line->cursor;
+	while (i > 0 && ptr[i] != ' ')
+		i--;
+	if (ptr[i] == ' ')
+		i++;
+	ptr += i;
+	STR_JOIN_CS(&tmp, ptr, line->cursor - i);
+	FTSZ(&tmp);
+	ptr2 = ft_strrchr(tmp.data ,'/');
+	*ptr2 = '\0';
+	ptr2++;
+	STR_JOIN_CS(&autocomp->path, ptr, ft_strlen(ptr));
+	STR_JOIN_CS(&autocomp->str, ptr2, ft_strlen(ptr2));
+//	printf("\n|-> %s\n", (char *)tmp.data);
+}
+
 int				create_tab_a(t_autocomp *autocomp)
 {
 	t_aut_info		info;
@@ -116,6 +136,7 @@ int				create_tab_a(t_autocomp *autocomp)
 		}
 		closedir(info.dirp);
 	}
+	return (0);
 }
 
 static void		autocomp_init(t_autocomp *autocomp)
@@ -129,16 +150,16 @@ static void		autocomp_init(t_autocomp *autocomp)
 
 char *sp_putchar2(void *c)
 {
-		char ans[2];
+	char ans[2];
 
-			ans[0] = *(char *)c;
-				ans[1] = 0;
-					return (ft_strdup(ans));
+	ans[0] = *(char *)c;
+	ans[1] = 0;
+	return (ft_strdup(ans));
 }
 
 char *identity2(void *ptr)
 {
-		return ((char *)(((t_string *)ptr)->data));
+	return ((char *)(((t_string *)ptr)->data));
 }
 
 void			ft_autocomp(t_line *line)
@@ -146,12 +167,13 @@ void			ft_autocomp(t_line *line)
 	t_autocomp	autocomp;
 
 	autocomp_init(&autocomp);
-
-	STR_JOIN_CS(&autocomp.path, "/etc", 4);
 	//printf("yolo\n");
-	STR_JOIN_CS(&autocomp.str, "", 0);
+	//STR_JOIN_CS(&autocomp.path, "src/", 4);
 	//printf("yolo\n");
+	//STR_JOIN_CS(&autocomp.str, "", 0);
+	//printf("yolo\n");
+	init_str(&autocomp, line);
 	create_tab_a(&autocomp);
-	printf("%s\n",fta_string(&autocomp.tab_a, &identity2));
-		//	do_autocomp();
+	//printf("%s\n",fta_string(&autocomp.tab_a, &identity2));
+	do_autocomp(line, &autocomp);
 }
