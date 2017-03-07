@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/07 18:32:24 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/07 18:51:01 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,17 @@ static void		init_str(t_autocomp *autocomp, t_line *line)
 	STR_JOIN_CS(&tmp, ptr, line->cursor - i);
 	STR_NULL_TERMINATE(&tmp);
 	ptr2 = ft_strrchr(tmp.data ,'/');
-	*ptr2 = '\0';
-	ptr2++;
+	if (ptr2 == NULL)
+	{
+		ptr2 = (char *)line->str.data + i;
+		ptr = ".";
+	}
+	else
+	{
+		*ptr2 = '\0';
+		ptr2++;
+	}
+	//printf("[%s %s]\n", ptr, ptr2);
 	STR_JOIN_CS(&autocomp->path, ptr, ft_strlen(ptr));
 	STR_JOIN_CS(&autocomp->str, ptr2, ft_strlen(ptr2));
 	STR_NULL_TERMINATE(&autocomp->path);
