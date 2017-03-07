@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:40:54 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/07 18:33:29 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/07 19:09:04 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ typedef struct		s_aut_info
 	struct dirent	*dp;
 }					t_aut_info;
 
-void        print_auto(int largeur, t_autocomp *autocomp);
+void        print_auto(t_line *l, t_autocomp *autocomp);
 #endif

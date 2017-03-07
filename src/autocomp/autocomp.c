@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/07 19:45:42 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/07 19:47:16 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 			line->sauv_cursor = line->cursor;
 			do_term("cd");
 			printf("\n");
-			print_auto(line->largeur, autocomp);
+			print_auto(line, autocomp);
 			do_goto("ch", 0, line->sauv_cursor + SIZE_PROMPT);
 			do_goto("UP", autocomp->nl+ 1, autocomp->nl+ 1);
 			autocomp->index++;
