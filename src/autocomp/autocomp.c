@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/07 17:08:23 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/07 18:29:57 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 		my_read(line, &autocomp->first_time);
 		if (cmp_buf((int *)g_actions[0].value, line->buffer) == 0)
 		{
-//			printf("size : %d\n", autocomp->tab_a.size);
 			if (autocomp->index == autocomp->tab_a.size)
 				autocomp->index = 0;
-			do_term("sc");
+			line->sauv_cursor = line->cursor;
 			do_term("cd");
 			printf("\n");
 			print_auto(line->largeur, autocomp);
-			do_term("rc");
+			do_goto("ch", 0, line->sauv_cursor + SIZE_PROMPT);
+			do_goto("UP", autocomp->nl+ 1, autocomp->nl+ 1);
 			autocomp->index++;
 		}
 		else
@@ -64,28 +64,6 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 	}
 }
 
-
-/*
-
-static void 	prepare_path(t_autocomp *autocomp)
-{
-	static void			my_get_path(char **tmp, char **path, char *str1)
-	{
-		if ((*tmp = ft_strrchr(str1, '/')) != NULL)
-		{
-			**tmp = '\0';
-			*tmp = *tmp + 1;
-			*path = str1;
-		}
-		else
-		{
-			*path = ".";
-			*tmp = str1;
-		}
-	}
-}
-*/
-
 static void		init_str(t_autocomp *autocomp, t_line *line)
 {
 	char		*ptr;
@@ -93,7 +71,8 @@ static void		init_str(t_autocomp *autocomp, t_line *line)
 	size_t		i;
 	t_string	tmp;
 
-	tmp = NEW_STRING;
+	tmp = fta_new(sizeof(char));
+	STR_NULL_TERMINATE(&line->str);
 	ptr = (char *)line->str.data;
 	i = line->cursor;
 	while (i > 0 && ptr[i] != ' ')
@@ -102,13 +81,14 @@ static void		init_str(t_autocomp *autocomp, t_line *line)
 		i++;
 	ptr += i;
 	STR_JOIN_CS(&tmp, ptr, line->cursor - i);
-	FTSZ(&tmp);
+	STR_NULL_TERMINATE(&tmp);
 	ptr2 = ft_strrchr(tmp.data ,'/');
 	*ptr2 = '\0';
 	ptr2++;
 	STR_JOIN_CS(&autocomp->path, ptr, ft_strlen(ptr));
 	STR_JOIN_CS(&autocomp->str, ptr2, ft_strlen(ptr2));
-//	printf("\n|-> %s\n", (char *)tmp.data);
+	STR_NULL_TERMINATE(&autocomp->path);
+	STR_NULL_TERMINATE(&autocomp->str);
 }
 
 int				create_tab_a(t_autocomp *autocomp)
@@ -117,7 +97,6 @@ int				create_tab_a(t_autocomp *autocomp)
 	t_string		tmp;
 
 	tmp = NEW_STRING;
-	FTSZ(&autocomp->path);
 	if ((info.dirp = opendir((char *)autocomp->path.data)) != NULL)
 	{
 		while ((info.dp = readdir(info.dirp)) != NULL)
@@ -128,14 +107,10 @@ int				create_tab_a(t_autocomp *autocomp)
 						&& ft_strncmp(info.dp->d_name,
 							(char *)autocomp->str.data, autocomp->str.size) == 0)
 				{
-					//printf("%s\n",info.dp->d_name);
 					STR_JOIN_CS(&tmp, info.dp->d_name,
 							ft_strlen(info.dp->d_name));
-					//printf("%d\n", tmp.size);
 					STR_NULL_TERMINATE(&tmp);
-//					printf("%s\n",(char *)tmp.data);
 					fta_append(&autocomp->tab_a, &tmp, 1);
-
 					tmp = NEW_STRING;
 				}
 		}
@@ -147,10 +122,11 @@ int				create_tab_a(t_autocomp *autocomp)
 static void		autocomp_init(t_autocomp *autocomp)
 {
 	autocomp->tab_a = NEW_ARRAY(t_string);
-	autocomp->path = NEW_STRING;
+	autocomp->path = fta_new(sizeof(char));
 	autocomp->str = fta_new(sizeof(char));
 	autocomp->first_time = 0;
 	autocomp->index = 0;
+	autocomp->nl = 0;
 }
 
 char *sp_putchar2(void *c)
@@ -172,13 +148,7 @@ void			ft_autocomp(t_line *line)
 	t_autocomp	autocomp;
 
 	autocomp_init(&autocomp);
-	//printf("yolo\n");
-	//STR_JOIN_CS(&autocomp.path, "src/", 4);
-	//printf("yolo\n");
-	//STR_JOIN_CS(&autocomp.str, "", 0);
-	//printf("yolo\n");
 	init_str(&autocomp, line);
 	create_tab_a(&autocomp);
-	//printf("%s\n",fta_string(&autocomp.tab_a, &identity2));
 	do_autocomp(line, &autocomp);
 }

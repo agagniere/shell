@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:40:54 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/06 20:38:39 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/07 18:23:52 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_autocomp
 	size_t			index;
 	t_string		path;
 	t_string		str;
+	int				nl;
 }					t_autocomp;
 
 typedef struct		s_aut_info

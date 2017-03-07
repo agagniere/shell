@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:02:52 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/07 17:22:59 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/07 18:29:58 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "shell.h"
@@ -42,9 +42,9 @@ void		print_auto(int largeur, t_autocomp *autocomp)
 	int col_sauv = largeur / (max_name + 3);
 	int col = col_sauv;
 	t_string	*tmp;
-	void		*iterator;
 
 	i = 0;
+	autocomp->nl = 0;
 	while (i < autocomp->tab_a.size)
 	{
 		tmp = ARRAY_GETT(t_string, &autocomp->tab_a, i);
@@ -63,8 +63,10 @@ void		print_auto(int largeur, t_autocomp *autocomp)
 		else
 		{
 			ft_putstr("\n");
+			autocomp->nl++;
 			col = col + col_sauv;
 		}
 	}
 	ft_putstr("\n");
+	autocomp->nl++;
 }
