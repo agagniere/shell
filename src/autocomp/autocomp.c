@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/07 19:10:15 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/07 19:41:41 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,12 @@ static void		init_str(t_autocomp *autocomp, t_line *line)
 	}
 	else
 	{
-		if (*(ptr - 1) == ' ')
+		if (*(ptr) == '/')
 			ptr = "/";
 		*ptr2 = '\0';
 		ptr2++;
 	}
+	printf("[%s %s]\n", ptr, ptr2);
 	STR_JOIN_CS(&autocomp->path, ptr, ft_strlen(ptr));
 	STR_JOIN_CS(&autocomp->str, ptr2, ft_strlen(ptr2));
 	STR_NULL_TERMINATE(&autocomp->path);
