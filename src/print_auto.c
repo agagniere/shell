@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:02:52 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/08 14:37:30 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/08 16:00:53 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "shell.h"
@@ -25,7 +25,7 @@ typedef struct s_print_a
 	int			get;
 	int			max_name;
 	int			nb_col;
-	int			test;
+	int			condition;
 	int			nl;
 	int			nb_elem;
 	t_string	*tmp;
@@ -43,7 +43,7 @@ int			check_longer(t_array *tab_a)
 	while (ARRAY_HASNEXT(tab_a, iterator))
 	{
 		tmp = (t_string *)iterator;
-		if (max < tmp->size)
+		if (max < (int)tmp->size)
 			max = tmp->size;
 	}
 	return (max);
@@ -61,12 +61,12 @@ void		init_print_a(t_line *l, t_print_a *print_a, t_autocomp *autocomp)
 
 void		check_if_rotate(t_line *l, t_print_a *print_a, t_autocomp *autocomp)
 {
-	if ((l->hauteur - 1) * print_a->nb_col < autocomp->tab_a.size)
+	if ((l->hauteur - 1) * print_a->nb_col < (int)autocomp->tab_a.size)
 	{
 		print_a->more = 1;
 		ft_ctrl_l(l);
 		ft_putstr("\n");
-		if (autocomp->index >= l->hauteur - 1)
+		if ((int)autocomp->index >= l->hauteur - 1)
 			print_a->get = autocomp->index + 2 - l->hauteur;
 		print_a->nb_elem = print_a->nb_elem + print_a->get;
 	}
@@ -74,7 +74,7 @@ void		check_if_rotate(t_line *l, t_print_a *print_a, t_autocomp *autocomp)
 
 void		print_elem(t_print_a *print_a, t_autocomp *autocomp)
 {
-	print_a->get == autocomp->index ? do_term("mr") : do_term("me") ;
+	print_a->get == (int)autocomp->index ? do_term("mr") : do_term("me") ;
 	ft_putstr((char *)print_a->tmp->data);
 	print_a->space = print_a->max_name - print_a->tmp->size;
 	while (print_a->space-- >= 0)
@@ -93,8 +93,8 @@ void		print_auto(t_line *l, t_autocomp *autocomp)
 	if (print_a.nb_elem > 0)
 	{
 		check_if_rotate(l, &print_a, autocomp);
-		print_a.test = print_a.more == 0 ? autocomp->tab_a.size : l->hauteur - 1;
-		while (print_a.i < print_a.test)
+		print_a.condition = print_a.more == 0 ? autocomp->tab_a.size : l->hauteur - 1;
+		while (print_a.i < print_a.condition)
 		{
 			print_a.more = print_a.more == 1 ? 0 : print_a.more;
 			print_a.tmp = ARRAY_GETT(t_string, &autocomp->tab_a, print_a.get);

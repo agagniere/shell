@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 17:12:33 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/07 16:28:36 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/08 16:05:52 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ typedef struct				s_env_info
 }							t_env_info;
 
 
-
-size_t        search_history(t_line *l, t_history *history, bool up_or_down);
-void        check_index(t_line *l, t_history *history, bool up_or_down);
+int							bi_change_str(t_line *line, t_history *history, size_t new);
+size_t						search_history(t_line *l, t_history *history, bool up_or_down);
+void						check_index(t_line *l, t_history *history, bool up_or_down);
 
 int							env_init(t_env *env, char **environ);
 int							line_init(t_line *line);

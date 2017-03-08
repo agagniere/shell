@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/08 15:00:53 by malaine           #+#    #+#             */
-/*   Updated: 2017/02/14 18:37:15 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/08 16:01:54 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	check_rtn(t_line *l)
     do_term("cd");
     do_goto("DO", 0, 5);
 	int *tamere = g_multi.pos_rtn.data;
-	int *fuck = g_multi.size_str.data;
+//	int *fuck = g_multi.size_str.data;
 	printf("nombre de ligne : %d\n", g_multi.nb_rtn);
 	size_t a  = 0;
 	while (a < g_multi.pos_rtn.size)

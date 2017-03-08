@@ -6,13 +6,13 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/14 17:31:46 by mseinic           #+#    #+#             */
-/*   Updated: 2017/02/20 21:02:13 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/08 16:07:51 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int		check_errors(t_env *env, char *path)
+static int		check_errors(char *path)
 {
 	int				status;
 	struct stat		dir;
@@ -70,20 +70,20 @@ int		bi_cd(t_env	*env, char *path)
 		if (!ft_strcmp(path, "-"))
 		{
 			cell = find_cell(env, "OLDPWD");
-			if (cell == NULL && check_errors(env,path) == 1)
+			if (cell == NULL && check_errors(path) == 1)
 				return (1);
 			return (basic_cd(env, cell->value));
 		}
 		else if (!ft_strcmp(path, "~"))
 		{
 			cell = find_cell(env, "HOME");
-			if (cell == NULL && check_errors(env,path) == 1)
+			if (cell == NULL && check_errors(path) == 1)
 				return (1);
 			return (basic_cd(env, cell->value));
 		}
 		else
 		{
-			if (check_errors(env,path) == 1)
+			if (check_errors(path) == 1)
 				return (1);
 			return (basic_cd(env, path));
 		}
