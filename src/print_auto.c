@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:02:52 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/07 20:12:59 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/08 14:37:30 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "shell.h"
@@ -18,7 +18,19 @@
 #include <unistd.h>
 #include <string.h>
 
-
+typedef struct s_print_a
+{
+	int			space;
+	int			i;
+	int			get;
+	int			max_name;
+	int			nb_col;
+	int			test;
+	int			nl;
+	int			nb_elem;
+	t_string	*tmp;
+	bool		more;
+}				t_print_a;
 
 int			check_longer(t_array *tab_a)
 {
@@ -37,60 +49,63 @@ int			check_longer(t_array *tab_a)
 	return (max);
 }
 
+void		init_print_a(t_line *l, t_print_a *print_a, t_autocomp *autocomp)
+{
+	print_a->i = 0;
+    print_a->max_name = check_longer(&autocomp->tab_a);
+    print_a->nb_col = l->largeur / (print_a->max_name + 3);
+    print_a->get = 0;
+    print_a->nb_elem = print_a->nb_col;
+    autocomp->nl = 0;
+}
+
+void		check_if_rotate(t_line *l, t_print_a *print_a, t_autocomp *autocomp)
+{
+	if ((l->hauteur - 1) * print_a->nb_col < autocomp->tab_a.size)
+	{
+		print_a->more = 1;
+		ft_ctrl_l(l);
+		ft_putstr("\n");
+		if (autocomp->index >= l->hauteur - 1)
+			print_a->get = autocomp->index + 2 - l->hauteur;
+		print_a->nb_elem = print_a->nb_elem + print_a->get;
+	}
+}
+
+void		print_elem(t_print_a *print_a, t_autocomp *autocomp)
+{
+	print_a->get == autocomp->index ? do_term("mr") : do_term("me") ;
+	ft_putstr((char *)print_a->tmp->data);
+	print_a->space = print_a->max_name - print_a->tmp->size;
+	while (print_a->space-- >= 0)
+		ft_putstr(" ");
+	do_term("me");
+	ft_putstr("  ");
+	print_a->get++;
+	print_a->i++;
+}
 
 void		print_auto(t_line *l, t_autocomp *autocomp)
 {
-	int space;
-	int i;
-	int ii;
-	int more = 0;
-	int test;
-	int max_name = check_longer(&autocomp->tab_a);
-	int col_sauv = l->largeur / (max_name + 3);
-	int col = col_sauv;
-	t_string	*tmp;
+	t_print_a print_a;
 
-	i = 0;
-	ii = 0;
-	autocomp->nl = 0;
-	if (col > 0)
+	init_print_a(l, &print_a, autocomp);
+	if (print_a.nb_elem > 0)
 	{
-		if (autocomp->tab_a.size > l->hauteur -1 && (l->hauteur - 1) * col_sauv < autocomp->tab_a.size)
+		check_if_rotate(l, &print_a, autocomp);
+		print_a.test = print_a.more == 0 ? autocomp->tab_a.size : l->hauteur - 1;
+		while (print_a.i < print_a.test)
 		{
-			more = 1;
-			ft_ctrl_l(l);
-			ft_putstr("\n");
-			if (autocomp->index >= l->hauteur - 1)
-				i = autocomp->index + 2 - l->hauteur;
-			col = col + i;
-	}
-		if (more == 0)
-			test = autocomp->tab_a.size;
-		else if (more == 1)
-			test = l->hauteur - 1;
-	while (ii < test)
-	{
-		if (more == 1)
-			more = 0;
-		tmp = ARRAY_GETT(t_string, &autocomp->tab_a, i);
-		if (i < col)
-		{
-			i == autocomp->index ? do_term("mr") : do_term("me") ;
-			ft_putstr((char *)tmp->data);
-			space = max_name - tmp->size;
-			while (space-- >= 0)
-				ft_putstr(" ");
-			do_term("me");
-			ft_putstr("  ");
-			i++;
-			ii++;
+			print_a.more = print_a.more == 1 ? 0 : print_a.more;
+			print_a.tmp = ARRAY_GETT(t_string, &autocomp->tab_a, print_a.get);
+			if (print_a.get < print_a.nb_elem)
+				print_elem(&print_a, autocomp);
+			else
+			{
+				autocomp->nl++;
+				ft_putstr("\n");
+				print_a.nb_elem = print_a.nb_elem + print_a.nb_col;
+			}
 		}
-		else
-		{
-			autocomp->nl++;
-			ft_putstr("\n");
-			col = col + col_sauv;
-		}
-	}
 	}
 }
