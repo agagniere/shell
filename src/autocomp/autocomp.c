@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/09 14:36:17 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/09 16:51:36 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,57 @@ static int			cmp_buf(int *value, char *buf)
 	return (0);
 }
 
+static size_t		get_end_erase(t_line *line)
+{
+	size_t		i;
+	char		*ptr;
+
+	ptr = line->str.data;
+	i = line->cursor;
+	while (i < line->str.size && ptr[i] != '/' && ptr[i] != ' ')
+		i++;
+	if (ptr[i] == ' ' || ptr[i] == '/')
+		i--;
+	return (i);
+}
+
+static size_t		get_start_erase(t_line *line)
+{
+	size_t		i;
+	char		*ptr;
+
+	ptr = line->str.data;
+	i = line->cursor;
+	while (i > 0 && ptr[i] != '/' && ptr[i] != ' ')
+		i--;
+	if (ptr[i] == ' ' || ptr[i] == '/')
+		i++;
+	return (i);
+}
+
+static void		replace_auto(t_line *line, t_autocomp *autocomp)
+{
+	t_string	*tmp;
+	size_t		end;
+	size_t		start;
+	size_t		len;
+
+	start = get_start_erase(line);
+	end = get_end_erase(line);
+	//printf("\nstart = [%d] ; end = [%d]\n", start, end);
+	len = end - start;
+//	if (i > line->cursor)
+//	{
+		fta_popindex(&line->str, start, len);
+		tmp = ARRAY_GETT(t_string, &autocomp->tab_a, autocomp->index);
+	//	printf("\n{%s}\n", (char *)line->str.data);
+		fta_insert(&line->str, tmp->data, tmp->size, start);
+//	}
+		STR_NULL_TERMINATE(&line->str);
+		line->sauv_cursor = line->str.size;
+		//line->cursor = start;
+}
+
 static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 {
 	while (1)
@@ -49,7 +100,14 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 			if (autocomp->index == autocomp->tab_a.size)
 				autocomp->index = 0;
 			line->sauv_cursor = line->cursor;
+			replace_auto(line, autocomp);
+		//	printf("\n%s\n",(char *)line->str.data);
+			ft_home(line);
+			print(line);
+			//ft_end(line);
 			print_auto(line, autocomp);
+
+		//	printf("%s\n",(char *)line->str.data);
 			autocomp->index++;
 		}
 		else
