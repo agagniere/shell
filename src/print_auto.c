@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:02:52 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/08 16:00:53 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:36:07 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "shell.h"
@@ -52,11 +52,11 @@ int			check_longer(t_array *tab_a)
 void		init_print_a(t_line *l, t_print_a *print_a, t_autocomp *autocomp)
 {
 	print_a->i = 0;
-    print_a->max_name = check_longer(&autocomp->tab_a);
-    print_a->nb_col = l->largeur / (print_a->max_name + 3);
-    print_a->get = 0;
-    print_a->nb_elem = print_a->nb_col;
-    autocomp->nl = 0;
+	print_a->max_name = check_longer(&autocomp->tab_a);
+	print_a->nb_col = l->largeur / (print_a->max_name + 3);
+	print_a->get = 0;
+	print_a->nb_elem = print_a->nb_col;
+	autocomp->nl = 0;
 }
 
 void		check_if_rotate(t_line *l, t_print_a *print_a, t_autocomp *autocomp)
@@ -89,6 +89,8 @@ void		print_auto(t_line *l, t_autocomp *autocomp)
 {
 	t_print_a print_a;
 
+	do_term("cd");
+	printf("\n");
 	init_print_a(l, &print_a, autocomp);
 	if (print_a.nb_elem > 0)
 	{
@@ -108,4 +110,6 @@ void		print_auto(t_line *l, t_autocomp *autocomp)
 			}
 		}
 	}
+	do_goto("ch", 0, l->sauv_cursor + SIZE_PROMPT);
+	do_goto("UP", autocomp->nl+ 1, autocomp->nl+ 1);
 }

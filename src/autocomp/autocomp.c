@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/08 15:56:51 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/09 14:36:17 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,7 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 			if (autocomp->index == autocomp->tab_a.size)
 				autocomp->index = 0;
 			line->sauv_cursor = line->cursor;
-			do_term("cd");
-			printf("\n");
 			print_auto(line, autocomp);
-			do_goto("ch", 0, line->sauv_cursor + SIZE_PROMPT);
-			do_goto("UP", autocomp->nl+ 1, autocomp->nl+ 1);
 			autocomp->index++;
 		}
 		else
@@ -64,38 +60,43 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 	}
 }
 
+static void		prepare_ptr(t_line *line, char **ptr, char **ptr2)
+{
+	t_string	tmp;
+	size_t		i;
+
+	tmp = fta_new(sizeof(char));
+	*ptr = (char *)line->str.data;
+	i = line->cursor;
+	while (i > 0 && (*ptr)[i] != ' ')
+		i--;
+	(*ptr)[i] == ' ' ? i++ : 0;
+	*ptr = *ptr + i;
+	STR_JOIN_CS(&tmp, *ptr, line->cursor - i);
+	STR_NULL_TERMINATE(&tmp);
+	*ptr2 = ft_strrchr(tmp.data ,'/');
+	if (*ptr2 == NULL)
+	{
+		*ptr2 = (char *)line->str.data + i;
+		*ptr = ".";
+	}
+	else
+	{
+		if (**(ptr2) == '/' && tmp.data == *ptr2)
+			*ptr = "/";
+		**ptr2 = '\0';
+		*ptr2 = *ptr2 + 1;
+	}
+}
+
+
 static void		init_str(t_autocomp *autocomp, t_line *line)
 {
 	char		*ptr;
 	char		*ptr2;
-	size_t		i;
-	t_string	tmp;
 
-	tmp = fta_new(sizeof(char));
 	STR_NULL_TERMINATE(&line->str);
-	ptr = (char *)line->str.data;
-	i = line->cursor;
-	while (i > 0 && ptr[i] != ' ')
-		i--;
-	if (ptr[i] == ' ')
-		i++;
-	ptr += i;
-	STR_JOIN_CS(&tmp, ptr, line->cursor - i);
-	STR_NULL_TERMINATE(&tmp);
-	ptr2 = ft_strrchr(tmp.data ,'/');
-	if (ptr2 == NULL)
-	{
-		ptr2 = (char *)line->str.data + i;
-		ptr = ".";
-	}
-	else
-	{
-		if (*(ptr2) == '/' && tmp.data == ptr2)
-			ptr = "/";
-		*ptr2 = '\0';
-		ptr2++;
-	}
-//	printf("[%s %s]\n", ptr, ptr2);
+	prepare_ptr(line, &ptr, &ptr2);
 	STR_JOIN_CS(&autocomp->path, ptr, ft_strlen(ptr));
 	STR_JOIN_CS(&autocomp->str, ptr2, ft_strlen(ptr2));
 	STR_NULL_TERMINATE(&autocomp->path);
@@ -138,20 +139,6 @@ static void		autocomp_init(t_autocomp *autocomp)
 	autocomp->first_time = 0;
 	autocomp->index = 0;
 	autocomp->nl = 0;
-}
-
-char *sp_putchar2(void *c)
-{
-	char ans[2];
-
-	ans[0] = *(char *)c;
-	ans[1] = 0;
-	return (ft_strdup(ans));
-}
-
-char *identity2(void *ptr)
-{
-	return ((char *)(((t_string *)ptr)->data));
 }
 
 void			ft_autocomp(t_line *line)
