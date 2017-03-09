@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:02:52 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/09 14:36:07 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/09 17:11:49 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "shell.h"
@@ -110,6 +110,7 @@ void		print_auto(t_line *l, t_autocomp *autocomp)
 			}
 		}
 	}
-	do_goto("ch", 0, l->sauv_cursor + SIZE_PROMPT);
-	do_goto("UP", autocomp->nl+ 1, autocomp->nl+ 1);
+	ft_home(l);
+	do_goto("UP", autocomp->nl + 1, autocomp->nl + 1);
+	ft_end(l);
 }
