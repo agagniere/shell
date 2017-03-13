@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:45:21 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/13 17:06:06 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/13 17:37:44 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ char	*check_if_replace(t_alias *alias, char *str)
 {
 	void	*ite;
 
-	ite = ARRAY_GET(&alias->data, -1);
+	ite = ARRAY_ITERATOR(&alias->data);
 	while(ARRAY_HASNEXT(&alias->data, ite))
 	{
-		if (ft_strcmp(str, (char *)ite.right) == 0 && alias->check == 0)
+		if (ft_strcmp(str, ft_string((t_box *)ite)->left) == 0
+			&& ((t_box *)ite)->check == 0)
 		{
-			alias->check = 1;
-			return(check_if_replace(alias, (char *)ite.left));
+			((t_box *)ite)->check = 1;
+			return (check_if_replace(alias, (char *)ite->right));
 		}
 	}
 	return (str);
@@ -60,6 +61,7 @@ int		add_alias(t_alias *alias, char *str)
 	STR_JOIN_CS(&tmp.right, split + 1, ft_strlen(split + 1));
 	fta_append(&alias->data, &tmp, 1);
 	free(str);
+	return (0);
 }
 
 void	print_alias_if_exist(t_alias *alias, char *str)
@@ -69,10 +71,13 @@ void	print_alias_if_exist(t_alias *alias, char *str)
     ite = ARRAY_GET(&alias->data, -1);
     while(ARRAY_HASNEXT(&alias->data, ite))
         if (ft_strcmp(str, (char *)ite.right) == 0)
-			printf("%s=%s\n", str, (char *)ite.left);
+		{
+			printf("%s=%s\n", str, (char *)((t_box *)ite).left);
+			break ;
+		}
 }
 
-int     bi_alias_init(t_line *l, t_alias *alias)
+int     bi_alias_init(t_alias *alias)
 {
     int         fd;
     int         ret;
@@ -90,7 +95,7 @@ int     bi_alias_init(t_line *l, t_alias *alias)
     return (0);
 }
 
-int		alias(t_line *l, t_alias *alias, int argc, char ** argv)
+int		alias(t_alias *alias, int argc, char ** argv)
 {
 	int i;
 
