@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/13 17:01:15 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/13 19:39:50 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ typedef enum e_sh_token		t_sh_token;
 
 enum						e_sh_token
 {
-	SH_SEMI, //		;
+	SH_SEMI, //		;	0
 	SH_AMPER, //	&
 
-	SH_AND, //		&&
+	SH_AND, //		&&	1
 	SH_OR, //		||
 
-	SH_PIPE, //		|
+	SH_PIPE, //		|	2
 
-	SH_RIGHT, //	>
+	SH_RIGHT = 8,//	>	3
 	SH_CLOBBER, //	>|
 	SH_DRIGHT, //	>>
 	SH_LEFT, //		<
