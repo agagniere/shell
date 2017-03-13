@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:45:21 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/13 17:37:44 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/13 18:16:54 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,15 @@ int		check_if_equal(char *str)
 
 int		add_alias(t_alias *alias, char *str)
 {
+	int index;
+	void *tmp;
+
 	split = ft_strchr(str, '=');
 	*split = '\0';
-	tmp = NEW_BOX();
+	if ((index = alias_if_exist(alias, str)) == -1)
+		tmp = NEW_BOX();
+	else
+		tmp = ARRAY_GET(&alias->data, index);
 	STR_JOIN_CS(&tmp.left, str, ft_strlen(str));
 	STR_JOIN_CS(&tmp.right, split + 1, ft_strlen(split + 1));
 	fta_append(&alias->data, &tmp, 1);
@@ -64,17 +70,23 @@ int		add_alias(t_alias *alias, char *str)
 	return (0);
 }
 
-void	print_alias_if_exist(t_alias *alias, char *str)
+int		alias_if_exist(t_alias *alias, char *str)
 {
 	void    *ite;
 
     ite = ARRAY_GET(&alias->data, -1);
     while(ARRAY_HASNEXT(&alias->data, ite))
         if (ft_strcmp(str, (char *)ite.right) == 0)
-		{
-			printf("%s=%s\n", str, (char *)((t_box *)ite).left);
-			break ;
-		}
+			return (ARRAY_IFP(&alias, ite));
+	return (-1);
+}
+
+void	print_alias(t_alias *alias, int index)
+{
+	void    *ite;
+
+    ite = ARRAY_GET(&alias->data, index);
+	printf("%s=%s\n", (char *)((t_box *)ite).left, (char *)((t_box *)ite).right);
 }
 
 int     bi_alias_init(t_alias *alias)
@@ -98,6 +110,7 @@ int     bi_alias_init(t_alias *alias)
 int		alias(t_alias *alias, int argc, char ** argv)
 {
 	int i;
+	int index;
 
 	i = -1;
 	bi_alias_init(l, alias);
@@ -105,7 +118,7 @@ int		alias(t_alias *alias, int argc, char ** argv)
 	{
 		if (check_if_equal(argv[i]) == 0)
 			add_alias(alias, argv[i]);
-		else
-			print_alias_if_exit(alias, argv[i]);
+		else if ((index = alias_if_exit(alias, argv[i])) != -1)
+			print_alias(alias, index);
 	}
 }
