@@ -3,7 +3,8 @@
 ---
 
 ### To clone
-'''
+
+```
 git clone --recursive https://github.com/Seinic-Mihai/42sh
 (cd libft ; git checkout master) # if you don't want a detached head
-'''
+```
