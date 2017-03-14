@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:40:54 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/07 19:09:04 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/14 19:25:36 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ typedef struct		s_autocomp
 	t_array			tab_a;
 	int				first_time;
 	size_t			index;
+	t_string		line_tmp;
 	t_string		path;
 	t_string		str;
+	size_t			cursor_tmp;
 	int				nl;
 }					t_autocomp;
 
