@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 08:28:57 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/14 10:28:48 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/15 11:50:27 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,24 @@ int		exec_rdf(t_sh_operator *self, t_sh_context *w)
 	t_sh_operator *const	right = (t_sh_operator *)&self->super.right;
 	int		fd;
 	int		bck;
+	int		ans;
 
+	ans = 0;
 	fd = openat(resolve(ft_string(left), ft_pwd(w), this->flags));
-	in = dup(this->filedes);
-	dup2(fd, filedes);
-	if ()
+	bck = dup(this->filedes);
+	dup2(fd, this->filedes);
+	if (right)
+		ans = right.exec(right);
+	dup2(bck, filedes);
+	close(bck);
+	close(fd);
+	return (ans);
+}
+
+int		tmp()
+{
+	t_tree ast[1];
+
+	*ast = NEW_TREE(union u_sh_node);
+	ftt_push(ast, NEW_NODE(SH_PIPE));
 }

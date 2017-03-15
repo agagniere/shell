@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 20:33:28 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/14 08:28:17 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/15 09:12:01 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		exec_pipe(t_sh_operator *self)
 	pipe(p);
 	dup2(p[1], 1);
 	dup2(p[0], 0);
-	if (!fork())
+	if ((ans = 0) || !fork())
 	{
 		left->exec(left);
 		_Exit(0);
