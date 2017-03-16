@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 08:28:57 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/16 16:44:44 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/16 17:08:14 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ int				exec_rdf(t_sh_operator *self, t_sh_context *w)
 	t_sh_redirection *const	this = (t_sh_redirection *)self;
 	t_sh_operator *const	left = (t_sh_operator *)&self->super.left;
 	int						fd;
+	t_string				tmp;
 
-	fd = open(ft_string(sh_resolve((t_sh_node *)left)),
-			  this->flags, S_IRWXU | S_IROTH);
+	tmp = sh_resolve((t_sh_node *)left);
+	fd = open(ft_string(&tmp), this->flags, S_IRWXU | S_IROTH);
 	return (_exec_rd(self, fd));
 }
 
@@ -71,7 +72,9 @@ int				exec_rd(t_sh_operator *self, t_sh_context *w)
 	t_sh_redirection *const	this = (t_sh_redirection *)self;
 	t_sh_operator *const	left = (t_sh_operator *)&self->super.left;
 	int						fd;
+	t_string				tmp;
 
-	fd = ft_atoi(ft_string(sh_resolve((t_sh_node *)left)));
+	tmp = sh_resolve((t_sh_node *)left);
+	fd = ft_atoi(ft_string(&tmp));
 	return (_exec_rd(self, fd));
 }
