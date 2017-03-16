@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.c                                             :+:      :+:    :+:   */
+/*   exec_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/09 22:58:37 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/16 09:52:18 by angagnie         ###   ########.fr       */
+/*   Created: 2017/03/16 10:40:23 by angagnie          #+#    #+#             */
+/*   Updated: 2017/03/16 14:33:40 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-
-/*
-** shellPush(N**, N*)
-*/
-
-t_tr		shell_push(t_tnode **a, t_tnode *b)
+int			exec_list(t_sh_list *self)
 {
-	const union u_sh_node *ac = (union u_sh_node *)*a;
-	const union u_sh_node *bc = (union u_sh_node *)b;
+	void			*ite;
+	t_string		str[1];
+	t_array			argv;
 
-	if (ac == NULL)
+	argv = NEW_ARRAY(char *);
+	ite = ARRAY_ITERATOR(self->nodes);
+	while (ARRAY_HASNEXT(self->nodes, ite))
 	{
-		*a = b;
-		return (TR_DONE);
+		if (IS_LEAF(ite))
+		{
+			fta_append(argv, &ARRAY_END(str), 1);
+			fta_append(str, ((t_sh_leaf *)ite)->str.data,
+					   ((t_sh_leaf *)ite)->str.size);
+			fta_append(str, "", 1);
+		}
+		else
+			sh_resolve();
+
 	}
-	return (TR_ERROR);
 }
