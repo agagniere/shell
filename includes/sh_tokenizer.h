@@ -6,12 +6,14 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/15 09:34:27 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/16 13:57:41 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SH_TOKENIZER
 # define SH_TOKENIZER
+
+# include "ft_token.h"
 
 typedef enum e_sh_token		t_sh_token;
 
@@ -35,7 +37,10 @@ enum						e_sh_token
 	SH_LR, //		<>
 	SH_RIGHTAND, // >&
 	SH_LEFTAND, //	<&
+
+	SH_CLOBBERB, //	>!
 	SH_PIPEAND, //	|&
+	SH_ANDRIGHT, //	&>
 
 	SH_WORD = (1 << 7),
 	SH_TEXT,
