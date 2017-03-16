@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/14 19:26:05 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/16 15:37:03 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static size_t		get_end_erase(t_line *line)
 	i = line->cursor;
 	while (i < line->str.size && ptr[i] != '/' && ptr[i] != ' ')
 		i++;
-	if (ptr[i] == ' ' || ptr[i] == '/')
-		i--;
+	//if (ptr[i] == ' ' || ptr[i] == '/')
+	//	i--;
 	return (i);
 }
 
@@ -62,8 +62,8 @@ static size_t		get_start_erase(t_line *line)
 	i = line->cursor;
 	while (i > 0 && ptr[i] != '/' && ptr[i] != ' ')
 		i--;
-	if (ptr[i] == ' ' || ptr[i] == '/')
-		i++;
+	//if (ptr[i] == ' ' || ptr[i] == '/')
+	//	i++;
 	return (i);
 }
 
@@ -83,6 +83,11 @@ static void		replace_auto(t_line *line, t_autocomp *autocomp)
 	size_t		start;
 	size_t		len;
 
+	if (autocomp->first_time == 1)
+	{
+//		printf("cursor : %d size %d\n", line->cursor, autocomp->cursor_tmp);
+		line->cursor = line->cursor - autocomp->cursor_tmp;
+	}
 	start = get_start_erase(line);
 	end = get_end_erase(line);
 	if (end >= start)
@@ -91,10 +96,17 @@ static void		replace_auto(t_line *line, t_autocomp *autocomp)
 		len = 0;
 	tmp = ARRAY_GETT(t_string, &autocomp->tab_a, autocomp->index);
 	//		printf("\n{%s} [%s]\n", fta_string(&line->str, sp_putchar2), fta_string(tmp,sp_putchar2));
-	fta_replace(&line->str, start, len, tmp);
-	//	printf("\n %d {%s} [%s]\n", start, fta_string(&line->str,sp_putchar2), fta_string(tmp,sp_putchar2));
-	line->sauv_cursor = line->str.size;
+	fta_replace(&line->str, line->cursor, len, tmp);
+	//	printf("\n [%d] [%d] {%s} [%s]\n", line->cursor,tmp->size, fta_string(&line->str,sp_putchar2), fta_string(tmp,sp_putchar2));
+	autocomp->cursor_tmp = tmp->size;
+	//printf("\n%d\n", line->cursor);
+	//printf("start [%d] end [%d]", start, end);
+	//line->cursor = line->cursor + tmp->size;
+//	printf("size : %d cursor %d\n", tmp->size, line->cursor);
+//	line->sauv_cursor = line->str.size;
 	//line->cursor = start + len;
+	//printf("test : %d cursor : %d  sauv: %d\n\n", start + len, line->cursor, autocomp->cursor_tmp \
+		);
 }
 
 static void		do_autocomp(t_line *line, t_autocomp *autocomp)
@@ -108,11 +120,14 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 			{
 				if (autocomp->index == autocomp->tab_a.size)
 					autocomp->index = 0;
-			line->sauv_cursor = line->cursor;
 				replace_auto(line, autocomp);
+				line->sauv_cursor = line->cursor + autocomp->cursor_tmp;
+		//		printf("sauv : %d\n", line->sauv_cursor); 
 				ft_home(line);
 				print(line);
-			//	print_auto(line, autocomp);
+//				printf("2:%d\n", line->cursor);
+				print_auto(line, autocomp);
+//				printf("1:%d\n", line->cursor);
 				autocomp->index++;
 		//	line->cursor = autocomp->cursor_tmp;
 			}
@@ -205,6 +220,7 @@ static void		autocomp_init(t_line *line, t_autocomp *autocomp)
 	autocomp->first_time = 0;
 	autocomp->index = 0;
 	autocomp->nl = 0;
+	autocomp->cursor_tmp = 0;
 }
 
 void			ft_autocomp(t_line *line)
