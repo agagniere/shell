@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/16 11:58:27 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/16 16:41:41 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ typedef struct s_sh_list		t_sh_list;
 typedef struct s_sh_clause		t_sh_clause;
 typedef struct s_sh_leaf		t_sh_leaf;
 typedef struct s_sh_context		t_sh_context;
+typedef enum e_sh_state			t_sh_state;
 typedef enum e_sh_layer			t_sh_layer;
+typedef union u_sh_node			t_sh_node;
 
 enum						e_sh_layer
 {
+	SHP_NONE,
 	SHP_CURSH,
 	SHP_SUBSH,
 	SHP_IF,
@@ -37,6 +40,12 @@ enum						e_sh_layer
 	SHP_BQUOTE,
 	SHP_DO,
 	SHP_WHILE
+};
+
+enum                    e_sh_state
+{
+	SHS_START,
+	SHS_ARGS
 };
 
 /*
@@ -105,6 +114,8 @@ t_tr						shell_push(t_tnode **a, t_tnode *b);
 # define NEW_OP(LABEL,F) (t_sh_operator){NEW_NODE(LABEL), F}
 
 # define NEW_RD(LBL,FD,FLG) (t_sh_redirection){NEW_OP(LBL, &exec_rdf), FD, FLG}
+
+# define NEW_SHCONTEXT(NAME,ROOT) (t_sh_context){NAME, ROOT}
 
 # define OP_SEMI NEW_OP(SH_SEMI, &exec_semi)
 # define OP_AMPER NEW_OP(SH_AMPER, &exec_amper)

@@ -6,9 +6,11 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 10:40:23 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/16 14:33:40 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/16 16:37:53 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_tree.h"
 
 int			exec_list(t_sh_list *self)
 {
