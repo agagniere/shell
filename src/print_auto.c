@@ -6,7 +6,7 @@
 /*   By: malaine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:02:52 by malaine           #+#    #+#             */
-/*   Updated: 2017/03/09 17:11:49 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/16 15:37:21 by malaine          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "shell.h"
@@ -112,5 +112,19 @@ void		print_auto(t_line *l, t_autocomp *autocomp)
 	}
 	ft_home(l);
 	do_goto("UP", autocomp->nl + 1, autocomp->nl + 1);
-	ft_end(l);
+	while (l->cursor < l->sauv_cursor)
+    {
+        do_term("nd");
+        l->cursor++;
+	}
+//	printf("cursor : %d  sauv: %d\n", l->cursor, autocomp->cursor_tmp);
+//	l->sauv_cursor = autocomp->cursor_tmp;
+//	printf("cursor : %d  sauv: %d\n", l->cursor, autocomp->cursor_tmp);
+/*	while (l->cursor <= l->sauv_cursor + 1)
+	{
+		do_term("nd");
+		l->cursor++;
+		}*/
+	//l->sauv_cursor = l->str.size;
+//	ft_end(l);
 }
