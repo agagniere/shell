@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/16 16:41:41 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/16 19:25:01 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,7 @@ t_tr						shell_push(t_tnode **a, t_tnode *b);
 # define RD_CLOBBER NEW_RD(SH_CLOBBER, 1, O_CREAT | O_WRONLY)
 # define RD_APPEND NEW_RD(SH_APPEND, 1, O_CREAT | O_WRONLY | O_APPEND)
 # define RD_RW NEW_RD(SH_RW, 0, O_CREAT | O_RDWR)
+
+# define NEW_SHLIST(NEW_OP(SH_LIST))
 
 #endif

@@ -6,11 +6,16 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/16 16:36:46 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/17 17:25:50 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_tokenizer.h"
+
+int		tk_accept(t_tokenizer *self, char c)
+{
+
+}
 
 int		tk_next(t_tokenizer *self)
 {
@@ -27,7 +32,8 @@ int		sh_parse(t_is *in, t_sh_context *w)
 	*stack = NEW_ARRAY(t_sh_context);
 	*ast = NEW_TREE(t_sh_node);
 	fta_append(stack, &NEW_SHCONTEXT(SHP_NONE, ast->root), 1);
-	tk_next(tk);
+	while (!tk->eof)
+		tk_next(tk);
 }
 
 int		ft_antoine(t_string *str, t_sh_context *w)
