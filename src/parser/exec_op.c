@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 20:33:28 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/15 09:12:01 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/18 23:19:37 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,46 +16,46 @@
 ** Those functions return 0 upon successful completion.
 */
 
-int		exec_semi(t_sh_operator *self)
+int		exec_semi(t_sh_operator *self, t_sh_context *w)
 {
 	t_sh_operator *const left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const right = (t_sh_operator *)&self->super.right;
 
 	return (
-		(left && left->exec(left))
-		|| (right && right->exec(right)));
+		(left && left->exec(left, w))
+		|| (right && right->exec(right, w)));
 }
 
-int		exec_amper(t_sh_operator *self)
+int		exec_amper(t_sh_operator *self, t_sh_context *w)
 {
 	t_sh_operator *const left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const right = (t_sh_operator *)&self->super.right;
 
 	if (!fork() && left)
 	{
-		left->exec(left);
+		left->exec(left, w);
 		_Exit(0);
 	}
-	return (right && right->exec(left));
+	return (right && right->exec(left, w));
 }
 
-int		exec_andif(t_sh_operator *self)
+int		exec_andif(t_sh_operator *self, t_sh_context *w)
 {
 	t_sh_operator *const left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const right = (t_sh_operator *)&self->super.right;
 
-	return (left->exec(left) ? 1 : right && right->exec(right));
+	return (left->exec(left, w) ? 1 : right && right->exec(right, w));
 }
 
-int		exec_orif(t_sh_operator *self)
+int		exec_orif(t_sh_operator *self, t_sh_context *w)
 {
 	t_sh_operator *const left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const right = (t_sh_operator *)&self->super.right;
 
-	return (left->exec(left) ? right && right->exec(right) : 0);
+	return (left->exec(left, w) ? right && right->exec(right, w) : 0);
 }
 
-int		exec_pipe(t_sh_operator *self)
+int		exec_pipe(t_sh_operator *self, t_sh_context *w)
 {
 	t_sh_operator *const	left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const	right = (t_sh_operator *)&self->super.right;
@@ -70,11 +70,11 @@ int		exec_pipe(t_sh_operator *self)
 	dup2(p[0], 0);
 	if ((ans = 0) || !fork())
 	{
-		left->exec(left);
+		left->exec(left, w);
 		_Exit(0);
 	}
 	else
-		ans = right->exec(right);
+		ans = right->exec(right, w);
 	dup2(bck[0], 0);
 	dup2(bck[1], 1);
 	close(bck[0]);

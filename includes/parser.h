@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/16 19:25:01 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/18 23:51:46 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ enum						e_sh_layer
 	SHP_WHILE
 };
 
-enum                    e_sh_state
+enum						e_sh_state
 {
 	SHS_START,
 	SHS_ARGS
@@ -67,7 +67,7 @@ enum                    e_sh_state
 struct						s_sh_operator
 {
 	t_tnode			super;
-	int				(*exec)(t_sh_operator *);
+	int				(*exec)(t_sh_operator *, t_sh_context *);
 };
 
 struct						s_sh_redirection
@@ -109,7 +109,18 @@ struct						s_sh_context
 	t_tnode			*root;
 };
 
+struct						s_pdata
+{
+	t_is			*in;
+	t_sh_context	*ctxt;
+	t_array			stack[1];
+	t_tokenizer		tk[1];
+	t_tree			ast[1];
+};
+
 t_tr						shell_push(t_tnode **a, t_tnode *b);
+t_string					sh_resolve(t_sh_node *self, t_sh_context *w);
+
 
 # define NEW_OP(LABEL,F) (t_sh_operator){NEW_NODE(LABEL), F}
 
@@ -129,6 +140,6 @@ t_tr						shell_push(t_tnode **a, t_tnode *b);
 # define RD_APPEND NEW_RD(SH_APPEND, 1, O_CREAT | O_WRONLY | O_APPEND)
 # define RD_RW NEW_RD(SH_RW, 0, O_CREAT | O_RDWR)
 
-# define NEW_SHLIST(NEW_OP(SH_LIST))
+# define NEW_SHLIST NEW_OP(SH_LIST, &exec_list)
 
 #endif

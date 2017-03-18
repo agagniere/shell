@@ -6,12 +6,12 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/17 17:25:12 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/18 23:30:51 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_TOKENIZER
-# define SH_TOKENIZER
+#ifndef SH_TOKENIZER_H
+# define SH_TOKENIZER_H
 
 # include "ft_token.h"
 
