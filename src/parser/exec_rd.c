@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 08:28:57 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/18 23:50:04 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/19 02:05:49 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				exec_rdf(t_sh_operator *self, t_sh_context *w)
 	int						fd;
 	t_string				tmp;
 
-	tmp = sh_resolve((t_sh_node *)left);
+	tmp = sh_resolve((t_sh_node *)left, w);
 	fd = open(ft_string(&tmp), this->flags, S_IRWXU | S_IROTH);
 	return (_exec_rd(self, fd, w));
 }
@@ -49,7 +49,7 @@ int				exec_rd(t_sh_operator *self, t_sh_context *w)
 	int						fd;
 	t_string				tmp;
 
-	tmp = sh_resolve((t_sh_node *)left);
+	tmp = sh_resolve((t_sh_node *)left, w);
 	fd = ft_atoi(ft_string(&tmp));
 	return (_exec_rd(self, fd, w));
 }

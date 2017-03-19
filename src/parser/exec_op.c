@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 20:33:28 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/18 23:19:37 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/19 10:12:04 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		exec_semi(t_sh_operator *self, t_sh_context *w)
 	t_sh_operator *const left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const right = (t_sh_operator *)&self->super.right;
 
-	return (
-		(left && left->exec(left, w))
-		|| (right && right->exec(right, w)));
+	if (!right)
+		return (left && left->exec(left, w));
+	return (right->exec(right, w));
 }
 
 int		exec_amper(t_sh_operator *self, t_sh_context *w)

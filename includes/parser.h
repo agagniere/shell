@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/18 23:51:46 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/19 11:45:15 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ enum						e_sh_layer
 enum						e_sh_state
 {
 	SHS_START,
-	SHS_ARGS
+	SHS_ARGS,
+	SHS_CAT
 };
 
 /*
@@ -67,7 +68,7 @@ enum						e_sh_state
 struct						s_sh_operator
 {
 	t_tnode			super;
-	int				(*exec)(t_sh_operator *, t_sh_context *);
+	int				(*const exec)(t_sh_operator *, t_sh_context *);
 };
 
 struct						s_sh_redirection
@@ -121,7 +122,6 @@ struct						s_pdata
 t_tr						shell_push(t_tnode **a, t_tnode *b);
 t_string					sh_resolve(t_sh_node *self, t_sh_context *w);
 
-
 # define NEW_OP(LABEL,F) (t_sh_operator){NEW_NODE(LABEL), F}
 
 # define NEW_RD(LBL,FD,FLG) (t_sh_redirection){NEW_OP(LBL, &exec_rdf), FD, FLG}
@@ -133,13 +133,12 @@ t_string					sh_resolve(t_sh_node *self, t_sh_context *w);
 # define OP_AND_IF NEW_OP(SH_AND, &exec_andif)
 # define OP_OR_IF NEW_OP(SH_OR, &exec_orif)
 # define OP_PIPE NEW_OP(SH_PIPIE, &exec_pipe)
+# define OP_SHLIST NEW_OP(SH_LIST, &exec_list)
 
 # define RD_LEFT NEW_RD(SH_LEFT, 0, O_RDONLY)
 # define RD_RIGHT NEW_RD(SH_RIGHT, 1, O_CREAT | O_WRONLY | O_EXCL)
 # define RD_CLOBBER NEW_RD(SH_CLOBBER, 1, O_CREAT | O_WRONLY)
 # define RD_APPEND NEW_RD(SH_APPEND, 1, O_CREAT | O_WRONLY | O_APPEND)
 # define RD_RW NEW_RD(SH_RW, 0, O_CREAT | O_RDWR)
-
-# define NEW_SHLIST NEW_OP(SH_LIST, &exec_list)
 
 #endif

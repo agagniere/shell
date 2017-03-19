@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/18 23:30:51 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/19 15:06:24 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ enum						e_sh_token
 
 	SH_PIPE, //		|	2
 
-	SH_RIGHT = 16,//>	4
+	SH_RIGHT = 0x10,//>	4
 	SH_CLOBBER, //	>|
 	SH_DRIGHT, //	>>
 	SH_LEFT, //		<
@@ -42,7 +42,7 @@ enum						e_sh_token
 	SH_PIPEAND, //	|&
 	SH_ANDRIGHT, //	&>
 
-	SH_WORD = (1 << 7),
+	SH_WORD = 0x80,
 	SH_TEXT,
 	SH_IONUMBER,
 
@@ -54,7 +54,30 @@ enum						e_sh_token
 	SH_HERESTR = SH_TLEFT,
 	SH_RW = SH_LR,
 
-	SH_LIST = 32,
+	SH_LIST = 0x90,
+	SH_SUBS,
 };
+
+/*
+** |	----------===== public: =====----------
+*/
+
+# define SH_IS_SEPARATOR(T) _1BIT(T)
+# define SH_IS_LOGICAL(T) (_2BIT(T) && !_1BIT(T))
+# define SH_IS_REDIRECTION(T) (_5BIT(T) && !_4BIT(T))
+# define SH_IS_FLEAF(T) (_8BIT(T) && !_XTND(T))
+# define SH_IS_XLEAF(T) (_8BIT(T) && _XTND(T))
+
+/*
+** |	----------===== private: =====----------
+*/
+
+# define _1BIT(T) (!((T) & ~0x01))
+# define _2BIT(T) (!((T) & ~0x03))
+# define _3BIT(T) (!((T) & ~0x07))
+# define _4BIT(T) (!((T) & ~0x0f))
+# define _5BIT(T) (!((T) & ~0x1f))
+# define _8BIT(T) ((T) & 0x80)
+# define _XTND(T) ((T) & 0x10)
 
 #endif
