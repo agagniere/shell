@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/16 15:37:03 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/20 19:04:14 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,18 @@ static size_t		get_end_erase(t_line *line)
 {
 	size_t		i;
 	char		*ptr;
+	int			test;
 
+	test = 0;
 	ptr = line->str.data;
 	i = line->cursor;
 	while (i < line->str.size && ptr[i] != '/' && ptr[i] != ' ')
+	{
 		i++;
-	//if (ptr[i] == ' ' || ptr[i] == '/')
-	//	i--;
+		test = 1;
+	}
+//	if (ptr[i] == ' ' || ptr[i] == '/')
+//		i--;
 	return (i);
 }
 
@@ -57,13 +62,19 @@ static size_t		get_start_erase(t_line *line)
 {
 	size_t		i;
 	char		*ptr;
+	int			test;
 
+	test = 0;
 	ptr = line->str.data;
 	i = line->cursor;
-	while (i > 0 && ptr[i] != '/' && ptr[i] != ' ')
+	while (i > 0 && ptr[i - 1] != '/' && ptr[i - 1] != ' ')
+	{
 		i--;
-	//if (ptr[i] == ' ' || ptr[i] == '/')
-	//	i++;
+		test = 1;
+	}
+//	if (ptr[i] == ' ' || ptr[i] == '/')
+//		i++;
+	//printf("{%s}\n", ptr + i);
 	return (i);
 }
 
@@ -83,30 +94,31 @@ static void		replace_auto(t_line *line, t_autocomp *autocomp)
 	size_t		start;
 	size_t		len;
 
-	if (autocomp->first_time == 1)
-	{
-//		printf("cursor : %d size %d\n", line->cursor, autocomp->cursor_tmp);
-		line->cursor = line->cursor - autocomp->cursor_tmp;
-	}
+	//printf("yolo\n");
 	start = get_start_erase(line);
 	end = get_end_erase(line);
 	if (end >= start)
 		len = end - start;
 	else
 		len = 0;
+	if (autocomp->first_time == 1)
+		line->cursor = line->cursor - len;
+
 	tmp = ARRAY_GETT(t_string, &autocomp->tab_a, autocomp->index);
 	//		printf("\n{%s} [%s]\n", fta_string(&line->str, sp_putchar2), fta_string(tmp,sp_putchar2));
-	fta_replace(&line->str, line->cursor, len, tmp);
+	fta_replace(&line->str, start, len, tmp);
 	//	printf("\n [%d] [%d] {%s} [%s]\n", line->cursor,tmp->size, fta_string(&line->str,sp_putchar2), fta_string(tmp,sp_putchar2));
+	
+	//printf("\n[%d]\n", autocomp->cursor_tmp);
 	autocomp->cursor_tmp = tmp->size;
 	//printf("\n%d\n", line->cursor);
-	//printf("start [%d] end [%d]", start, end);
+
+//	printf("\nstart [%d] end [%d] len [%d]", start, end, len);
 	//line->cursor = line->cursor + tmp->size;
 //	printf("size : %d cursor %d\n", tmp->size, line->cursor);
 //	line->sauv_cursor = line->str.size;
 	//line->cursor = start + len;
-	//printf("test : %d cursor : %d  sauv: %d\n\n", start + len, line->cursor, autocomp->cursor_tmp \
-		);
+//	printf("test : %d cursor : %d  sauv: %d\n\n", start + len, line->cursor, autocomp->cursor_tmp);
 }
 
 static void		do_autocomp(t_line *line, t_autocomp *autocomp)
@@ -122,15 +134,12 @@ static void		do_autocomp(t_line *line, t_autocomp *autocomp)
 					autocomp->index = 0;
 				replace_auto(line, autocomp);
 				line->sauv_cursor = line->cursor + autocomp->cursor_tmp;
-		//		printf("sauv : %d\n", line->sauv_cursor); 
 				ft_home(line);
 				print(line);
-//				printf("2:%d\n", line->cursor);
 				print_auto(line, autocomp);
-//				printf("1:%d\n", line->cursor);
 				autocomp->index++;
-		//	line->cursor = autocomp->cursor_tmp;
 			}
+			//printf("wtf\n");
 		}
 		else
 		{
@@ -150,7 +159,7 @@ static void		init_str(t_autocomp *autocomp, t_line *line)
 	i = line->cursor;
 	ptr = (char *)autocomp->line_tmp.data;
 	ptr2 = (char *)autocomp->line_tmp.data;
-	while (i > 0 && ptr[i] != ' ' && ptr[i - 1] != ' ')
+	while (i > 0 && ptr[i - 1] != ' ')
 		i--;
 	ptr += i;
 	i = line->cursor;
@@ -176,7 +185,6 @@ static void		init_str(t_autocomp *autocomp, t_line *line)
 			STR_JOIN_CS(&autocomp->path, ptr, ft_strlen(ptr));
 		STR_JOIN_CS(&autocomp->str, ptr2, ft_strlen(ptr2));
 	}
-	//	printf("\n{%s}-{%s}\n", ptr, ptr2);
 	//printf("\n {%s} [%s]\n", fta_string(&autocomp->path,sp_putchar2), fta_string(&autocomp->str,sp_putchar2));
 	STR_NULL_TERMINATE(&autocomp->path);
 	STR_NULL_TERMINATE(&autocomp->str);
