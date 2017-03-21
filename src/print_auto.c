@@ -89,6 +89,7 @@ void		print_auto(t_line *l, t_autocomp *autocomp)
 {
 	t_print_a print_a;
 
+	ft_end(l);
 	do_term("cd");
 	printf("\n");
 	init_print_a(l, &print_a, autocomp);
@@ -113,9 +114,9 @@ void		print_auto(t_line *l, t_autocomp *autocomp)
 	ft_home(l);
 	do_goto("UP", autocomp->nl + 1, autocomp->nl + 1);
 	while (l->cursor < l->sauv_cursor)
-    {
-        do_term("nd");
-        l->cursor++;
+	  {
+	    do_term("nd");
+	    l->cursor++;
 	}
 //	printf("cursor : %d  sauv: %d\n", l->cursor, autocomp->cursor_tmp);
 //	l->sauv_cursor = autocomp->cursor_tmp;

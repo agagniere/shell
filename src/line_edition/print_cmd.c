@@ -6,7 +6,7 @@
 /*   By: jguthert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/18 16:59:38 by jguthert          #+#    #+#             */
-/*   Updated: 2017/03/07 17:36:45 by malaine          ###   ########.fr       */
+/*   Updated: 2017/03/16 17:09:48 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ static void	print_str(t_line *l)
 
 void	put_cursor(t_line *l)
 {
-	if (l->sauv_cursor <= (int)l->str.size / 2)
+	if (l->sauv_cursor <= l->str.size / 2)
 	{
 		ft_home(l);
-		while ((int)l->cursor < l->sauv_cursor)
+		while (l->cursor < l->sauv_cursor)
 			ft_right(l);
 	}
 	else
-		while ((int)l->cursor > l->sauv_cursor)
+		while (l->cursor > l->sauv_cursor)
 			ft_left(l);
 }
 

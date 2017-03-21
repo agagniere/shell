@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 17:12:33 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/14 02:48:29 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/16 17:09:10 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct				s_line
 	char					*sauv;
 	char					buffer[7];
 	size_t					cursor;
-	int						sauv_cursor;
+	size_t					sauv_cursor;
 	int						largeur;
 	int						hauteur;
 	int						nbline;
