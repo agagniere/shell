@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 17:29:03 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/20 19:32:41 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/21 16:43:15 by mseinic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static size_t		get_end_erase(t_line *line)
 		i++;
 		test = 1;
 	}
-//	if (ptr[i] == ' ' || ptr[i] == '/')
-//		i--;
+	//	if (ptr[i] == ' ' || ptr[i] == '/')
+	//		i--;
 	return (i);
 }
 
@@ -72,8 +72,8 @@ static size_t		get_start_erase(t_line *line)
 		i--;
 		test = 1;
 	}
-//	if (ptr[i] == ' ' || ptr[i] == '/')
-//		i++;
+	//	if (ptr[i] == ' ' || ptr[i] == '/')
+	//		i++;
 	//printf("{%s}\n", ptr + i);
 	return (i);
 }
@@ -108,17 +108,17 @@ static void		replace_auto(t_line *line, t_autocomp *autocomp)
 	//		printf("\n{%s} [%s]\n", fta_string(&line->str, sp_putchar2), fta_string(tmp,sp_putchar2));
 	fta_replace(&line->str, start, len, tmp);
 	//	printf("\n [%d] [%d] {%s} [%s]\n", line->cursor,tmp->size, fta_string(&line->str,sp_putchar2), fta_string(tmp,sp_putchar2));
-	
+
 	//printf("\n[%d]\n", autocomp->cursor_tmp);
 	autocomp->cursor_tmp = tmp->size;
 	//printf("\n%d\n", line->cursor);
 
-//	printf("\nstart [%d] end [%d] len [%d]", start, end, len);
+	//	printf("\nstart [%d] end [%d] len [%d]", start, end, len);
 	//line->cursor = line->cursor + tmp->size;
-//	printf("size : %d cursor %d\n", tmp->size, line->cursor);
-//	line->sauv_cursor = line->str.size;
+	//	printf("size : %d cursor %d\n", tmp->size, line->cursor);
+	//	line->sauv_cursor = line->str.size;
 	//line->cursor = start + len;
-//	printf("test : %d cursor : %d  sauv: %d\n\n", start + len, line->cursor, autocomp->cursor_tmp);
+	//	printf("test : %d cursor : %d  sauv: %d\n\n", start + len, line->cursor, autocomp->cursor_tmp);
 }
 
 static void		do_autocomp(t_line *line, t_autocomp *autocomp)
@@ -185,7 +185,7 @@ static void		init_str(t_autocomp *autocomp, t_line *line)
 			STR_JOIN_CS(&autocomp->path, ptr, ft_strlen(ptr));
 		STR_JOIN_CS(&autocomp->str, ptr2, ft_strlen(ptr2));
 	}
-//	printf("\n {%s} [%s]\n", fta_string(&autocomp->path,sp_putchar2), fta_string(&autocomp->str,sp_putchar2));
+	//	printf("\n {%s} [%s]\n", fta_string(&autocomp->path,sp_putchar2), fta_string(&autocomp->str,sp_putchar2));
 	STR_NULL_TERMINATE(&autocomp->path);
 	STR_NULL_TERMINATE(&autocomp->str);
 }
@@ -231,12 +231,60 @@ static void		autocomp_init(t_line *line, t_autocomp *autocomp)
 	autocomp->cursor_tmp = 0;
 }
 
+static int		cmd_fnc(t_autocomp *autocomp)
+{
+	char		**tab_path;
+	t_env_cell	*cell;
+	size_t		i;
+	t_string	tmp;
+
+	i = 0;
+	tmp = NEW_STRING;
+	cell = find_cell(&g_env, "PATH");
+	if (cell == NULL)
+		return (1);
+	tab_path = ft_strsplit(cell->value, ':');
+	while (tab_path[i] != NULL)
+	{
+		STR_JOIN_CS(&tmp, tab_path[i], ft_strlen(tab_path[i]));
+		fta_overwrite(&autocomp->path, &tmp);
+		STR_NULL_TERMINATE(&autocomp->path);
+		create_tab_a(autocomp);
+		tmp = NEW_STRING;
+		i++;
+	}
+	return (0);
+}
+
+static int		verif_if_fnc(size_t i, char *str)
+{
+	if (str[i] == '/' || str[i] == '.')
+		return (0);
+	if (i == 0)
+		return (1);
+	else
+	{
+		while (i > 0 && str[i - 1] != ' ')
+			i--;
+		while (i > 0 && str[i - 1] == ' ')
+			i--;
+		if (i == 0)
+			return (1);
+		else if (str[i - 1] == '|' || str[i - 1] == ';')
+			return (1);
+	}
+	return (0);
+}
+
 void			ft_autocomp(t_line *line)
 {
 	t_autocomp	autocomp;
 
 	autocomp_init(line, &autocomp);
 	init_str(&autocomp, line);
-	create_tab_a(&autocomp);
+	if (verif_if_fnc(line->cursor, (char *)line->str.data) == 1)
+		cmd_fnc(&autocomp);
+	else
+		create_tab_a(&autocomp);
 	do_autocomp(line, &autocomp);
 }
