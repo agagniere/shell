@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/03/19 02:07:10 by angagnie         ###   ########.fr        #
+#    Updated: 2017/03/24 21:25:11 by mseinic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ ERROR_MSG_PATH := error_msg/
 ERROR_MSG_SRC := error_msg
 
 AUTOCOMP_PATH := autocomp/
-AUTOCOMP_SRC := autocomp
+AUTOCOMP_SRC := autocomp print_auto init_str_and_replace read_and_erase
 
 BUILTIN_PATH := builtin/
 BUILTIN_SRC :=
@@ -42,9 +42,9 @@ LEXER_PATH:=lexer/
 LEXER_SRC:=
 
 PARSER_PATH:=parser/
-PARSER_SRC:=exec_op exec_rd exec_list tree resolve
+PARSER_SRC:=#exec_op exec_rd exec_list tree resolve
 
-FILES = print_auto main line_init ft_term do_termcaps multi_line_init test_edit_line
+FILES = main line_init ft_term do_termcaps multi_line_init test_edit_line
 
 #----------------MODIF--------------------#
 
