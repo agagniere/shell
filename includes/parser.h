@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/19 11:45:15 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/24 21:59:28 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ typedef struct s_sh_redirection	t_sh_redirection;
 typedef struct s_sh_list		t_sh_list;
 typedef struct s_sh_clause		t_sh_clause;
 typedef struct s_sh_leaf		t_sh_leaf;
-typedef struct s_sh_context		t_sh_context;
 typedef enum e_sh_state			t_sh_state;
 typedef enum e_sh_layer			t_sh_layer;
 typedef union u_sh_node			t_sh_node;
+typedef struct s_sh_context		t_sh_context;
+typedef struct s_sh_builder		t_sh_builder;
 
 enum						e_sh_layer
 {
@@ -104,16 +105,23 @@ union						u_sh_node
 	t_sh_clause			clause;
 };
 
-struct						s_sh_context
+struct						s_sh_builder
 {
 	t_sh_layer		name;
 	t_tnode			*root;
 };
 
+struct						s_sh_context
+{
+	t_array			aliases[1];
+	t_array			variables[1];
+	t_array			functions[1];
+};
+
 struct						s_pdata
 {
 	t_is			*in;
-	t_sh_context	*ctxt;
+	t_sh_builder	builder;
 	t_array			stack[1];
 	t_tokenizer		tk[1];
 	t_tree			ast[1];
@@ -126,7 +134,7 @@ t_string					sh_resolve(t_sh_node *self, t_sh_context *w);
 
 # define NEW_RD(LBL,FD,FLG) (t_sh_redirection){NEW_OP(LBL, &exec_rdf), FD, FLG}
 
-# define NEW_SHCONTEXT(NAME,ROOT) (t_sh_context){NAME, ROOT}
+# define NEW_SHBUILDER(NAME,ROOT) (t_sh_niu){NAME, ROOT}
 
 # define OP_SEMI NEW_OP(SH_SEMI, &exec_semi)
 # define OP_AMPER NEW_OP(SH_AMPER, &exec_amper)
