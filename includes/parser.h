@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/24 22:58:45 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/25 06:32:04 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,18 +131,20 @@ struct						s_pdata
 t_tr						shell_push(t_tnode **a, t_tnode *b);
 t_string					sh_resolve(t_sh_node *self, t_sh_context *w);
 
-# define NEW_OP(LABEL,F) (t_sh_operator){NEW_NODE(LABEL), F}
+# define NEW_OP(LABEL,P,E) (t_sh_operator){NEW_NODE(LABEL), P, E}
 
-# define NEW_RD(LBL,FD,FLG) (t_sh_redirection){NEW_OP(LBL, &exec_rdf), FD, FLG}
+# define NEW_RD(L,F,I) (t_sh_redirection){NEW_OP(L, shpush_rdrc, exec_rdf), F, I}
 
 # define NEW_SHBUILDER(NAME,ROOT) (t_sh_niu){NAME, ROOT}
 
-# define OP_SEMI NEW_OP(SH_SEMI, &exec_semi)
-# define OP_AMPER NEW_OP(SH_AMPER, &exec_amper)
-# define OP_AND_IF NEW_OP(SH_AND, &exec_andif)
-# define OP_OR_IF NEW_OP(SH_OR, &exec_orif)
-# define OP_PIPE NEW_OP(SH_PIPIE, &exec_pipe)
-# define OP_SHLIST NEW_OP(SH_LIST, &exec_list)
+# define NEW_SHLIST (t_sh_list){NEW_OP(SH_LIST, &shpush_list)}
+
+# define OP_SEMI NEW_OP(SH_SEMI, &shpush_node, &exec_semi)
+# define OP_AMPER NEW_OP(SH_AMPER, &shpush_node, &exec_amper)
+# define OP_AND_IF NEW_OP(SH_AND, &shpush_node, &exec_andif)
+# define OP_OR_IF NEW_OP(SH_OR, &shpush_node, &exec_orif)
+# define OP_PIPE NEW_OP(SH_PIPIE, &shpush_node, &exec_pipe)
+# define OP_SHLIST NEW_OP(SH_LIST, &shpush_list, &exec_list)
 
 # define RD_LEFT NEW_RD(SH_LEFT, 0, O_RDONLY)
 # define RD_RIGHT NEW_RD(SH_RIGHT, 1, O_CREAT | O_WRONLY | O_EXCL)
