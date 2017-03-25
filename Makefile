@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/03/24 22:07:00 by angagnie         ###   ########.fr        #
+#    Updated: 2017/03/25 02:58:18 by angagnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ LEXER_PATH:=lexer/
 LEXER_SRC:=
 
 PARSER_PATH:=parser/
-PARSER_SRC:=exec_op exec_rd exec_list tree resolve
+PARSER_SRC:=exec_op exec_rd exec_list tree resolve antoine
 
 FILES = main line_init ft_term do_termcaps multi_line_init test_edit_line
 

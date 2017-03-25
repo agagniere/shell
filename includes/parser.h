@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/24 21:59:28 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/24 22:58:45 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ enum						e_sh_state
 struct						s_sh_operator
 {
 	t_tnode			super;
+	int				(*const push)(t_tnode **, t_tnode *);
 	int				(*const exec)(t_sh_operator *, t_sh_context *);
 };
 
