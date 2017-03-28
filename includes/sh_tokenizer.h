@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/23 02:47:32 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/28 06:40:36 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ enum						e_sh_token
 	SH_RIGHTAND, // >&
 	SH_LEFTAND, //	<&
 
-	SH_CLOBBERB, //	>!
 	SH_PIPEAND, //	|&
 	SH_ANDRIGHT, //	&>
 

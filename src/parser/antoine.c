@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/25 02:56:16 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/28 06:36:19 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		sh__parse(struct s_pdata *d)
 {
-	d->tk;
+	d->tk->refresh(d->tl);
 }
 
 int		sh_parse(t_is *in, t_sh_context *w)

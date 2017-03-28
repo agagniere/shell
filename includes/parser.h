@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/25 06:32:04 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/28 06:41:34 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ struct						s_sh_operator
 	t_tnode			super;
 	int				(*const push)(t_tnode **, t_tnode *);
 	int				(*const exec)(t_sh_operator *, t_sh_context *);
+	t_string		(*const exec)(t_sh_operator *);
 };
 
 struct						s_sh_redirection
@@ -131,11 +132,13 @@ struct						s_pdata
 t_tr						shell_push(t_tnode **a, t_tnode *b);
 t_string					sh_resolve(t_sh_node *self, t_sh_context *w);
 
+# define NEW_LEAF(STR) (t_sh_node){NEW_NODE(SH_WORD), STR}
+
 # define NEW_OP(LABEL,P,E) (t_sh_operator){NEW_NODE(LABEL), P, E}
 
 # define NEW_RD(L,F,I) (t_sh_redirection){NEW_OP(L, shpush_rdrc, exec_rdf), F, I}
 
-# define NEW_SHBUILDER(NAME,ROOT) (t_sh_niu){NAME, ROOT}
+# define NEW_SHBUILDER(NAME,ROOT) (t_sh_builder){NAME, ROOT}
 
 # define NEW_SHLIST (t_sh_list){NEW_OP(SH_LIST, &shpush_list)}
 

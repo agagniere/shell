@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:58:37 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/25 06:08:03 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/28 05:01:10 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_tr		shell_push(t_tnode **a, t_tnode *b)
 
 t_tr		shpush_node(t_tnode **self, t_tnode *new)
 {
-	(*self)->
+	*self
 	return ();
 }
 
