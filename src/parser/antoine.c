@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/28 06:36:19 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/29 02:35:51 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		sh__parse(struct s_pdata *d)
 {
-	d->tk->refresh(d->tl);
+	d->tk->in->refresh(d->tk->in);
 }
 
 int		sh_parse(t_is *in, t_sh_context *w)
@@ -24,7 +24,7 @@ int		sh_parse(t_is *in, t_sh_context *w)
 
 	*data.tk = NEW_TOKENIZER(in);
 	*data.stack = NEW_ARRAY(t_sh_context);
-	*data.ast = NEW_TREE(t_sh_node);
+	*data.ast = NEW_TREE(t_sh_node, &shell_push);
 	builder = NEW_SHBUILDER(SHP_NONE, data.ast->root);
 	fta_append(data.stack, &builder, 1);
 	return (sh__parse(&data));

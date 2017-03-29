@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/28 06:41:34 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/29 01:18:44 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ struct						s_sh_operator
 	t_tnode			super;
 	int				(*const push)(t_tnode **, t_tnode *);
 	int				(*const exec)(t_sh_operator *, t_sh_context *);
-	t_string		(*const exec)(t_sh_operator *);
+//	t_string		(*const resolve)(t_sh_operator *);
 };
 
 struct						s_sh_redirection
@@ -95,7 +95,7 @@ struct						s_sh_clause
 struct						s_sh_leaf
 {
 	t_tnode			super;
-	t_string		str;
+	t_substr		str;
 };
 
 union						u_sh_node
@@ -105,6 +105,7 @@ union						u_sh_node
 	t_sh_redirection	rd;
 	t_sh_list			list;
 	t_sh_clause			clause;
+	t_sh_leaf			leaf;
 };
 
 struct						s_sh_builder
@@ -115,6 +116,7 @@ struct						s_sh_builder
 
 struct						s_sh_context
 {
+	int				*ret;
 	t_array			aliases[1];
 	t_array			variables[1];
 	t_array			functions[1];
@@ -132,7 +134,20 @@ struct						s_pdata
 t_tr						shell_push(t_tnode **a, t_tnode *b);
 t_string					sh_resolve(t_sh_node *self, t_sh_context *w);
 
-# define NEW_LEAF(STR) (t_sh_node){NEW_NODE(SH_WORD), STR}
+int							exec_semi(t_sh_operator *self, t_sh_context *w);
+int							exec_amper(t_sh_operator *self, t_sh_context *w);
+int							exec_andif(t_sh_operator *self, t_sh_context *w);
+int							exec_orif(t_sh_operator *self, t_sh_context *w);
+int							exec_pipe(t_sh_operator *self, t_sh_context *w);
+int							exec_rd(t_sh_operator *self, t_sh_context *w);
+int							exec_rdf(t_sh_operator *self, t_sh_context *w);
+int							exec_list(t_sh_operator *self, t_sh_context *w);
+
+t_tr						shpush_node(t_tnode **self, t_tnode *new);
+t_tr						shpush_rdrc(t_tnode **self, t_tnode *new);
+t_tr						shpush_list(t_tnode **self, t_tnode *new);
+
+# define NEW_LEAF(STR) (t_sh_leaf){NEW_NODE(SH_WORD), STR}
 
 # define NEW_OP(LABEL,P,E) (t_sh_operator){NEW_NODE(LABEL), P, E}
 
@@ -140,7 +155,8 @@ t_string					sh_resolve(t_sh_node *self, t_sh_context *w);
 
 # define NEW_SHBUILDER(NAME,ROOT) (t_sh_builder){NAME, ROOT}
 
-# define NEW_SHLIST (t_sh_list){NEW_OP(SH_LIST, &shpush_list)}
+# define NEW_SHLIST (t_sh_list){_NEW_SHLIST, {NEW_ARRAY(t_sh_node)}}
+# define _NEW_SHLIST NEW_OP(SH_LIST, &shpush_list, &exec_list)
 
 # define OP_SEMI NEW_OP(SH_SEMI, &shpush_node, &exec_semi)
 # define OP_AMPER NEW_OP(SH_AMPER, &shpush_node, &exec_amper)

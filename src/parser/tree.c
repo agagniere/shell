@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:58:37 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/28 05:01:10 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/29 01:26:40 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_tr		shell_push(t_tnode **a, t_tnode *b)
 {
 	if (*a == NULL && (*a = b))
 		return (TR_DONE);
-	return ((*a)->push(a, b));
+	return (((t_sh_operator *)*a)->push(a, b));
 }
 
 /*
@@ -38,21 +38,20 @@ t_tr		shell_push(t_tnode **a, t_tnode *b)
 
 t_tr		shpush_node(t_tnode **self, t_tnode *new)
 {
-	*self
-	return ();
+	return (TR_DONE);
 }
 
 t_tr		shpush_rdrc(t_tnode **self, t_tnode *new)
 {
 	if ((*self)->left == NULL)
 		;
-	return ();
+	return (TR_DONE);
 }
 
 t_tr		shpush_list(t_tnode **self, t_tnode *new)
 {
 	t_sh_list		*const this = (t_sh_list *)(*self);
 
-	fta_append(this->nodes, new);
+	fta_append(this->nodes, new, 1);
 	return (TR_NONE);
 }

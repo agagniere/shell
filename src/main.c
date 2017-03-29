@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 04:24:35 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/27 22:18:47 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/29 01:22:15 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 int		main(int ac, char **av)
 {
-	t_tree		ast;
+	t_tree		ast[1];
 	t_tnode		*new;
 	t_sh_leaf	leaf;
+	t_sh_list	list;
+	t_sh_node	node;
 
-	ast = NEW_TREE(t_sh_node);
-	leaf = NEW_LEAF("echo");
-	new = &leaf;
-	ftt_push(ast, new);
+	*ast = NEW_TREE(t_sh_node, &shell_push);
+	leaf = NEW_LEAF(NEW_SUB("echo"));
+	list = NEW_SHLIST;
+	node.leaf = leaf;
+	fta_append(list.nodes, &node, 1);
+	node.list = list;
+	new = (t_tnode *)&list; ftt_push(ast, new);
 	return (0);
 }
