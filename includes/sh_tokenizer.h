@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/28 06:40:36 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/29 05:35:29 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ enum						e_sh_token
 	SH_RW = SH_LR,
 
 	SH_LIST = 0x90,
-	SH_SUBS,
 	SH_CAT,
+	SH_SUBSHELL,
 };
 
 /*

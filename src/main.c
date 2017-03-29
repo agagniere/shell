@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 04:24:35 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/29 01:22:15 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/29 05:32:13 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int		main(int ac, char **av)
 	fta_append(list.nodes, &node, 1);
 	node.list = list;
 	new = (t_tnode *)&list; ftt_push(ast, new);
+	ftt_debug(ast);
 	return (0);
 }
