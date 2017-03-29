@@ -6,11 +6,18 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:58:37 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/29 01:26:40 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/29 08:03:50 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+static t_tr	_push(t_tnode **a, t_tnode *b)
+{
+	b->left = *a;
+	*a = b;
+	return (TR_DONE);
+}
 
 /*
 ** shell push
@@ -27,8 +34,13 @@
 
 t_tr		shell_push(t_tnode **a, t_tnode *b)
 {
+	dprintf(2, "push_shell(%p, %p)\n", *a, b);
+	if (b == NULL)
+		return (TR_NONE);
 	if (*a == NULL && (*a = b))
 		return (TR_DONE);
+	if (NODE_ISLEAF(*a))
+		return (_push(a, b));
 	return (((t_sh_operator *)*a)->push(a, b));
 }
 
@@ -38,11 +50,15 @@ t_tr		shell_push(t_tnode **a, t_tnode *b)
 
 t_tr		shpush_node(t_tnode **self, t_tnode *new)
 {
-	return (TR_DONE);
+	dprintf(2, " - node(%p)\n", *self);
+	if (NODE_PRECEDENCE(new) < NODE_PRECEDENCE(*self))
+		return (_push(self, new));
+	return (TR_RIGHT);
 }
 
 t_tr		shpush_rdrc(t_tnode **self, t_tnode *new)
 {
+	dprintf(2, " - rdrc(%p)\n", *self);
 	if ((*self)->left == NULL)
 		;
 	return (TR_DONE);
@@ -52,6 +68,11 @@ t_tr		shpush_list(t_tnode **self, t_tnode *new)
 {
 	t_sh_list		*const this = (t_sh_list *)(*self);
 
-	fta_append(this->nodes, new, 1);
-	return (TR_NONE);
+	dprintf(2, " - list(%p)\n", *self);
+	if (NODE_ISLEAF(new))
+	{
+		fta_append(this->nodes, new, 1);
+		return (TR_NONE);
+	}
+	return (_push(self, new));
 }

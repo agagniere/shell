@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/29 05:35:29 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/29 07:19:11 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,33 @@ typedef enum e_sh_token		t_sh_token;
 
 enum						e_sh_token
 {
-	SH_SEMI, //		;
-	SH_AMPER, //	&	0
+	SH_NONE, //				0000 0000
 
-	SH_AND, //		&&	1
-	SH_OR, //		||
+	SH_SEMI = 2, //	;		0000 0010
+	SH_AMPER, //	&	1	0000 0011
 
-	SH_PIPE, //		|	2
+	SH_AND, //		&&	2	0000 0100
+	SH_OR, //		||		0000 0101
 
-	SH_RIGHT = 0x10,//>	4
-	SH_CLOBBER, //	>|
-	SH_DRIGHT, //	>>
-	SH_LEFT, //		<
-	SH_DLEFT, //	<<
-	SH_DLEFTD, //	<<-
-	SH_TLEFT, //	<<<
-	SH_LR, //		<>
-	SH_RIGHTAND, // >&
-	SH_LEFTAND, //	<&
+	SH_PIPE = 0x08,//|	3	0000 1000
 
-	SH_PIPEAND, //	|&
-	SH_ANDRIGHT, //	&>
+	SH_RIGHT = 0x10,//>	4	0001 0000
+	SH_CLOBBER, //	>|		0001 0001
+	SH_DRIGHT, //	>>		0001 0010
+	SH_LEFT, //		<		0001 0011
+	SH_DLEFT, //	<<		0001 0100
+	SH_DLEFTD, //	<<-		0001 0101
+	SH_TLEFT, //	<<<		0001 0110
+	SH_LR, //		<>		0001 0111
+	SH_RIGHTAND, // >&		0001 1000
+	SH_LEFTAND, //	<&		0001 1001
 
-	SH_WORD = 0x80,
-	SH_TEXT,
-	SH_IONUMBER,
+	SH_PIPEAND, //	|&		0001 1010
+	SH_ANDRIGHT, //	&>		0001 1011
+
+	SH_WORD = 0x80, //		1000 0000
+	SH_TEXT, //				1000 0001
+	SH_IONUMBER, //			1000 0010
 
 	SH_SEMICOLON = SH_SEMI,
 	SH_AMPERSAND = SH_AMPER,
@@ -53,20 +55,21 @@ enum						e_sh_token
 	SH_HERESTR = SH_TLEFT,
 	SH_RW = SH_LR,
 
-	SH_LIST = 0x90,
-	SH_CAT,
-	SH_SUBSHELL,
+	SH_LIST = 0xa0, //		1010 0000
+	SH_CAT, //				1010 0001
+	SH_SUBSHELL, //			1010 0010
 };
 
 /*
 ** |	----------===== public: =====----------
 */
 
-# define SH_IS_SEPARATOR(T) _1BIT(T)
-# define SH_IS_LOGICAL(T) (_2BIT(T) && !_1BIT(T))
+# define SH_IS_SEPARATOR(T) _2BIT(T)
+# define SH_IS_LOGICAL(T) (_3BIT(T) && !_2BIT(T))
 # define SH_IS_REDIRECTION(T) (_5BIT(T) && !_4BIT(T))
 # define SH_IS_FLEAF(T) (_8BIT(T) && !_XTND(T))
 # define SH_IS_XLEAF(T) (_8BIT(T) && _XTND(T))
+# define SH_PRECEDENCE(T) (_SHPR(T) >> 2)
 
 /*
 ** |	----------===== private: =====----------
@@ -78,6 +81,7 @@ enum						e_sh_token
 # define _4BIT(T) (!((T) & ~0x0f))
 # define _5BIT(T) (!((T) & ~0x1f))
 # define _8BIT(T) ((T) & 0x80)
-# define _XTND(T) ((T) & 0x10)
+# define _XTND(T) ((T) & 0x20)
+# define _SHPR(T) ((T) & 0x10 ? 0x10 : T)
 
 #endif

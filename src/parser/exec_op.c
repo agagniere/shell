@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 20:33:28 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/24 22:22:33 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/29 07:46:22 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		exec_semi(t_sh_operator *self, t_sh_context *w)
 	t_sh_operator *const left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const right = (t_sh_operator *)&self->super.right;
 
+
+	dprintf(2, "exec_semi(%p) --- %p, %p\n", self, left, right);
 	return ((left && left->exec(left, w) && !right)
 			|| (right && right->exec(right, w)));
 }
@@ -30,6 +32,7 @@ int		exec_amper(t_sh_operator *self, t_sh_context *w)
 	t_sh_operator *const left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const right = (t_sh_operator *)&self->super.right;
 
+	dprintf(2, "exec_amper(%p)\n", self);
 	if (!fork() && left)
 	{
 		left->exec(left, w);
@@ -43,6 +46,7 @@ int		exec_andif(t_sh_operator *self, t_sh_context *w)
 	t_sh_operator *const left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const right = (t_sh_operator *)&self->super.right;
 
+	dprintf(2, "exec_andif(%p)\n", self);
 	return (left->exec(left, w) ? 1 : right && right->exec(right, w));
 }
 
@@ -51,6 +55,7 @@ int		exec_orif(t_sh_operator *self, t_sh_context *w)
 	t_sh_operator *const left = (t_sh_operator *)&self->super.left;
 	t_sh_operator *const right = (t_sh_operator *)&self->super.right;
 
+	dprintf(2, "exec_orif(%p)\n", self);
 	return (left->exec(left, w) ? right && right->exec(right, w) : 0);
 }
 
@@ -62,6 +67,7 @@ int		exec_pipe(t_sh_operator *self, t_sh_context *w)
 	int						p[2];
 	int						ans;
 
+	dprintf(2, "exec_pipe(%p)\n", self);
 	bck[0] = dup(0);
 	bck[1] = dup(1);
 	pipe(p);
