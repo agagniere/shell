@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/29 07:22:44 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/03/30 16:41:54 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ t_tr						shpush_list(t_tnode **self, t_tnode *new);
 
 # define NEW_SHBUILDER(NAME,ROOT) (t_sh_builder){NAME, ROOT}
 
-# define NEW_SHLIST (t_sh_list){_NEW_SHLIST, {NEW_ARRAY(t_sh_node)}}
+# define NEW_SHLIST (t_sh_list){_NEW_SHLIST, {NEW_ARRAY(t_sh_node *)}}
 # define _NEW_SHLIST NEW_OP(SH_LIST, &shpush_list, &exec_list)
 
 # define OP_SEMI NEW_OP(SH_SEMI, &shpush_node, &exec_semi)

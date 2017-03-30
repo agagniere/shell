@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/03/29 05:31:41 by angagnie         ###   ########.fr        #
+#    Updated: 2017/03/30 16:17:33 by angagnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,29 +14,29 @@
 NAME := 42sh
 
 LINE_EDITION_PATH := line_edition/
-LINE_EDITION_SRC := #actions print_cmd home_end go_up_and_down ctrl_right_left check_word check_space cut_cpy_paste ctrl_up_down right_left delete_backspace ctrl_l ctrl_d up_down
+LINE_EDITION_SRC := actions print_cmd home_end go_up_and_down ctrl_right_left check_word check_space cut_cpy_paste ctrl_up_down right_left delete_backspace ctrl_l ctrl_d up_down
 
 ERROR_MSG_PATH := error_msg/
 ERROR_MSG_SRC := error_msg
 
 AUTOCOMP_PATH := autocomp/
-AUTOCOMP_SRC := #autocomp print_auto init_str_and_replace read_and_erase
+AUTOCOMP_SRC := autocomp print_auto init_str_and_replace read_and_erase
 
 BUILTIN_PATH := builtin/
 BUILTIN_SRC :=
 
 
 HISTORY_PATH := builtin/builtin_history/
-HISTORY_SRC := #bi_history
+HISTORY_SRC := bi_history
 
 CD_PATH := builtin/builtin_cd/
-CD_SRC := #bi_cd
+CD_SRC := bi_cd
 
 ECHO_PATH := builtin/builtin_env/
 ECHO_SRC :=
 
 ENV_PATH := builtin/builtin_env/
-ENV_SRC := #env_init env_print env_char env_set env_unset
+ENV_SRC := env_init env_print env_char env_set env_unset
 
 LEXER_PATH:=lexer/
 LEXER_SRC:=
@@ -44,7 +44,7 @@ LEXER_SRC:=
 PARSER_PATH:=parser/
 PARSER_SRC:=exec_op exec_rd exec_list tree resolve antoine
 
-FILES = main #line_init ft_term do_termcaps multi_line_init test_edit_line
+FILES = main line_init ft_term do_termcaps multi_line_init test_edit_line
 
 #----------------MODIF--------------------#
 

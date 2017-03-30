@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 17:12:33 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/16 17:09:10 by mseinic          ###   ########.fr       */
+/*   Updated: 2017/03/30 16:19:59 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <fcntl.h>
+# include "multi_line.h"
 
 # define READ_BUFFER(X) (X->buffer)
 # define READ_BUFFER_SIZE 6
