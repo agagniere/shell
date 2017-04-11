@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/30 16:34:40 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/11 18:29:49 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ enum						e_sh_token
 {
 	SH_NONE, //				0000 0000
 
-	SH_SEMI = 2, //	;		0000 0010
-	SH_AMPER, //	&	1	0000 0011
+	SH_SEMI = 2, //	;	1	0000 0010
+	SH_AMPER, //	&		0000 0011
 
 	SH_AND, //		&&	2	0000 0100
 	SH_OR, //		||		0000 0101
@@ -69,7 +69,7 @@ enum						e_sh_token
 # define SH_IS_REDIRECTION(T) (_5BIT(T) && !_4BIT(T))
 # define SH_IS_FLEAF(T) (_8BIT(T) && !_XTND(T))
 # define SH_IS_XLEAF(T) (_8BIT(T) && _XTND(T))
-# define SH_PRECEDENCE(T) (_SHPR(T) >> 2)
+# define SH_PRECEDENCE(T) (_SHPR(T) >> 1)
 
 /*
 ** |	----------===== private: =====----------
