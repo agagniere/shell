@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/03/30 16:17:33 by angagnie         ###   ########.fr        #
+#    Updated: 2017/04/12 15:00:35 by angagnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ ENV_PATH := builtin/builtin_env/
 ENV_SRC := env_init env_print env_char env_set env_unset
 
 LEXER_PATH:=lexer/
-LEXER_SRC:=
+LEXER_SRC:=tokenizer
 
 PARSER_PATH:=parser/
 PARSER_SRC:=exec_op exec_rd exec_list tree resolve antoine
@@ -76,6 +76,7 @@ FILES+=$(addprefix $(CD_PATH),$(CD_SRC))
 FILES+=$(addprefix $(HISTORY_PATH),$(HISTORY_SRC))
 FILES+=$(addprefix $(ECHO_PATH),$(ECHO_SRC))
 FILES+=$(addprefix $(PARSER_PATH),$(PARSER_SRC))
+FILES+=$(addprefix $(LEXER_PATH),$(LEXER_SRC))
 
 SRC = $(addprefix $(SRC_PATH),$(addsuffix .c,$(FILES)))
 OBJ = $(addprefix $(CACHE_PATH),$(addsuffix .o,$(FILES)))
@@ -120,6 +121,7 @@ $(CACHE):
 	@mkdir -p $(CACHE_PATH)$(HISTORY_PATH)
 	@mkdir -p $(CACHE_PATH)$(ECHO_PATH)
 	@mkdir -p $(CACHE_PATH)$(PARSER_PATH)
+	@mkdir -p $(CACHE_PATH)$(LEXER_PATH)
 
 clean:
 		@/bin/rm -rf $(CACHE_PATH)
