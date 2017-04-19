@@ -6,12 +6,12 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 04:24:35 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/12 16:17:38 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/19 21:30:40 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-# include "shell.h"
+#include "shell.h"
 
 t_env           g_env;
 t_line          g_line;
@@ -28,7 +28,7 @@ int		main(int ac, char **av)
 	STR_JOIN_CS(cmd, cmd1, ft_strlen(cmd1));
 	t_sis in = NEW_SIS(cmd);
 
-	tk = NEW_TOKENIZER((t_is *)&in);
+	tk = NEW_TOKENIZER((t_is *)&in, NULL);
 	while (!tk.eof)
 	{
 		sh_tokenize(&tk);

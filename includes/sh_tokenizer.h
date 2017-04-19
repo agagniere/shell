@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/11 18:29:49 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/19 14:07:55 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ enum						e_sh_token
 	SH_WORD = 0x80, //		1000 0000
 	SH_TEXT, //				1000 0001
 	SH_IONUMBER, //			1000 0010
+	SH_BSLASH, //	\		1000 0011
+
+	SH_LIST = 0xa0, //		1010 0000
+	SH_CAT, //				1010 0001
+	SH_SUBSHELL, //			1010 0010
 
 	SH_SEMICOLON = SH_SEMI,
 	SH_AMPERSAND = SH_AMPER,
@@ -54,10 +59,6 @@ enum						e_sh_token
 	SH_HEREDOCT = SH_DLEFTD,
 	SH_HERESTR = SH_TLEFT,
 	SH_RW = SH_LR,
-
-	SH_LIST = 0xa0, //		1010 0000
-	SH_CAT, //				1010 0001
-	SH_SUBSHELL, //			1010 0010
 };
 
 /*
