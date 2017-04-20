@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/29 02:35:51 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/20 15:43:28 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		sh_parse(t_is *in, t_sh_context *w)
 	struct s_pdata	data;
 	t_sh_builder	builder;
 
-	*data.tk = NEW_TOKENIZER(in);
+	*data.tk = NEW_TOKENIZER(in, NULL);
 	*data.stack = NEW_ARRAY(t_sh_context);
 	*data.ast = NEW_TREE(t_sh_node, &shell_push);
 	builder = NEW_SHBUILDER(SHP_NONE, data.ast->root);
