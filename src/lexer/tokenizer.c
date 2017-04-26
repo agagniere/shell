@@ -6,12 +6,11 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:25:42 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/20 20:03:31 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/26 19:31:32 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_tokenizer.h"
-#include "ft_stream.h"
 
 static int
 	bslash(t_tokenizer *self)
@@ -38,13 +37,8 @@ static int
 			return (self->eof = 2);
 		bool = IS_CURRENTC(self->in) != '\'';
 	}
-	self->current.
+	self->current.data.len = IS_CURRENT(self->in) - self->current.data.str;
 	return (0);
-}
-
-static int
-	map(t_tokenizer *self)
-{
 }
 
 static int
@@ -57,8 +51,8 @@ static int
 	{
 		self->in->buff_i++;
 		if (IS_REFRESH(self->in))
-			return (self->eof = 2);
-		bool = is_in(IS_CURRENTC(self->in), '\'');
+			return (self->eof = 1);
+		bool = ft_strchr("\";><|&!$`\\", IS_CURRENTC(self->in));
 	}
 	return (0);
 }
@@ -66,18 +60,25 @@ static int
 int
 	sh_tokenize(t_tokenizer *self)
 {
+	int		i;
+	void	*const t = {map0, map1, map2, map3, map4, map5, map6, map7, map8};
+
 	if (self->eof)
 		return (1);
-	if (IS_REFESH(self->in))
-		return (1);
+	if (IS_REFRESH(self->in))
+		return ((self->eof = 1));
 	self->current.tag = SH_WORD;
-	self->current.data.str = IS_CURRENT(self->in);
+	self->current.data.str = (char *)IS_CURRENT(self->in);
 	if (IS_CURRENTC(self->in) == '\'')
 		return (quote(self));
-	else if (IS_CURRENT(self->in) == '\\')
+	else if (IS_CURRENTC(self->in) == '\\')
 		return (bslash(self));
-	else if (self->map && 0  is_in(IS_CURRENTC(self->in), "\";><|&!$"))
-		return (map(self));
+	else if (0 <= (i = is_in(IS_CURRENTC(self->in), "\";><|&!$`")))
+	{
+		self->current.data.len = 0;
+		self->in->buff_i++;
+		return (((int (*)())(t + i))(self));
+	}
 	else
 		return (word(self));
 	return (1);

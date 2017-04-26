@@ -6,11 +6,13 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 10:40:23 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/29 05:49:05 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/26 16:27:01 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+# include <stdio.h> // <--
 
 int			exec_list(t_sh_operator *self, t_sh_context *w)
 {

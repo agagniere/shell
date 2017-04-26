@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/19 14:07:55 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/26 19:26:29 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,13 @@ enum						e_sh_token
 /*
 ** |	----------===== public: =====----------
 */
+
+int							sh_tokenize(t_tokenizer *self);
+int							map0(t_tokenizer *self);
+int							map1(t_tokenizer *self);
+int							map2(t_tokenizer *self);
+int							map3(t_tokenizer *self);
+int							map4(t_tokenizer *self);
 
 # define SH_IS_SEPARATOR(T) _2BIT(T)
 # define SH_IS_LOGICAL(T) (_3BIT(T) && !_2BIT(T))

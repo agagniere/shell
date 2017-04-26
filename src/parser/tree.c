@@ -6,11 +6,13 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:58:37 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/29 08:03:50 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/26 16:34:21 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+# include <stdio.h> // <--
 
 static t_tr	_push(t_tnode **a, t_tnode *b)
 {
@@ -60,8 +62,12 @@ t_tr		shpush_rdrc(t_tnode **self, t_tnode *new)
 {
 	dprintf(2, " - rdrc(%p)\n", *self);
 	if ((*self)->left == NULL)
-		;
-	return (TR_DONE);
+	{
+		(*self)->left = new;
+		return (TR_DONE);
+	}
+	else
+		return (TR_RIGHT);
 }
 
 t_tr		shpush_list(t_tnode **self, t_tnode *new)
