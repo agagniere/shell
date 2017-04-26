@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:41:50 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/26 19:19:02 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/26 23:55:21 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,11 @@ int		map3(t_tokenizer *self)
 */
 int		map4(t_tokenizer *self)
 {
+	self->current.tag = SH_PIPE;
+	if (IS_REFRESH(self->in))
+		return (self->eof = 1);
+	if ((IS_CURRENTC(self->in) == '|' && (self->current.tag = SH_OR))
+		|| (IS_CURRENTC(self->in) == '&' && (self->current.tag = SH_PIPEAND)))
+		self->in->buff_i++;
 	return (0);
 }
