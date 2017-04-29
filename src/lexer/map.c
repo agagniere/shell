@@ -6,37 +6,17 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:41:50 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/26 23:55:21 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/04/29 22:11:06 by sid              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_tokenizer.h"
 
 /*
-** "
-** Double Quote
-*/
-int		map0(t_tokenizer *self)
-{
-	self->current.tag = SH_DQUOTE;
-	return (0);
-}
-
-/*
-** ;
-** Semi Colon
-*/
-int		map1(t_tokenizer *self)
-{
-	self->current.tag = SH_SEMI;
-	return (0);
-}
-
-/*
 ** >
 ** Right
 */
-int		map2(t_tokenizer *self)
+int		map0(t_tokenizer *self)
 {
 	const uint8_t	t[SH_RIGHT, SH_CLOBBER, SH_RIGHTAND];
 	int				i;
@@ -56,7 +36,7 @@ int		map2(t_tokenizer *self)
 ** <
 ** Left
 */
-int		map3(t_tokenizer *self)
+int		map1(t_tokenizer *self)
 {
 	const uint8_t	t[SH_DLEFT, SH_RW, SH_LEFTAND];
 	int				i;
@@ -82,7 +62,7 @@ int		map3(t_tokenizer *self)
 ** |
 ** Pipe
 */
-int		map4(t_tokenizer *self)
+int		map2(t_tokenizer *self)
 {
 	self->current.tag = SH_PIPE;
 	if (IS_REFRESH(self->in))

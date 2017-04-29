@@ -49,7 +49,7 @@ FILES = main line_init ft_term do_termcaps multi_line_init test_edit_line
 #----------------MODIF--------------------#
 
 #----------------STD--------------------#
-COMPILER := gcc
+COMPILER := clang
 
 SRC_PATH := src/
 
@@ -61,7 +61,7 @@ INCF = -I $(HDR_PATH) -I libft/include/
 
 CFLAGS = -g -Wextra -Wall $(INCF)
 
-LIBFT = -L libft/ -lft -lncurses
+LIBFT = -L libft/ -lft
 
 LIB_PATH = libft/libft.a
 #----------------STD--------------------#
