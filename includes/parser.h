@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/03/30 16:41:54 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/02 15:41:44 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ struct						s_sh_context
 	int				*ret;
 	t_array			aliases[1];
 	t_array			variables[1];
-	t_array			functions[1];
 };
 
 struct						s_pdata

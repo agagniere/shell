@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/26 19:26:29 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/02 15:46:22 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ enum						e_sh_token
 	SH_LIST = 0xa0, //		1010 0000
 	SH_CAT, //				1010 0001
 	SH_SUBSHELL, //			1010 0010
+	SH_OPAR, //		(		1010 0011
+	SH_CPAR, //		)		1010 0100
+	SH_OBRACE, //	{		1010 0101
+	SH_CBRACE, //	}		1010 0110
+	SH_DOLLAR, //	$		1010 0111
+	SH_DQUOTE, //	"		1010 0111
+	SH_BQUOTE, //	`		1010 1000
 
 	SH_SEMICOLON = SH_SEMI,
 	SH_AMPERSAND = SH_AMPER,
