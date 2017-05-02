@@ -6,11 +6,13 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:25:42 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/02 15:49:47 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/02 21:04:59 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_tokenizer.h"
+
+#include <stdio.h> // <--
 
 int
 	bslash(t_tokenizer *self)
@@ -63,7 +65,8 @@ static int
 static int
 	one_char(t_tokenizer *self, int i)
 {
-	const uint8_t	tag[] = {SH_DQUOTE, SH_SEMI, SH_BQUOTE, SH_DOLLAR};
+	const uint8_t	tag[] = {SH_DQUOTE, SH_SEMI, SH_BQUOTE, SH_DOLLAR,
+							 SH_OPAR, SH_CPAR, SH_OBRACE, SH_CBRACE};
 
 	self->in->buff_i++;
 	self->current.tag = tag[i];
@@ -76,12 +79,19 @@ int
 	int				i;
 	void *const		f[] = {&quote, &bslash, &map0, &map1, &map2, &map3};
 
+	printf("sh_tokenize\n");
 	self->current.data.len = 0;
 	if (self->eof)
+	{
+		printf("The tokenizer has already finished\n");
 		return (1);
+	}
 	else if (IS_REFRESH(self->in))
+	{
+		printf("Reached the end of the input\n");
 		return (self->eof = 1);
-	else if (0 <= (i = is_in(IS_CURRENTC(self->in), "\";`$")))
+	}
+	else if (0 <= (i = is_in(IS_CURRENTC(self->in), "\";`$(){}")))
 		one_char(self, i);
 	else if (0 <= (i = is_in(IS_CURRENTC(self->in), "'\\><|&")))
 	{
