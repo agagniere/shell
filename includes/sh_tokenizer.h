@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/02 15:46:22 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/05 20:45:31 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ enum						e_sh_token
 	SH_DOLLAR, //	$		1010 0111
 	SH_DQUOTE, //	"		1010 0111
 	SH_BQUOTE, //	`		1010 1000
+	SH_GAP, //				1010 1001
 
 	SH_SEMICOLON = SH_SEMI,
 	SH_AMPERSAND = SH_AMPER,
@@ -73,11 +74,6 @@ enum						e_sh_token
 */
 
 int							sh_tokenize(t_tokenizer *self);
-int							map0(t_tokenizer *self);
-int							map1(t_tokenizer *self);
-int							map2(t_tokenizer *self);
-int							map3(t_tokenizer *self);
-int							map4(t_tokenizer *self);
 
 # define SH_IS_SEPARATOR(T) _2BIT(T)
 # define SH_IS_LOGICAL(T) (_3BIT(T) && !_2BIT(T))
@@ -89,6 +85,12 @@ int							map4(t_tokenizer *self);
 /*
 ** |	----------===== private: =====----------
 */
+
+int							map0(t_tokenizer *self);
+int							map1(t_tokenizer *self);
+int							map2(t_tokenizer *self);
+int							map3(t_tokenizer *self);
+int							map4(t_tokenizer *self);
 
 # define _1BIT(T) (!((T) & ~0x01))
 # define _2BIT(T) (!((T) & ~0x03))
