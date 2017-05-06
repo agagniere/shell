@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:25:42 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/05 23:12:22 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/06 07:57:23 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ int
 	sh_tokenize(t_tokenizer *self)
 {
 	int				i;
-	void *const		f[] = {&bslash, &map0, &map1, &map2, &map3};
+	int (*const		f[])()	= {&bslash, &map0, &map1, &map2, &map3};
 
-	printf("sh_tokenize\n");
 	self->current.data.len = 0;
 	if (self->eof)
 		return (1);
@@ -71,40 +70,11 @@ int
 	else if (0 <= (i = is_in(IS_CURRENTC(self->in), "\\><|&")))
 	{
 		self->in->buff_i++;
-		return (((int (*)())(f + i))(self));
+		return ((f[i])(self));
 	}
 	else if (IS_BLANK(IS_CURRENTC(self->in)))
 		return (gap(self));
 	else
 		return (bufferize(self));
-	return (0);
-}
-
-/************************************************/
-
-static int
-	word(t_tokenizer *self)
-{
-	uint8_t	bool;
-
-	printf("word\n");
-	self->current.tag = SH_WORD;
-	self->current.data.str = (char *)IS_CURRENT(self->in);
-	bool = 0;
-	int tmp = 1;
-	while (!bool)
-	{
-		self->in->buff_i++;
-		if (self->in->buff_i >= self->in->buff_len)
-			break ;
-		if (ft_strchr("\"'\\`$", IS_CURRENTC(self->in)))
-			bool = (self->current.tag = SH_TEXT);
-		bool = bool
-			|| ft_strchr("&()|{};<>", IS_CURRENTC(self->in))
-			|| IS_CURRENTC(self->in) == '\0';
-		printf("Loop %i : '%c' %i %i, \n", tmp++,
-			   IS_CURRENTC(self->in), IS_BLANK(IS_CURRENTC(self->in))), bool;
-	}
-	self->current.data.len = IS_CURRENT(self->in) - self->current.data.str;
 	return (0);
 }

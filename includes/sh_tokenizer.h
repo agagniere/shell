@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/05 20:45:31 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/06 07:41:13 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ enum						e_sh_token
 	SH_OBRACE, //	{		1010 0101
 	SH_CBRACE, //	}		1010 0110
 	SH_DOLLAR, //	$		1010 0111
-	SH_DQUOTE, //	"		1010 0111
-	SH_BQUOTE, //	`		1010 1000
-	SH_GAP, //				1010 1001
+	SH_DQUOTE, //	"		1010 1000
+	SH_BQUOTE, //	`		1010 1001
+	SH_GAP, //				1010 1010
 
 	SH_SEMICOLON = SH_SEMI,
 	SH_AMPERSAND = SH_AMPER,
