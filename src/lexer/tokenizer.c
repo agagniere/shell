@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:25:42 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/06 07:57:23 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/06 14:37:00 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int
 	}
 	else if (IS_BLANK(IS_CURRENTC(self->in)))
 		return (gap(self));
+	else if (IS_CURRENTC(self->in) == '\n')
+		return (42);
 	else
 		return (bufferize(self));
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 04:24:35 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/06 07:54:51 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/06 09:13:22 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ t_history       g_history;
 int		main(int ac, char **av)
 {
 	char*	cmd1 = "echo Hello	  World' !' |cat;man&&ls|head&emacs||exit;";
-	char*	cmd2 = "{ echo lol | cat -e &> } 2| c`echo 'a'`t -e";
+	char*	cmd2 = "{echo lol|cat -e&>}2|c`echo 'a'`t -e";
 	t_tokenizer tk;
 	t_string	str[1];
 	*str = NEW_STRING;
-	STR_JOIN_CS(str, cmd1, ft_strlen(cmd1));
+	STR_JOIN_CS(str, cmd2, ft_strlen(cmd2));
 	t_sis in = NEW_SIS(str);
 	int		ret;
 
