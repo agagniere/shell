@@ -6,19 +6,36 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/26 17:36:52 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/10 19:19:52 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		sh__parse(struct s_pdata *d)
+static int		sh__parse(struct s_pdata *d)
 {
-	d->tk->in->refresh(d->tk->in);
+	int		ret;
+
+	ret = 0;
+	while (!ret)
+	{
+		ret = sh_tokenize(d->tk);
+		if (ret == 2)
+			/* Quote interrupted */;
+			/* Put 'quote' in the stack*/
+		else if (ret == 3)
+			/* BSlash */;
+			/* Prompt for next line and remove the two characters '\\' and '\n' */
+		else if (ret == 0)
+			/* Fine !! */;
+			/* act accordingly bucko */
+		else
+			printf("WTF !\n");
+	}
 	return (0);
 }
 
-int		sh_parse(t_is *in, t_sh_context *w)
+int				sh_parse(t_is *in)
 {
 	struct s_pdata	data;
 	t_sh_builder	builder;
@@ -31,7 +48,7 @@ int		sh_parse(t_is *in, t_sh_context *w)
 	return (sh__parse(&data));
 }
 
-int		ft_antoine(t_string *str, t_sh_context *w)
+int				ft_antoine(t_string *str)
 {
 	t_sis	in;
 

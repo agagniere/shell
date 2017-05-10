@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/02 15:41:44 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/10 15:13:06 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,6 @@ struct						s_sh_context
 
 struct						s_pdata
 {
-	t_is			*in;
-	t_sh_builder	builder;
 	t_array			stack[1];
 	t_tokenizer		tk[1];
 	t_tree			ast[1];
