@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/06 10:53:27 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/09 21:59:52 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/11 14:12:34 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		tk_dquote(t_tokenizer *self)
 	{
 		self->in->buff_i++;
 		if (IS_REFRESH(self->in))
-			return (self->eof = 3);
+			return (self->eof = 4);
 	}
 }
 

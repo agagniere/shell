@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/10 15:13:06 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/11 21:41:59 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ enum						e_sh_layer
 	SHP_IF,
 	SHP_THEN,
 	SHP_ELSE,
-	SHP_QUOTE,
 	SHP_DQUOTE,
 	SHP_BQUOTE,
 	SHP_DO,
@@ -155,11 +154,18 @@ t_tr						shpush_list(t_tnode **self, t_tnode *new);
 # define NEW_SHLIST (t_sh_list){_NEW_SHLIST, {NEW_ARRAY(t_sh_node *)}}
 # define _NEW_SHLIST NEW_OP(SH_LIST, &shpush_list, &exec_list)
 
+/*
+** Nodes
+*/
+
 # define OP_SEMI NEW_OP(SH_SEMI, &shpush_node, &exec_semi)
 # define OP_AMPER NEW_OP(SH_AMPER, &shpush_node, &exec_amper)
+
 # define OP_AND_IF NEW_OP(SH_AND, &shpush_node, &exec_andif)
 # define OP_OR_IF NEW_OP(SH_OR, &shpush_node, &exec_orif)
+
 # define OP_PIPE NEW_OP(SH_PIPE, &shpush_node, &exec_pipe)
+
 # define OP_SHLIST NEW_OP(SH_LIST, &shpush_list, &exec_list)
 
 # define RD_LEFT NEW_RD(SH_LEFT, 0, O_RDONLY)
@@ -169,5 +175,8 @@ t_tr						shpush_list(t_tnode **self, t_tnode *new);
 # define RD_RW NEW_RD(SH_RW, 0, O_CREAT | O_RDWR)
 
 # define NODE_PRECEDENCE(N) SH_PRECEDENCE(((t_tnode *)(N))->label)
+
+# define PDATA_CURRENT(D) (ARRAY_GETT(t_sh_builder, (D)->stack, (D)->size - 1))
+# define PDATA_SATE(D) (PDATA_CURRENT(D)->name)
 
 #endif
