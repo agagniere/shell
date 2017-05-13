@@ -6,16 +6,27 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/11 23:16:13 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/13 14:50:33 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+/*
+** " ` { (
+** -> Stack push
+** ) } "
+** -> Stack pop
+*/
+
 static int		interpret(struct s_pdata *d)
 {
+
+
 	if (d->tk->current.tag & (1 << 7))
-		;
+		/* LEAF */;
+	else
+		ftt_push(self->ast, );
 }
 
 static int		sh__parse(struct s_pdata *d)
@@ -47,7 +58,8 @@ int				sh_parse(t_is *in)
 	builder = NEW_SHBUILDER(SHP_NONE, data.ast->root);
 	fta_append(data.stack, &builder, 1);
 	ans = sh__parse(&data);
-
+	fta_clear(data.stack);
+	ftt_clear(data.ast);
 	return (ans);
 }
 

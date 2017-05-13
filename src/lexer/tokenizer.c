@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:25:42 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/10 16:57:08 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/13 15:02:10 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static int
 		self->in->buff_i++;
 		if (IS_REFRESH(self->in))
 			return (self->eof = 1);
-		bool = IS_BLANK(IS_CURRENTC(self->in));
+		bool = IS_BLANK(IS_CURRENTC(self->in))
+			|| IS_CURRENTC(self->in) == '\n';
 	}
 	return (0);
 }
@@ -66,7 +67,6 @@ int
 	else if (IS_REFRESH(self->in) || IS_CURRENTC(self->in) == '\0')
 		return (self->eof = 1);
 	else if (IS_CURRENTC(self->in) == '\n')
-		/* *** */;
 	else if (0 <= (i = is_in(IS_CURRENTC(self->in), "\";`$(){}")))
 		one_char(self, i);
 	else if (0 <= (i = is_in(IS_CURRENTC(self->in), "\\><|&")))

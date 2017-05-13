@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 04:24:35 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/11 21:55:41 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/13 11:26:41 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		main(int ac, char **av)
 {
 	char*	cmd1 = "echo Hello	  World' !' |cat;man&&ls|head&emacs||exit;";
 	char*	cmd2 = "{echo lol|cat -e&>}2|c`echo 'a'`t -e";
-	char*	cmd3 = "echo \"\"  \"-`echo 'Hello '\\`echo \"World\"\\``-\"";
+	char*	cmd3 = "echo \"\"  \"-`echo 'Hello '\\`echo \"World \# \! !1 \"\\``-\"";
 	t_tokenizer tk;
 	t_string	str[1];
 	*str = NEW_STRING;
