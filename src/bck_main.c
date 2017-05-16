@@ -6,7 +6,7 @@
 /*   By: mseinic <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/03 16:54:21 by mseinic           #+#    #+#             */
-/*   Updated: 2017/03/25 04:24:17 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/14 19:54:16 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ static int		start_input(t_line *l)
 	}
 }
 
-int				bck_main(int ac, char **av, char **environ)
+int				main(int ac, char **av, char **environ)
 {
     ac = 0;
     (void)av;

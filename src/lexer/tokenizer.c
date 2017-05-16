@@ -6,13 +6,11 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:25:42 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/13 15:02:10 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/16 14:19:24 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh_tokenizer.h"
-
-#include <stdio.h> // <--
 
 int
 	bslash(t_tokenizer *self)
@@ -26,7 +24,7 @@ int
 	return (0);
 }
 
-static int
+int
 	one_char(t_tokenizer *self, int i)
 {
 	const uint8_t	tag[] = {SH_DQUOTE, SH_SEMI, SH_BQUOTE, SH_DOLLAR,

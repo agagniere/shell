@@ -6,13 +6,11 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:58:37 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/26 16:34:21 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/16 14:20:05 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-# include <stdio.h> // <--
 
 static t_tr	_push(t_tnode **a, t_tnode *b)
 {

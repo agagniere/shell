@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/11 21:41:59 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/16 21:07:03 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,6 @@ t_tr						shpush_list(t_tnode **self, t_tnode *new);
 
 # define PDATA_CURRENT(D) (ARRAY_GETT(t_sh_builder, (D)->stack, (D)->size - 1))
 # define PDATA_SATE(D) (PDATA_CURRENT(D)->name)
+# define PDATA_TOKEN(D) ((D)->tk->current)
 
 #endif

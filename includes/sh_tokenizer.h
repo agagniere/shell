@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/06 07:41:13 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/16 14:20:35 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define SH_TOKENIZER_H
 
 # include "ft_token.h"
+
+# include <stdio.h> // <====
 
 typedef enum e_sh_token		t_sh_token;
 

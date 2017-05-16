@@ -6,13 +6,11 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 20:33:28 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/26 16:26:17 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/16 14:19:48 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-# include <stdio.h> // <--
 
 /*
 ** Those functions return 0 upon successful completion.

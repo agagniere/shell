@@ -6,14 +6,12 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 08:28:57 by angagnie          #+#    #+#             */
-/*   Updated: 2017/04/26 16:26:40 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/16 14:19:56 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include <fcntl.h>
-
-# include <stdio.h> // <--
 
 static int		_exec_rd(t_sh_operator *self, int fd, t_sh_context *w)
 {

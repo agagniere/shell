@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/06 10:53:27 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/13 13:27:13 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/13 22:23:42 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int				tk_dquote(t_tokenizer *self)
 	self->current.data.str = IS_CURRENT(self->in);
 	if (IS_CURRENTC(self->in) == '\\')
 		return (dqbs(self));
-	while (self->in->buff_i < self->in->buff_len
+	else if ()
+		;
+	else while (self->in->buff_i < self->in->buff_len
 		&& !ft_strchr("\"`$\\", IS_CURRENTC(self->in)))
 		self->in->buff_i++;
 	self->current.data.len = IS_CURRENT(self->in) - self->current.data.len;
