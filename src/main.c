@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 04:24:35 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/19 12:16:12 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/19 18:29:14 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		main(int ac, char **av)
 	char*	cmd4 = "ls|echo \\!\"Teext`echo Damn`\"";
 	t_string	str[1];
 	*str = NEW_STRING;
-	STR_JOIN_CS(str, cmd0, ft_strlen(cmd4));
+	STR_JOIN_CS(str, cmd0, ft_strlen(cmd0));
 	printf("Ret : %i\n", ft_antoine(str));
 	return (0);
 }

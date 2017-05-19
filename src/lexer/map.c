@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 17:41:50 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/10 12:32:44 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/19 18:34:28 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		map0(t_tokenizer *self)
 	self->current.tag = SH_RIGHT;
 	if (IS_REFRESH(self->in))
 		return (self->eof = 1);
-	if ((i = is_in(IS_CURRENTC(self->in), ">|&")))
+	if (0 <= (i = is_in(IS_CURRENTC(self->in), ">|&")))
 	{
 		self->in->buff_i++;
 		self->current.tag = t[i];
@@ -44,7 +44,7 @@ int		map1(t_tokenizer *self)
 	self->current.tag = SH_LEFT;
 	if (IS_REFRESH(self->in))
 		return (self->eof = 1);
-	if ((i = is_in(IS_CURRENTC(self->in), "<>&")))
+	if (0 <= (i = is_in(IS_CURRENTC(self->in), "<>&")))
 	{
 		self->in->buff_i++;
 		self->current.tag = t[i];

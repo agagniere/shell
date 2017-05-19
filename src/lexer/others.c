@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/06 10:53:27 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/13 22:23:42 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/19 18:28:05 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		dqbs(t_tokenizer *self)
 		return (self->current.data.len = 0);
 	else if (ft_strchr("\"$\\!", IS_CURRENTC(self->in)))
 	{
-		self->current.data.str = IS_CURRENT(self->in);
+		self->current.data.str = (char *)IS_CURRENT(self->in);
 		self->current.data.len = 1;
 	}
 	else
@@ -36,15 +36,15 @@ static int		dqbs(t_tokenizer *self)
 int				tk_dquote(t_tokenizer *self)
 {
 	self->current.tag = SH_TEXT;
-	self->current.data.str = IS_CURRENT(self->in);
+	self->current.data.str = (char *)IS_CURRENT(self->in);
 	if (IS_CURRENTC(self->in) == '\\')
 		return (dqbs(self));
-	else if ()
-		;
+//	else if ()
+//		;
 	else while (self->in->buff_i < self->in->buff_len
 		&& !ft_strchr("\"`$\\", IS_CURRENTC(self->in)))
 		self->in->buff_i++;
-	self->current.data.len = IS_CURRENT(self->in) - self->current.data.len;
+	self->current.data.len = IS_CURRENT(self->in) - self->current.data.str;
 	return (0);
 }
 
@@ -52,13 +52,13 @@ int				tk_dquote(t_tokenizer *self)
 **
 */
 
-static int		adhoc_atoi(t_string str, char **ptr)
+static int		adhoc_atoi(char **ptr)
 {
 	int			n;
 	uint8_t		sign;
 
 	n = 0;
-	sign = (*ptr == '-' && (*ptr)++ ? -1 : 1);
+	sign = (**ptr == '-' && (*ptr)++ ? -1 : 1);
 	if (**ptr == '!')
 		return (-1);
 	while (IS_DIGIT(**ptr))
@@ -66,7 +66,7 @@ static int		adhoc_atoi(t_string str, char **ptr)
 		n = 10 * n + (**ptr - '0') * sign;
 		(*ptr)++;
 	}
-	return (ans);
+	return (n);
 }
 
 /*
@@ -83,10 +83,10 @@ int		spot_exclamation(t_string *str)
 
 	on = 1;
 	quote_on = 1;
-	while (++current < ARRAY_END(str))
+	while (++current < (char *)ARRAY_END(str))
 	{
-		if (on && *current == '!' && ++current)
-			adhoc_atoi(str, &current);
+		if (on && *current == '!' && ++current && STR_NULL_TERMINATE(str))
+			adhoc_atoi(&current);
 		else if (*current == '\\')
 			current++;
 		else if (quote_on && *current == '\'')
@@ -94,4 +94,5 @@ int		spot_exclamation(t_string *str)
 		else if (on && *current == '"')
 			quote_on = !quote_on;
 	}
+	return (0);
 }

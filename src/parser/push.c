@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/14 18:02:06 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/19 15:42:00 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/19 18:32:27 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_sh_node
 t_sh_node
 	node_from_token(t_token token)
 {
-	dprintf(2, "node_from_token(%ui)\n", token.tag);
+	dprintf(2, "node_from_token(%u)\n", token.tag);
 
 	if (0 < token.tag && token.tag <= 0x08)
 		return (op_from_token(token));
