@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/16 14:20:35 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/19 16:05:04 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ enum						e_sh_token
 */
 
 int							sh_tokenize(t_tokenizer *self);
+int							tk_dquote(t_tokenizer *self);
+int							bufferize(t_tokenizer *self);
 
 # define SH_IS_SEPARATOR(T) _2BIT(T)
 # define SH_IS_LOGICAL(T) (_3BIT(T) && !_2BIT(T))

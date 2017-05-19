@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/16 21:07:03 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/19 14:59:10 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,11 @@ t_tr						shpush_node(t_tnode **self, t_tnode *new);
 t_tr						shpush_rdrc(t_tnode **self, t_tnode *new);
 t_tr						shpush_list(t_tnode **self, t_tnode *new);
 
+int							ft_antoine(t_string *str);
+t_sh_node					node_from_token(t_token token);
+
+
+
 # define NEW_LEAF(STR) (t_sh_leaf){NEW_NODE(SH_WORD), STR}
 
 # define NEW_OP(LABEL,P,E) (t_sh_operator){NEW_NODE(LABEL), P, E}
@@ -176,8 +181,8 @@ t_tr						shpush_list(t_tnode **self, t_tnode *new);
 
 # define NODE_PRECEDENCE(N) SH_PRECEDENCE(((t_tnode *)(N))->label)
 
-# define PDATA_CURRENT(D) (ARRAY_GETT(t_sh_builder, (D)->stack, (D)->size - 1))
-# define PDATA_SATE(D) (PDATA_CURRENT(D)->name)
+# define PDATA_CURRENT(D) (ARRAY_GETT(t_sh_builder, (D)->stack, (D)->stack->size - 1))
+# define PDATA_STATE(D) (PDATA_CURRENT(D)->name)
 # define PDATA_TOKEN(D) ((D)->tk->current)
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/05/05 23:01:37 by angagnie         ###   ########.fr        #
+#    Updated: 2017/05/19 15:09:49 by angagnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ ENV_PATH := builtin/builtin_env/
 ENV_SRC := #env_init env_print env_char env_set env_unset
 
 LEXER_PATH:=lexer/
-LEXER_SRC:=tokenizer map bufferize
+LEXER_SRC:=tokenizer map bufferize others
 
 PARSER_PATH:=parser/
-PARSER_SRC:=exec_op exec_rd exec_list tree resolve antoine
+PARSER_SRC:=exec_op exec_rd exec_list tree resolve antoine push
 
 FILES = main # line_init multi_line_init test_edit_line bck_main ft_term do_termcaps
 

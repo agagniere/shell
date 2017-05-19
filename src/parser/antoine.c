@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/18 16:12:14 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/19 15:09:16 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@
 
 static int		interpret(struct s_pdata *d)
 {
+	t_sh_node node;
+
 	dprintf(2, "interpret\n");
-	if (PDATA_TOKEN(d).tag == SH_WORD)
+	node = node_from_token(d->tk->current);
+/*	if (PDATA_TOKEN(d).tag == SH_WORD)
 		;
 	return (SH_IS_XLEAF(d->tk->current.tag) ?
-			extended(d) : ftt_push(self->ast, node_from_token(d->tk.current));
+			extended(d) : ftt_push(d->ast, node_from_token(d->tk.current));
+*/
+	return (ftt_push(d->ast, (t_tnode *)&node));
 }
 
 static int		sh__parse(struct s_pdata *d)
@@ -37,13 +42,14 @@ static int		sh__parse(struct s_pdata *d)
 	while (!ret)
 	{
 		ret = (PDATA_STATE(d) == SHP_DQUOTE ?
-			tk_quote(d->tk) : sh_tokenize(d->tk));
-		if (d->tk.current.tag == SH_WORD)
-			dprintf(2, "%s(\"%.*s\")%s\n", PURPLE,
-					t->tk.current.data.len, t->tk.current.data.str, EOC);
+			tk_dquote(d->tk) : sh_tokenize(d->tk));
+		if (d->tk->current.tag == SH_WORD || d->tk->current.tag == SH_TEXT)
+			dprintf(2, "%s(\"%.*s\", %i)%s\n", PURPLE,
+					(int)d->tk->current.data.len, d->tk->current.data.str,
+					d->tk->current.tag, EOC);
 		else
-			dprintf(2 , "(%i, %#x)\n", BOLD_PURPLE,
-					t->tk.current.tag, t->tk.current.tag, EOC);
+			dprintf(2 , "%s(%i, %#x)%s\n", BOLD_PURPLE,
+					d->tk->current.tag, d->tk->current.tag, EOC);
 		if (ret)
 			return (ret);
 		else
@@ -66,7 +72,7 @@ int				sh_parse(t_is *in)
 	fta_append(data.stack, &builder, 1);
 	ans = sh__parse(&data);
 	fta_clear(data.stack);
-	ftt_clear(data.ast);
+	ftt_clear((t_tree **)&data.ast);
 	return (ans);
 }
 
@@ -74,7 +80,7 @@ int				ft_antoine(t_string *str)
 {
 	t_sis	in;
 
-	dprintf(2, "ft_parse(\"%s\")\n", str);
+	dprintf(2, "ft_antoine(\"%s\")\n", str->data);
 	in = NEW_SIS(str);
-	return (sh_parse((t_is *)&in, w));
+	return (sh_parse((t_is *)&in));
 }
