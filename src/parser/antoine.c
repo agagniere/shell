@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/19 15:09:16 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/20 18:43:58 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ static int		interpret(struct s_pdata *d)
 
 	dprintf(2, "interpret\n");
 	node = node_from_token(d->tk->current);
+	dprintf(2, "-> {%i}\n", node.node.label);
+
 /*	if (PDATA_TOKEN(d).tag == SH_WORD)
 		;
 	return (SH_IS_XLEAF(d->tk->current.tag) ?
 			extended(d) : ftt_push(d->ast, node_from_token(d->tk.current));
 */
-	return (ftt_push(d->ast, (t_tnode *)&node));
+//	return (ftt_push(d->ast, (t_tnode *)&node));
 }
 
 static int		sh__parse(struct s_pdata *d)
@@ -43,19 +45,23 @@ static int		sh__parse(struct s_pdata *d)
 	{
 		ret = (PDATA_STATE(d) == SHP_DQUOTE ?
 			tk_dquote(d->tk) : sh_tokenize(d->tk));
-		if (d->tk->current.tag == SH_WORD || d->tk->current.tag == SH_TEXT)
-			dprintf(2, "%s(\"%.*s\", %i)%s\n", PURPLE,
-					(int)d->tk->current.data.len, d->tk->current.data.str,
-					d->tk->current.tag, EOC);
-		else
-			dprintf(2 , "%s(%i, %#x)%s\n", BOLD_PURPLE,
-					d->tk->current.tag, d->tk->current.tag, EOC);
+		if (!ret)
+			ret = interpret(d);
+		/* \/ Debug \/ */
 		if (ret)
-			return (ret);
-		else
-			interpret(d);
+			dprintf(2, "END\n");
+		else {
+			if (d->tk->current.tag == SH_WORD || d->tk->current.tag == SH_TEXT)
+				dprintf(2, "%s(\"%.*s\", %i)%s\n", PURPLE,
+						(int)d->tk->current.data.len, d->tk->current.data.str,
+						d->tk->current.tag, EOC);
+			else
+				dprintf(2 , "%s(%i, %#x)%s\n", BOLD_PURPLE,
+						d->tk->current.tag, d->tk->current.tag, EOC);
+		}
 	}
-	return (0);
+//	ftt_debug(d->ast);
+	return (ret);
 }
 
 int				sh_parse(t_is *in)

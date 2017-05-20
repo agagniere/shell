@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/25 04:24:35 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/19 18:29:14 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/20 15:29:10 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ t_history       g_history;
 
 int		main(int ac, char **av)
 {
-	char*	cmd0 = "<<<;>>|&>|&&&&|||>>>|<<< <<-<>>&<&|&&>";
+	char*	cmd0 = "<<<;>>|&>|&&&&|||>>>|<<<<<-<>>&<&|&&>";
 	char*	cmd1 = "echo Hello	  World' !' |cat;man&&ls|head&emacs||exit;";
 	char*	cmd2 = "{echo lol|cat -e&>}2|c`echo 'a'`t -e";
 	char*	cmd3 = "echo \"\"  \"-`echo 'Hello '\\`echo \"World \\# \\! !1 \"\\``-\"";
 	char*	cmd4 = "ls|echo \\!\"Teext`echo Damn`\"";
 	t_string	str[1];
 	*str = NEW_STRING;
-	STR_JOIN_CS(str, cmd0, ft_strlen(cmd0));
+	STR_JOIN_CS(str, cmd1, ft_strlen(cmd1));
 	printf("Ret : %i\n", ft_antoine(str));
 	return (0);
 }

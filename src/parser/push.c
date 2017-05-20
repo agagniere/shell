@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/14 18:02:06 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/19 18:32:27 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/20 19:04:32 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,6 @@ t_sh_node
 		return (op_from_token(token));
 	else if (0x10 <= token.tag && token.tag < 0x80)
 		return (rd_from_token(token));
+	else if (SH_IS_FLEAF(token.tag))
+		return ();
 }

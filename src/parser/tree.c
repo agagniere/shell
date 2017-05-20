@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:58:37 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/16 14:20:05 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/20 15:17:15 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_tr		shpush_rdrc(t_tnode **self, t_tnode *new)
 	if ((*self)->left == NULL)
 	{
 		(*self)->left = new;
-		return (TR_DONE);
+ 		return (TR_DONE);
 	}
 	else
 		return (TR_RIGHT);

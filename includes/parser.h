@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/19 14:59:10 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/20 19:05:29 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ t_sh_node					node_from_token(t_token token);
 
 
 
-# define NEW_LEAF(STR) (t_sh_leaf){NEW_NODE(SH_WORD), STR}
+# define NEW_LEAF(STR, T) (t_sh_leaf){NEW_NODE(T), STR}
 
 # define NEW_OP(LABEL,P,E) (t_sh_operator){NEW_NODE(LABEL), P, E}
 
