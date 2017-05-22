@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/14 18:02:06 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/20 19:04:32 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/22 13:19:56 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,24 @@ static t_sh_node
 	return (ans);
 }
 
+static t_sh_node
+	leaf_from_token(t_token token)
+{
+	t_sh_node ans;
+
+	ft_bzero(&ans, sizeof(ans));
+	if (SH_IS_FLEAF(token.tag))
+		ans.leaf = NEW_LEAF(token.data, token.tag);
+	return (ans);
+}
+
 t_sh_node
 	node_from_token(t_token token)
 {
-	dprintf(2, "node_from_token(%u)\n", token.tag);
-
 	if (0 < token.tag && token.tag <= 0x08)
 		return (op_from_token(token));
 	else if (0x10 <= token.tag && token.tag < 0x80)
 		return (rd_from_token(token));
-	else if (SH_IS_FLEAF(token.tag))
-		return ();
+	else if (token.tag & (1 << 7))
+		return (leaf_from_token(token));
 }

@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/20 19:05:29 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/22 12:46:03 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_sh_builder		t_sh_builder;
 enum						e_sh_layer
 {
 	SHP_NONE,
+	SHP_CAT,
+	SHP_CMD,
 	SHP_CURSH,
 	SHP_SUBSH,
 	SHP_IF,
@@ -40,13 +42,6 @@ enum						e_sh_layer
 	SHP_BQUOTE,
 	SHP_DO,
 	SHP_WHILE
-};
-
-enum						e_sh_state
-{
-	SHS_START,
-	SHS_ARGS,
-	SHS_CAT
 };
 
 /*
@@ -145,8 +140,6 @@ t_tr						shpush_list(t_tnode **self, t_tnode *new);
 
 int							ft_antoine(t_string *str);
 t_sh_node					node_from_token(t_token token);
-
-
 
 # define NEW_LEAF(STR, T) (t_sh_leaf){NEW_NODE(T), STR}
 

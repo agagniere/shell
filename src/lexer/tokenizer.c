@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:25:42 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/19 15:00:23 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/22 13:38:20 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int
 	bslash(t_tokenizer *self)
 {
-	self->in->buff_i++;
 	if (IS_REFRESH(self->in))
 		return (self->eof = 3);
 	self->current.tag = SH_BSLASH;
 	self->current.data.len = 1;
 	self->current.data.str = (char *)IS_CURRENT(self->in);
+	self->in->buff_i++;
 	return (0);
 }
 

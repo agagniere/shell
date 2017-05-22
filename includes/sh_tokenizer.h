@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 16:50:15 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/20 19:03:18 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/22 12:13:24 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ enum						e_sh_token
 	SH_HEREDOC = SH_DLEFT,
 	SH_HEREDOCT = SH_DLEFTD,
 	SH_HERESTR = SH_TLEFT,
-	SH_RW = SH_LR,
+	SH_RW = SH_LR
 };
 
 /*

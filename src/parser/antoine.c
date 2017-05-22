@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/20 18:43:58 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/22 21:33:36 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,14 @@ static int		interpret(struct s_pdata *d)
 {
 	t_sh_node node;
 
-	dprintf(2, "interpret\n");
 	node = node_from_token(d->tk->current);
-	dprintf(2, "-> {%i}\n", node.node.label);
-
-/*	if (PDATA_TOKEN(d).tag == SH_WORD)
+/*
+	if (PDATA_TOKEN(d).tag == SH_WORD)
 		;
 	return (SH_IS_XLEAF(d->tk->current.tag) ?
 			extended(d) : ftt_push(d->ast, node_from_token(d->tk.current));
 */
-//	return (ftt_push(d->ast, (t_tnode *)&node));
+	return (node.node.label ? ftt_push(d->ast, (t_tnode *)&node) : 0);
 }
 
 static int		sh__parse(struct s_pdata *d)
@@ -45,13 +43,11 @@ static int		sh__parse(struct s_pdata *d)
 	{
 		ret = (PDATA_STATE(d) == SHP_DQUOTE ?
 			tk_dquote(d->tk) : sh_tokenize(d->tk));
-		if (!ret)
-			ret = interpret(d);
 		/* \/ Debug \/ */
 		if (ret)
 			dprintf(2, "END\n");
 		else {
-			if (d->tk->current.tag == SH_WORD || d->tk->current.tag == SH_TEXT)
+			if (SH_IS_FLEAF(d->tk->current.tag))
 				dprintf(2, "%s(\"%.*s\", %i)%s\n", PURPLE,
 						(int)d->tk->current.data.len, d->tk->current.data.str,
 						d->tk->current.tag, EOC);
@@ -59,8 +55,11 @@ static int		sh__parse(struct s_pdata *d)
 				dprintf(2 , "%s(%i, %#x)%s\n", BOLD_PURPLE,
 						d->tk->current.tag, d->tk->current.tag, EOC);
 		}
+		/* /\ Debug /\ */
+		if (!ret)
+			ret = interpret(d);
 	}
-//	ftt_debug(d->ast);
+	ftt_debug(d->ast);
 	return (ret);
 }
 
@@ -77,8 +76,11 @@ int				sh_parse(t_is *in)
 	builder = NEW_SHBUILDER(SHP_NONE, data.ast->root);
 	fta_append(data.stack, &builder, 1);
 	ans = sh__parse(&data);
+	dprintf(2, "--\n");
 	fta_clear(data.stack);
-	ftt_clear((t_tree **)&data.ast);
+	dprintf(2, "---\n");
+//	ftt_clear((t_tree **)&data.ast);
+	dprintf(2, "----\n");
 	return (ans);
 }
 
@@ -86,7 +88,7 @@ int				ft_antoine(t_string *str)
 {
 	t_sis	in;
 
-	dprintf(2, "ft_antoine(\"%s\")\n", str->data);
+	dprintf(2, "ft_antoine(\"%.*s\")\n", str->size, str->data);
 	in = NEW_SIS(str);
 	return (sh_parse((t_is *)&in));
 }
