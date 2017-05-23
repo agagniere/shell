@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/22 21:33:36 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/23 23:05:50 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ static int		interpret(struct s_pdata *d)
 static int		sh__parse(struct s_pdata *d)
 {
 	int		ret;
+	size_t	cat;
 
 	dprintf(2, "sh__parse\n");
 	ret = 0;
+	cat = 0;
 	while (!ret)
 	{
 		ret = (PDATA_STATE(d) == SHP_DQUOTE ?
@@ -56,6 +58,10 @@ static int		sh__parse(struct s_pdata *d)
 						d->tk->current.tag, d->tk->current.tag, EOC);
 		}
 		/* /\ Debug /\ */
+		if (d->tk->current.tag == SH_GAP)
+			cat = 0;
+		else
+			cat++;
 		if (!ret)
 			ret = interpret(d);
 	}

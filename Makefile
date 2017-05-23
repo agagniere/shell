@@ -6,7 +6,7 @@
 #    By: mseinic <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/14 11:35:32 by mseinic           #+#    #+#              #
-#    Updated: 2017/05/19 15:09:49 by angagnie         ###   ########.fr        #
+#    Updated: 2017/05/23 15:26:32 by angagnie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ LEXER_PATH:=lexer/
 LEXER_SRC:=tokenizer map bufferize others
 
 PARSER_PATH:=parser/
-PARSER_SRC:=exec_op exec_rd exec_list tree resolve antoine push
+PARSER_SRC:=exec_op exec_rd exec_list tree resolve antoine push shell_push
 
 FILES = main # line_init multi_line_init test_edit_line bck_main ft_term do_termcaps
 

@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:30:00 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/22 12:46:03 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/23 21:57:26 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ struct						s_sh_operator
 	int				(*const push)(t_tnode **, t_tnode *);
 	int				(*const exec)(t_sh_operator *, t_sh_context *);
 //	t_string		(*const resolve)(t_sh_operator *);
+//	int				(*const clear)(t_tnode **);
 };
 
 struct						s_sh_redirection
@@ -88,7 +89,7 @@ struct						s_sh_clause
 
 struct						s_sh_leaf
 {
-	t_tnode			super;
+	t_sh_operator	super;
 	t_substr		str;
 };
 
@@ -133,15 +134,17 @@ int							exec_pipe(t_sh_operator *self, t_sh_context *w);
 int							exec_rd(t_sh_operator *self, t_sh_context *w);
 int							exec_rdf(t_sh_operator *self, t_sh_context *w);
 int							exec_list(t_sh_operator *self, t_sh_context *w);
+int							exec_leaf(t_sh_operator *self, t_sh_context *w);
 
 t_tr						shpush_node(t_tnode **self, t_tnode *new);
 t_tr						shpush_rdrc(t_tnode **self, t_tnode *new);
 t_tr						shpush_list(t_tnode **self, t_tnode *new);
+t_tr						shpush_leaf(t_tnode **self, t_tnode *new);
 
 int							ft_antoine(t_string *str);
 t_sh_node					node_from_token(t_token token);
 
-# define NEW_LEAF(STR, T) (t_sh_leaf){NEW_NODE(T), STR}
+# define NEW_LEAF(STR, T) (t_sh_leaf){NEW_OP(T, &shpush_leaf, &exec_leaf), STR}
 
 # define NEW_OP(LABEL,P,E) (t_sh_operator){NEW_NODE(LABEL), P, E}
 
