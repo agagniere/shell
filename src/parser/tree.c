@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/09 22:58:37 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/23 21:23:30 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/25 12:05:18 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ t_tr		shpush_list(t_tnode **self, t_tnode *new)
 {
 	t_sh_list		*const this = (t_sh_list *)(*self);
 
-	if (NODE_ISLEAF(new))
+	dprintf(2, "List::push\n");
+	if (new->label)
 	{
+
 		fta_append(this->nodes, new, 1);
 		return (TR_NONE);
 	}
@@ -55,12 +57,14 @@ t_tr		shpush_list(t_tnode **self, t_tnode *new)
 
 t_tr		shpush_leaf(t_tnode **self, t_tnode *new)
 {
-	t_sh_node	node[1];
+	t_sh_node	*node;
 
-	if (self[0]->label == SH_LIST)
-		return (((t_sh_operator *)*self)->push(self, new));
+	dprintf(2, "Leaf::push\n");
+	if (!(node = (t_sh_node *)malloc(sizeof(t_sh_node))))
+		exit(1);
 	node->list = NEW_SHLIST;
 	node->op.push((t_tnode **)&node, *self);
 	node->op.push((t_tnode **)&node, new);
+	*self = node;
 	return (TR_NONE);
 }

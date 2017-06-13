@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 20:33:28 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/16 14:19:48 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/25 11:12:29 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		exec_amper(t_sh_operator *self, t_sh_context *w)
 	t_sh_operator *const right = (t_sh_operator *)self->super.right;
 
 	dprintf(2, "exec_amper(%p)\n", self);
-	if (!fork() && left)
+	if (left && !fork())
 	{
 		left->exec(left, w);
 		_Exit(0);

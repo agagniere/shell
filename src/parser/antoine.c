@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/23 23:05:50 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/25 11:57:18 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int		interpret(struct s_pdata *d)
 	t_sh_node node;
 
 	node = node_from_token(d->tk->current);
+	dprintf(2, "Interpreted\n");
 /*
 	if (PDATA_TOKEN(d).tag == SH_WORD)
 		;
@@ -36,7 +37,7 @@ static int		interpret(struct s_pdata *d)
 static int		sh__parse(struct s_pdata *d)
 {
 	int		ret;
-	size_t	cat;
+	uint8_t	cat;
 
 	dprintf(2, "sh__parse\n");
 	ret = 0;
@@ -45,24 +46,24 @@ static int		sh__parse(struct s_pdata *d)
 	{
 		ret = (PDATA_STATE(d) == SHP_DQUOTE ?
 			tk_dquote(d->tk) : sh_tokenize(d->tk));
+		if (d->tk->current.tag == SH_GAP)
+			cat = 0;
+		else if (cat < 2)
+			cat ++;
 		/* \/ Debug \/ */
 		if (ret)
 			dprintf(2, "END\n");
 		else {
 			if (SH_IS_FLEAF(d->tk->current.tag))
-				dprintf(2, "%s(\"%.*s\", %i)%s\n", PURPLE,
+				dprintf(2, "%s(\"%.*s\", %i)%s %hhu\n", PURPLE,
 						(int)d->tk->current.data.len, d->tk->current.data.str,
-						d->tk->current.tag, EOC);
+						d->tk->current.tag, EOC, cat);
 			else
-				dprintf(2 , "%s(%i, %#x)%s\n", BOLD_PURPLE,
-						d->tk->current.tag, d->tk->current.tag, EOC);
+				dprintf(2 , "%s(%i, %#x)%s %hhu\n", BOLD_PURPLE,
+						d->tk->current.tag, d->tk->current.tag, EOC, cat);
 		}
 		/* /\ Debug /\ */
-		if (d->tk->current.tag == SH_GAP)
-			cat = 0;
-		else
-			cat++;
-		if (!ret)
+		if (!ret && cat)
 			ret = interpret(d);
 	}
 	ftt_debug(d->ast);

@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 10:40:23 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/23 21:43:22 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/05/25 11:16:08 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,23 @@ int			exec_list(t_sh_operator *self, t_sh_context *w)
 	ite = ARRAY_ITERATOR(this->nodes);
 	while (ARRAY_HASNEXT(this->nodes, ite))
 	{
-		if (NODE_ISLEAF(ite))
-		{
-			fta_append(argv, ARRAY_END(str), 1);
-			fta_append(str, ((t_sh_leaf *)ite)->str.str,
-					   ((t_sh_leaf *)ite)->str.len);
-			fta_append(str, "", 1);
-		}
-		else
+		if (!SH_IS_FLEAF(((t_tnode *)ite)->label))
 			sh_resolve((t_sh_node *)ite, w);
-
+		fta_append(argv, ARRAY_END(str), 1);
+		fta_append(str, ((t_sh_leaf *)ite)->str.str,
+				((t_sh_leaf *)ite)->str.len);
+		fta_append(str, "", 1);
 	}
+	// TODO : Fork
+	execv((const char *)ARRAY_GET(argv, 0), (char **)argv->data);
 	return (0);
 }
 
+int			exec_leaf(t_sh_operator *self, t_sh_context *w)
+{
+	const char *av[2] = {((t_sh_leaf *)self)->str.str};
 
+	// TODO : Fork
+	execv(av[0], av);
+	return (0);
+}
