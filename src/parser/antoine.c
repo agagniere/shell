@@ -6,7 +6,7 @@
 /*   By: angagnie <angagnie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 14:09:54 by angagnie          #+#    #+#             */
-/*   Updated: 2017/05/25 11:57:18 by angagnie         ###   ########.fr       */
+/*   Updated: 2017/06/13 15:13:27 by angagnie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int		interpret(struct s_pdata *d)
 	t_sh_node node;
 
 	node = node_from_token(d->tk->current);
-	dprintf(2, "Interpreted\n");
+	dprintf(2, "Interpreted : %#x\n", node.node.label);
 /*
 	if (PDATA_TOKEN(d).tag == SH_WORD)
 		;
@@ -55,7 +55,7 @@ static int		sh__parse(struct s_pdata *d)
 			dprintf(2, "END\n");
 		else {
 			if (SH_IS_FLEAF(d->tk->current.tag))
-				dprintf(2, "%s(\"%.*s\", %i)%s %hhu\n", PURPLE,
+				dprintf(2, "%s(\"%.*s\", %#x)%s %hhu\n", PURPLE,
 						(int)d->tk->current.data.len, d->tk->current.data.str,
 						d->tk->current.tag, EOC, cat);
 			else
@@ -63,7 +63,7 @@ static int		sh__parse(struct s_pdata *d)
 						d->tk->current.tag, d->tk->current.tag, EOC, cat);
 		}
 		/* /\ Debug /\ */
-		if (!ret && cat)
+		if (!ret && (cat == 1))
 			ret = interpret(d);
 	}
 	ftt_debug(d->ast);
