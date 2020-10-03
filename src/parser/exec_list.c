@@ -40,8 +40,9 @@ int			exec_list(t_sh_operator *self, t_sh_context *w)
 int			exec_leaf(t_sh_operator *self, t_sh_context *w)
 {
 	const char *av[2] = {((t_sh_leaf *)self)->str.str};
+	(void)w;
 
 	// TODO : Fork
-	execv(av[0], av);
+	execv(av[0], (char* const*)av);
 	return (0);
 }

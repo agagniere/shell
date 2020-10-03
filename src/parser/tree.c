@@ -46,25 +46,9 @@ t_tr		shpush_list(t_tnode **self, t_tnode *new)
 {
 	t_sh_list		*const this = (t_sh_list *)(*self);
 
-	dprintf(2, "List::push\n");
+	ft_putendl_fd("List::push", 2);
 	if (new->label & 0x80)
 		return (_push(self, new));
 	fta_append(this->nodes, new, 1);
 	return (TR_DONE);
-}
-
-t_tr		shpush_leaf(t_tnode **self, t_tnode *new)
-{
-	t_sh_node	*node;
-
-	dprintf(2, "Leaf::push\n");
-	if (new->label & 0x80)
-		return (_push(self, new));
-	if ((node = (t_sh_node *)malloc(sizeof(t_sh_node))))
-		exit(1);
-	node->list = NEW_SHLIST;
-	node->op.push((t_tnode **)&node, *self);
-	node->op.push((t_tnode **)&node, new);
-	*self = (t_tnode*)node;
-	return (TR_NONE);
 }

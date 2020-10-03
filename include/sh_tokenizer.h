@@ -15,8 +15,6 @@
 
 # include "ft_token.h"
 
-# include <stdio.h> // <====
-
 typedef enum e_sh_token		t_sh_token;
 
 enum						e_sh_token
