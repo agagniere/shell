@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "ft_printf.h"
 
 int			exec_list(t_sh_operator *self, t_sh_context *w)
 {
@@ -19,7 +20,7 @@ int			exec_list(t_sh_operator *self, t_sh_context *w)
 	t_string		str[1];
 	t_array			argv[1];
 
-	dprintf(2, "exec_list(%p)\n", self);
+	ft_dprintf(2, "%s(%p)\n", __FUNCTION__, self);
 	*argv = NEW_ARRAY(char *);
 	ite = ARRAY_ITERATOR(this->nodes);
 	while (ARRAY_HASNEXT(this->nodes, ite))

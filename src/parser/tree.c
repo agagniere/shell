@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include <stdlib.h>
 
 static t_tr	_push(t_tnode **a, t_tnode *b)
 {
@@ -59,11 +60,11 @@ t_tr		shpush_leaf(t_tnode **self, t_tnode *new)
 	dprintf(2, "Leaf::push\n");
 	if (new->label & 0x80)
 		return (_push(self, new));
-	if (node = (t_sh_node *)malloc(sizeof(t_sh_node)))
+	if ((node = (t_sh_node *)malloc(sizeof(t_sh_node))))
 		exit(1);
 	node->list = NEW_SHLIST;
 	node->op.push((t_tnode **)&node, *self);
 	node->op.push((t_tnode **)&node, new);
-	*self = node;
+	*self = (t_tnode*)node;
 	return (TR_NONE);
 }

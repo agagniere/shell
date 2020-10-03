@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "ft_printf.h"
 
 /*
 ** " ` { (
@@ -76,7 +77,7 @@ int				sh_parse(t_is *in)
 	t_sh_builder	builder;
 	int				ans;
 
-	dprintf(2, "sh_parse\n");
+	ft_putendl_fd(__FUNCTION__, 2);
 	*data.tk = NEW_TOKENIZER(in);
 	*data.stack = NEW_ARRAY(t_sh_context);
 	*data.ast = NEW_TREE(t_sh_node, &shell_push);

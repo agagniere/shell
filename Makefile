@@ -49,12 +49,10 @@ FILES = main # line_init multi_line_init test_edit_line bck_main ft_term do_term
 #----------------MODIF--------------------#
 
 #----------------STD--------------------#
-COMPILER := clang
+COMPILER ?= gcc
 
-SRC_PATH := src/
-
-HDR_PATH := includes/
-
+SRC_PATH   := src/
+HDR_PATH   := includes/
 CACHE_PATH := cache/
 
 INCF = -I $(HDR_PATH) -I libft/include/
