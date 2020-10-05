@@ -15,52 +15,41 @@
 static t_sh_node
 	op_from_token(t_token token)
 {
-	t_sh_node ans;
-
-	ft_bzero(&ans, sizeof(ans));
 	if (token.tag == SH_SEMI)
-		ans.op = OP_SEMI;
+		return (t_sh_node){.op = OP_SEMI};
 	else if (token.tag == SH_AMPER)
-		ans.op = OP_AMPER;
+		return (t_sh_node){.op = OP_AMPER};
 	else if (token.tag == SH_AND)
-		ans.op = OP_AND_IF;
+		return (t_sh_node){.op = OP_AND_IF};
 	else if (token.tag == SH_OR)
-		ans.op = OP_OR_IF;
+		return (t_sh_node){.op = OP_OR_IF};
 	else if (token.tag == SH_PIPE)
-		ans.op = OP_PIPE;
-	return (ans);
+		return (t_sh_node){.op = OP_PIPE};
+//	return (){};
 }
 
 static t_sh_node
 	rd_from_token(t_token token)
 {
-	t_sh_node ans;
-
-	ft_bzero(&ans, sizeof(ans));
 	if (token.tag == SH_RIGHT)
-		ans.rd = RD_RIGHT;
+		return (t_sh_node){.rd = RD_RIGHT};
 	else if (token.tag == SH_CLOBBER)
-		ans.rd = RD_CLOBBER;
+		return (t_sh_node){.rd = RD_CLOBBER};
 	else if (token.tag == SH_APPEND)
-		ans.rd = RD_APPEND;
+		return (t_sh_node){.rd = RD_APPEND};
 	else if (token.tag == SH_LEFT)
-		ans.rd = RD_LEFT;
+		return (t_sh_node){.rd = RD_LEFT};
 	else if (token.tag == SH_RW)
-		ans.rd = RD_RW;
+		return (t_sh_node){.rd = RD_RW};
 //	else if (SH_HEREDOC <= token.tag && token.tag <= SH_HERESTR)
 //		return (heredoc(token.tag));
-	return (ans);
 }
 
 static t_sh_node
 	leaf_from_token(t_token token)
 {
-	t_sh_node ans;
-
-	ft_bzero(&ans, sizeof(ans));
 	if (SH_IS_FLEAF(token.tag))
-		ans.leaf = NEW_LEAF(token.data, token.tag);
-	return (ans);
+		return (t_sh_node){.leaf = NEW_LEAF(token.data, token.tag)};
 }
 
 t_sh_node
